@@ -32,6 +32,8 @@ The goal is not to eliminate uncertainty or require abstention. It is to ensure 
 
 This paper is intended as a conceptual bridge between formal accounts of identifiability and practical concerns in AI reasoning, safety, security, and agentic reliability. Its central claim is that many AI reasoning failures are not simply wrong inferences, but unsupported inferences from representations that do not preserve the distinctions required by the query. This matters for systems that answer from prompts, summaries, retrieval results, logs, traces, metrics, policy artifacts, or compressed context windows: the system may produce a locally coherent answer while the representation itself does not support the conclusion.
 
+The central novelty of this framework is to treat admissibility not as correctness, confidence, caution, or policy compliance, but as a structural licensing relation between a claim, the representation from which it is made, and the distinctions required to support it. Under projection, a response may be fluent, plausible, and locally coherent while still being inadmissible because the operative representation no longer preserves, exposes, or boundedly reconstructs the distinctions on which the claim depends.
+
 As a running example, consider an AI assistant used during a security incident. It receives a compressed summary of logs, deployment history, alerts, and recent configuration changes. The assistant produces a clear root-cause explanation and recommends a fix. The reasoning may appear locally coherent: it cites the deployment, explains the failure, and proposes remediation. However, the compressed representation may not preserve the distinction between a deploy-triggered bug, a dependency outage, a configuration interaction, and telemetry loss caused by reduced logging. If the available representation cannot distinguish these states, then the assistant has not merely made an error. It has produced a determinate explanation from a representation that does not support one.
 
 More generally, the problem can be understood as one of invariant preservation under projection. A claim remains admissible only when the distinctions on which it depends are preserved, boundedly reconstructible, or explicitly marked as unavailable. Projection is dangerous not because it compresses, but because it can collapse the invariants required by a downstream claim while leaving the answer form unchanged. Good reasoning under projection therefore requires preserving the dependency structure needed by the claim, or changing the response form when that structure no longer survives.
@@ -46,7 +48,7 @@ The account is normative in a limited epistemic sense. It does not describe how 
 
 The resulting evaluation question is therefore directly relevant to AI reasoning, safety, and security evaluation. It asks whether a system can distinguish supported inference from decision under non-identifiability; whether it can mark when source support is traceable but not reconstructible; whether it can avoid collapsing system-level failures into single actors; and whether it can keep correction bounded to the information actually available. These conditions matter because safety failures often occur at the boundary between what the system can infer, what it must assume, and what it should route, defer, or refuse.
 
-This paper makes three contributions. First, it characterizes a recurring structural failure mode: unsupported determinacy under projection, where a system presents a determinate answer even though the operative representation does not preserve the distinctions required by the claim. Second, it distinguishes recoverable error from representational loss using identifiability under projection. Third, it introduces a dependency-status ladder---preserved, reconstructible, traceable, and opaque---that links structural support to admissible response forms. This paper is conceptual rather than complete: it identifies the structural failure mode, defines the dependency-status vocabulary, and outlines directions for future formalization, operationalization, evaluation, and control.
+This paper contributes four ideas: first, a distinction between correctable error and representational loss; second, a dependency-status ladder for classifying whether required distinctions are preserved, reconstructible, traceable, or opaque; third, admissibility requirements for reasoning under projection; and fourth, the claim that response form must weaken as dependency status weakens. The key point is that answer form is part of reasoning validity, not merely a stylistic choice.
 
 \section{Reasoning Under Projection}
 
@@ -303,9 +305,9 @@ These categories are not intended to be exhaustive atomic states. They are base 
 
 This yields the practical test used throughout the paper: if a query is not identifiable under the current representation, then a single determinate answer requires either representation expansion, an explicit assumption or decision rule, or an answer form that marks the unresolved dependency.
 
-\section{Admissibility Requirements for Reasoning Under Projection}
+\section{Admissibility as Structural Licensing Under Projection}
 
-The requirements in this section are introduced as conceptual design constraints. Formal necessity, minimality, and sufficiency arguments are left for future work.
+In this framework, admissibility is a licensing relation: a claim is admissible only when the operative representation preserves, makes observable, or boundedly reconstructs the distinctions required to support that claim. The requirements in this section are introduced as conceptual design constraints. The formal necessity, minimality, and sufficiency arguments are developed in the companion paper on minimal conditions for reconstructible reasoning under projection. Here, the goal is to show why these requirements naturally arise from the dependency-status problem.
 
 The formal result above does not by itself specify a complete reasoning policy. It specifies a dependency problem: after projection, a claim may be supported by distinctions that are preserved, reconstructible, merely traceable, or opaque. A structurally reliable reasoning process must therefore avoid treating these dependency statuses as interchangeable.
 
@@ -388,6 +390,8 @@ Failure of level separation results in premature convergence, where the system c
 Together, these requirements preserve the distinction between what is known, what can be corrected, and what has been lost. A system that satisfies them does not eliminate failure; it keeps failures detectable and keeps reasoning grounded in the structure of the representation. When they are absent, outputs may appear coherent while the reasoning process has diverged from the information available to it.
 
 \section{Behavioral Consequences: Matching Answer Form to Dependency Status}
+
+Because admissibility licenses response form, dependency status determines what kind of answer may be given. A direct answer is licensed only when the required dependency is preserved or boundedly reconstructible. When support weakens to traceable or opaque status, the response must condition, weaken, reframe, ask, trace, route, or decline rather than preserve the appearance of determinacy.
 
 Respecting these constraints does not make reasoning systems infallible. It changes the status of their failures. Unsupported claims become visible rather than hidden; ambiguity is represented rather than suppressed; correction remains tied to the information basis of the representation; and decisions under non-identifiability are marked as decisions rather than inferred conclusions.
 
