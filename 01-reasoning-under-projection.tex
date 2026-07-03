@@ -12,7 +12,7 @@
 Structural Failure Modes and the Admissibility Framework}
 
 \author{Brian Cameron}
-\date{June 24, 2026}
+\date{July 3, 2026}
 
 \begin{document}
 
@@ -75,6 +75,8 @@ In information-theoretic terms, $R$ can be treated as the information basis avai
 
 A simple example illustrates the query-relative nature of projection. A black-and-white image may preserve shape while losing color. It remains admissible for many shape queries, but not for a query that depends on whether an object was red or green. The projection is not defective in general; it is insufficient for queries whose answers depend on the collapsed distinction.
 
+Equivalently, projection determines which distinctions remain observable through the representation. In later papers, this observable distinction structure is formalized using the language of representation-induced $\sigma$-algebras: a query is directly supported only when the distinction it requires is measurable under the projected representation, or becomes available through bounded reconstruction.
+
 In this paper, projection refers specifically to transformations that induce non-trivial equivalence classes over the underlying state space: distinct states in $S$ are mapped to the same representation in $R$.
 
 The analysis is relative to a given projection $P$. A query may fail to be identifiable under one representation while becoming identifiable under a richer or differently structured representation. For example, a log summary may preserve that an outage occurred while losing the event ordering needed for root-cause analysis. A retrieval result may preserve a citation identifier while omitting the source passage needed to verify the claim. A risk score may preserve a ranking while losing the distinction between reversible and irreversible failures. These projections are useful, but they are not equally admissible for every downstream query.
@@ -107,7 +109,7 @@ The use of identifiability here generalizes the term beyond parameter recovery i
 
 If this condition holds, then the representation preserves enough information to answer $q$. If the condition fails, then two states that are indistinguishable in the representation require different answers to $q$. In that case, no reasoning process operating only on $R$ can determine $q$ without introducing additional assumptions, expanding the representation, or obtaining new information.
 
-This gives a compact way to state the error--loss distinction. An error occurs when $q$ is identifiable under the projection but the reasoning process returns the wrong value. Loss occurs when $q$ is not identifiable under the projection, so the representation itself no longer supports a determinate answer.
+This gives a compact way to state the error--loss distinction. In the measure-theoretic formulation developed later, this corresponds to whether the query is measurable with respect to the observable structure induced by the projection. An error occurs when $q$ is identifiable under the projection but the reasoning process returns the wrong value. Loss occurs when $q$ is not identifiable under the projection, so the representation itself no longer supports a determinate answer.
 
 In more familiar statistical and information-theoretic terms, error is a recoverable inference or estimation failure within an information basis that is sufficient for the query. Loss is a failure of sufficiency: the projection has discarded task-relevant information needed to distinguish states with different values of $q$. Equivalently, the projected representation is not a query-relative sufficient statistic for $q$.
 
@@ -354,8 +356,6 @@ Bounded correction ensures that:
 \end{itemize}
 
 Failure of bounded correction leads to systems that appear to improve through repeated revision, but in fact introduce new assumptions or hidden state at each step.
-
-\subsection{Non-Collapse of Distinct Levels}
 
 \subsection{Non-Collapse of Distinct Levels}
 
