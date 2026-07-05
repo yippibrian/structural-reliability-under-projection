@@ -12,7 +12,7 @@
 Structural Failure Modes and the Admissibility Framework}
 
 \author{Brian Cameron}
-\date{July 3, 2026}
+\date{July 4, 2026}
 
 \begin{document}
 
@@ -25,7 +25,7 @@ This paper identifies a structural failure mode in AI reasoning systems: non-ide
 
 The paper distinguishes error, which is correctable within the current representation, from loss, which reflects failure of query-relative sufficiency and requires changing the information basis or answer form. It then introduces a dependency-status ladder organized by the answer forms licensed after projection: preserved, reconstructible, traceable, or opaque. Finally, it describes structural requirements for reliable reasoning under compression: observability of loss-relevant state, bounded correction, and non-collapse of distinct representational levels.
 
-The goal is not to eliminate uncertainty or require abstention. It is to ensure that reasoning systems do not present conclusions as determined by a representation when the representation does not support them. The resulting admissibility framework treats response form as part of structural reliability: a system should answer directly when support is preserved, reconstruct when bounded recovery is available, mark or route traceable dependencies, and refuse or reformulate claims whose dependencies are opaque. This paper develops the conceptual framework and identifies several directions for future formalization, operationalization, and evaluation.
+The goal is not to eliminate uncertainty or require abstention. It is to ensure that reasoning systems do not present conclusions as determined by a representation when the representation does not support them. The resulting admissibility framework treats response form as part of structural reliability: a system should answer directly when support is preserved, reconstruct when bounded recovery is available, mark or route traceable dependencies, and refuse or reformulate claims whose dependencies are opaque. This paper develops the conceptual framework and identifies several directions for future formal, operational, and empirical development.
 \end{abstract}
 
 \section{Introduction: Local Coherence Without Structural Admissibility}
@@ -71,6 +71,8 @@ P: S \rightarrow R
 \]
 where $S$ is the full system state and $R$ is the representation used for reasoning.
 
+In many AI settings, \(S\) should be understood as a modeled or idealized underlying state space rather than a fully specified object available to the system. The framework is therefore relative to the state model under consideration.
+
 Multiple distinct states in $S$ may map to the same representation in $R$.
 
 In information-theoretic terms, $R$ can be treated as the information basis available to the reasoner after projection. The relevant question is not whether $R$ contains less information than $S$ in general, but whether it retains the information needed to answer the query at hand. A representation may be highly compressed and still sufficient for one query, while being insufficient for another query that depends on a collapsed distinction.
@@ -107,6 +109,9 @@ A query, judgment, or decision-relevant property $q:S\rightarrow A$ is identifia
 P(s_1)=P(s_2) \Rightarrow q(s_1)=q(s_2).
 \]
 
+For normative or evaluative queries, \(q\) should be read as model-relative: the
+ framework analyzes whether a declared evaluative target is preserved under projection, not whether the target has a mind-independent unique value.
+
 The use of identifiability here generalizes the term beyond parameter recovery in statistical or causal models. In this paper, identifiability refers to whether any reasoning-relevant query, judgment, or decision property survives projection into the representation used by the system.
 
 If this condition holds, then the representation preserves enough information to answer $q$. If the condition fails, then two states that are indistinguishable in the representation require different answers to $q$. In that case, no reasoning process operating only on $R$ can determine $q$ without introducing additional assumptions, expanding the representation, or obtaining new information.
@@ -118,11 +123,16 @@ In more familiar statistical and information-theoretic terms, error is a recover
 \paragraph{Minimal example.}
 Let $S=\{s_1,s_2\}$ and let $P(s_1)=P(s_2)=r$. Let $q(s_1)=0$ and $q(s_2)=1$. Then $q$ is not identifiable under $P$, because the same representation $r$ requires two different answers. No function $f:R\rightarrow A$ can recover $q$, since $f(r)$ must return a single value. If instead $q(s_1)=q(s_2)$, then $q$ is identifiable under $P$ even though $P$ collapses the two states.
 
-\paragraph{Structural Observation 1: Non-identifiability blocks recovery from the projected representation alone.}
+\paragraph{Basic consequence: non-identifiability blocks recovery from the projected representation alone.}
 If a query $q:S\rightarrow A$ is not identifiable under projection $P:S\rightarrow R$, then no function $f:R\rightarrow A$ can recover $q$ for all states in $S$.
+
+This is an elementary consequence of the definition of a function, included only to make explicit the boundary between recoverable error and representational loss.
 
 \emph{Argument.}
 If $q$ is not identifiable, then there exist $s_1,s_2\in S$ such that $P(s_1)=P(s_2)=r$ but $q(s_1)\neq q(s_2)$. Any function $f$ over $R$ must assign a single value to $r$, so it cannot equal both $q(s_1)$ and $q(s_2)$. Therefore, any determinate answer requires an additional assumption, representation expansion, or information outside $R$.
+
+\paragraph{Representation-or-form requirement.}
+When a query is not identifiable under the current representation, an admissible response must either change the information basis or change the answer form. It may expand the representation, obtain new information, introduce an explicit assumption or decision rule, weaken the claim, branch over alternatives, mark the dependency as traceable, route the query, or refuse the requested form. What it must not do is present the unsupported determinate answer as if it followed from the original representation alone.
 
 The formal claim is limited: non-identifiability means that no function over the current representation can recover the query for all underlying states. The design question is what a reasoning system should do when this condition holds. The remaining sections describe structural requirements and behavioral consequences, rather than additional formal impossibility results.
 
@@ -161,7 +171,7 @@ A benchmark can test the distinction between error and loss by comparing paired 
 
 Projection produces representational loss for a query when it collapses a distinction required by that query and the distinction is not otherwise encoded, boundedly reconstructible, or explicitly supplied by a marked assumption. The same projection may remain admissible for other queries whose answers are constant across the collapsed states. Thus loss is query-relative: the representation fails not because it is compressed, but because a downstream claim depends on a distinction the compression does not preserve.
 
-The practical implication is that a reasoning system must either change the information basis or change the answer form. It may request additional information, retrieve a source, expose an assumption, branch over alternatives, weaken the claim, route the query, or refuse the requested form. What it must not do is present a determinate answer as if the missing distinction had been recovered from the original representation.
+By the representation-or-form requirement, the system must either change the information basis or change the answer form rather than present the claim as determined by the original representation.
 
 \section{Classifying Failure: Error vs Representational Loss}
 
@@ -186,7 +196,7 @@ In each case, the distinction between correct and incorrect outcomes exists with
 
 \subsection{Loss: Non-Identifiability Under the Current Representation}
 
-A \emph{loss}, more precisely task-relevant representational loss, occurs when the representation no longer contains, or cannot validly reconstruct, the information required to distinguish between multiple operationally relevant underlying states. In this case, no reasoning process operating solely on the current representation can recover the missing distinction without additional assumptions, representation expansion, or external information.
+\emph{Representational loss}, hereafter loss when context is clear, occurs when the representation no longer contains, or cannot validly reconstruct, the information required to distinguish between multiple operationally relevant underlying states. In this case, no reasoning process operating solely on the current representation can recover the missing distinction without additional assumptions, representation expansion, or external information.
 
 The term ``loss'' is used here as a query-relative category rather than as a claim that all missing structure has the same cause. A query may become non-identifiable because relevant variables are absent, because multiple causal models remain observationally equivalent, because a metric collapses distinct evaluative dimensions, because provenance is unavailable, or because source-level support is not represented. These mechanisms differ, but they share the same operational consequence: the current representation does not preserve enough structure to determine the requested query without additional assumptions, representation expansion, or external information.
 
@@ -468,6 +478,8 @@ This does not mean optimization, prompting, or evaluation are misguided. It mean
 
 The argument in this paper overlaps with several established lines of work. In statistics and causal inference, identifiability asks whether a target quantity can be determined from the available observational structure \cite{Pearl2009}. In statistical decision theory, comparison of experiments and sufficiency ask when one signal or observation preserves enough information for a class of decisions \cite{Blackwell1953}. In partially observable decision processes, agents must act over incomplete state representations \cite{Kaelbling1998}. In work on state abstraction, compressed states are evaluated by whether they preserve value, policy, reward, transition, or model-relevant properties \cite{Li2006}. In formal methods and abstract interpretation, abstraction maps concrete states into reduced domains while preserving selected properties \cite{Cousot1977}; counterexample-guided abstraction refinement studies how an abstraction may be refined when it is too coarse for the property being checked \cite{Clarke2000}. In information-theoretic approaches such as the information bottleneck, compressed representations are evaluated by what task-relevant information they retain \cite{Tishby1999}.
 
+The framework also overlaps with selective prediction, abstention, conformal prediction, and hallucination detection. Selective classification and reject-option methods study when a predictor should abstain rather than answer, often optimizing a risk--coverage tradeoff \cite{Geifman2017,Geifman2019}. Conformal prediction provides calibrated prediction sets or uncertainty guarantees under distributional assumptions such as exchangeability \cite{Vovk2005,Shafer2008}. Work on hallucination in natural-language generation and large language models studies unsupported or fabricated generated content, including methods for detecting inconsistency or unsupported factual claims \cite{Ji2023,Manakul2023}. The present framework is complementary to these literatures: it focuses on whether the operative representation preserves the distinction required by the requested claim, and therefore whether the answer form is licensed by dependency status rather than confidence alone.
+
 The present framework is closest to these traditions when it treats projection failure as a failure of query-relative sufficiency, but it differs by linking that failure to answer-form governance.
 
 This distinction is especially important for partial-observation models. Partial-observation methods, including POMDP-style accounts, can represent uncertainty over hidden states and help identify ambiguity, underspecification, or missing evidence. But hidden state is not the same as projected-away structure. A distinction may be unavailable from the current representation rather than merely unknown within it. Sensing hiddenness can indicate that the representation is incomplete; reconstructibility governance determines whether the claim remains admissible, must be weakened, requires representation expansion, can be traced, or should be blocked.
@@ -597,6 +609,16 @@ Patrick Cousot and Radhia Cousot.
 \newblock Abstract interpretation: A unified lattice model for static analysis of programs by construction or approximation of fixpoints.
 \newblock POPL, 1977.
 
+\bibitem{Geifman2017}
+Yonatan Geifman and Ran El-Yaniv.
+\newblock Selective Classification for Deep Neural Networks.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem{Geifman2019}
+Yonatan Geifman and Ran El-Yaniv.
+\newblock SelectiveNet: A Deep Neural Network with an Integrated Reject Option.
+\newblock In \emph{Proceedings of the 36th International Conference on Machine Learning}, 2019.
+
 \bibitem{Goodhart1975}
 Charles Goodhart.
 \newblock Problems of Monetary Management: The U.K. Experience.
@@ -612,6 +634,11 @@ Lihong Li, Thomas J. Walsh, and Michael L. Littman.
 \newblock Towards a unified theory of state abstraction for MDPs.
 \newblock ISAIM, 2006.
 
+\bibitem{Manakul2023}
+Potsawee Manakul, Adian Liusie, and Mark J. F. Gales.
+\newblock SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models.
+\newblock In \emph{Proceedings of EMNLP}, 2023.
+
 \bibitem{Pearl2009}
 Judea Pearl.
 \newblock Causality: Models, Reasoning, and Inference.
@@ -621,6 +648,11 @@ Judea Pearl.
 Leonard J. Savage.
 \newblock The Foundations of Statistics.
 \newblock 1954.
+
+\bibitem{Shafer2008}
+Glenn Shafer and Vladimir Vovk.
+\newblock A Tutorial on Conformal Prediction.
+\newblock \emph{Journal of Machine Learning Research}, 9:371--421, 2008.
 
 \bibitem{Shannon1948}
 Claude Shannon.
@@ -632,6 +664,15 @@ Naftali Tishby, Fernando C. Pereira, and William Bialek.
 \newblock The information bottleneck method.
 \newblock 1999.
 
+\bibitem{Vovk2005}
+Vladimir Vovk, Alex Gammerman, and Glenn Shafer.
+\newblock Algorithmic Learning in a Random World.
+\newblock Springer, 2005.
+
+\bibitem{Ji2023}
+Ziwei Ji, Nayeon Lee, Rita Frieske, Tiezheng Yu, Dan Su, Yan Xu, Etsuko Ishii, Yejin Bang, Andrea Madotto, and Pascale Fung.
+\newblock Survey of Hallucination in Natural Language Generation.
+\newblock \emph{ACM Computing Surveys}, 55(12), Article 248, 2023.
+
 \end{thebibliography}
 \end{document}
-
