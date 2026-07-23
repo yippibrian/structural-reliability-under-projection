@@ -12,7 +12,7 @@
 Structural Failure Modes and the Admissibility Framework}
 
 \author{Brian Cameron}
-\date{July 4, 2026}
+\date{July 23, 2026}
 
 \begin{document}
 
@@ -42,7 +42,7 @@ The novelty claimed here is not the invention of identifiability, abstraction, p
 
 In AI safety and security settings, the dangerous failure is often not that a model is uncertain. It is that the model behaves as though a missing distinction were recoverable from the representation available to it. This can occur when a security assistant recommends a fix without the relevant code path or threat model, when a RAG system treats a citation pointer as source support, when an incident-response assistant names a root cause despite indistinguishable telemetry, or when an agent acts as if authorization, intent, or environmental state were known from compressed memory. These issues connect to broader concerns about robustness and failure modes in AI systems~\cite{Amodei2016}.
 
-These failures are structurally similar. The system is not merely making a bad guess; it is presenting a claim with a stronger dependency status than the representation supports. The missing distinction may be traceable, ambiguous, externally recoverable, or opaque, but it is not preserved in the current representation. Treating such loss as ordinary error encourages overconfident answers, hallucinated support, unsafe action, and misleading explanations.
+These failures are structurally similar. The system is not merely making a bad guess; it is presenting a claim with a stronger dependency status than the representation supports. The missing distinction may be traceable, ambiguous, externally recoverable, or opaque, but it is not preserved in the current representation. Treating such loss as ordinary error encourages overconfident answers, hallucinated support, unsafe action, and misleading explanations. In downstream institutional settings, repeated promotion of unsupported dependency status can also promote the practical authority of the systems producing those claims, but the governance of that authority is developed in the final paper of the stack rather than here.
 
 The account is normative in a limited epistemic sense. It does not describe how reasoning systems always behave or prescribe substantive decisions or values. It proposes admissibility criteria for reasoning under compression: a system should not present a conclusion as determined by a representation when the relevant query depends on a distinction that the representation does not preserve, cannot boundedly reconstruct, and cannot justify without changing the information basis or answer form. Admissibility is therefore query-relative. A projection is not defective merely because it compresses; it becomes inadmissible for a particular use when the downstream claim depends on a collapsed distinction.
 
