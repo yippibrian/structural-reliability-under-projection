@@ -69,6 +69,10 @@ A distinction is **opaque** when the dependency is neither recoverable nor audit
 
 The boundary between reconstructible and traceable is especially important. A citation, source hash, tool trace, or provenance pointer may make a dependency traceable, but it does not make the claim reconstructible unless the representation also includes enough content or recovery structure to determine the relevant distinction.
 
+A claim may depend on several distinctions, and those dependencies may have different statuses. Dependency status is therefore better understood as a profile over the claim’s relevant dependencies rather than as one global scalar label. A claim-level description such as **mixed** indicates that this profile is nonuniform; it is not necessarily a fifth primitive status.
+
+Response-form selection must preserve the weaker or unresolved dependencies relevant to the claim rather than compressing the entire profile into an unjustifiably strong status.
+
 ---
 
 ## Structural Requirements
@@ -104,6 +108,26 @@ The goal is not blanket abstention. The goal is answer-form discipline. A system
 
 ---
 
+## Dependency-Status Assessment
+
+The framework distinguishes three related but non-identical things:
+
+* **Actual dependency status** — the support a dependency really has relative
+  to the query, operative representation, and reasoning regime.
+* **Assessed dependency status** — the status inferred by the reasoning system.
+* **Reported dependency status** — the status communicated in the resulting
+  answer or reasoning artifact.
+
+Practical systems do not have direct access to actual status in every case.
+They act through imperfect assessments. Evaluation should therefore consider
+both whether the assessed status is accurate and whether the answer form
+faithfully reflects that assessment.
+
+When status assessment is uncertain, the system should preserve that
+uncertainty rather than silently promoting the claim to a stronger status.
+
+---
+
 ## Testable Consequences
 
 The framework suggests several evaluation patterns.
@@ -116,6 +140,12 @@ Adding a citation, source pointer, provenance marker, or tool trace should not b
 
 **Answer-form sensitivity**
 Evaluation should consider not only whether an answer is plausible, but whether its form is licensed by the dependency status of the claim.
+
+**Assessment and reporting fidelity**
+Evaluation should distinguish errors in dependency-status assessment from
+errors in response-form reporting. A system may underestimate or overestimate
+the support available to it, or it may correctly recognize limited support
+but still produce an answer whose form overstates that support.
 
 **Compressed/enriched diagnostic contrast**
 Benchmarks can compare paired tasks that differ only in whether the query-relevant distinction is represented. A system that gives the same determinate answer form in both cases is failing to regulate claims by dependency status.
@@ -168,7 +198,7 @@ This work focuses on structural properties of reasoning, not on a specific imple
 
 The paper is strongest as a diagnostic and admissibility framework. It explains why some reasoning failures are representational rather than merely inferential, why local coherence is not the same as structural support, and why output-level correctness can miss failures caused by projection.
 
-It does not claim to explain all reasoning failures, guarantee correct conclusions, eliminate ambiguity, or provide a complete implementation of dependency-status tracking. Mechanism, evaluation, and deployment remain future work.
+It does not claim to explain all reasoning failures, guarantee correct conclusions, eliminate ambiguity, or provide a complete implementation of dependency-status tracking. Full protocol implementation, empirical validation, and deployment-specific engineering remain outside the scope of this paper.
 
 ---
 
