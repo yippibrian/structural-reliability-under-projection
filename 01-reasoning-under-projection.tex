@@ -12,7 +12,7 @@
 Structural Failure Modes and the Admissibility Framework}
 
 \author{Brian Cameron}
-\date{August 5, 2026}
+\date{August 6, 2026}
 
 \begin{document}
 
@@ -23,7 +23,7 @@ AI systems increasingly make recommendations, explanations, security judgments, 
 
 This paper identifies a structural failure mode in AI reasoning systems: non-identifiability under projection is misclassified as recoverable inference error. In such cases, additional reasoning over the same representation can make an answer more fluent, coherent, or persuasive without restoring the missing distinction. This produces familiar safety and security failures: unsupported root-cause attribution, hallucinated source support, unsafe action under missing state, and metric-driven proxy success, a failure mode related to Goodhart-style proxy collapse~\cite{Goodhart1975}.
 
-The paper distinguishes error, whose required continuation conditions are boundedly restorable within the declared regime, from loss, which reflects failure of query-relative sufficiency, bounded operational restoration, or both, and therefore requires changing the information basis, continuation, or answer form. It then introduces a dependency-status ladder organized by the answer forms licensed after projection: preserved, reconstructible, traceable, or opaque. Finally, it describes structural requirements for reliable reasoning under compression: observability of loss-relevant state, bounded correction, and non-collapse of distinct representational levels.
+The paper distinguishes error, whose required continuation conditions are boundedly restorable within the declared regime, from loss, which reflects failure of query-relative sufficiency, bounded operational restoration, or both, and therefore requires changing the information basis, continuation, or answer form. It then introduces a dependency-status ladder organized by the answer forms licensed after projection: preserved, reconstructible, traceable, or opaque. Finally, it describes structural requirements for reliable reasoning under compression: observability of loss-relevant state, bounded correction, and non-collapse of distinct representational levels. The framework applies to dependencies currently represented as material to the query, while allowing that later inquiry may revise that structure.
 
 The goal is not to eliminate uncertainty or require abstention. It is to ensure that reasoning systems do not present conclusions as determined by a representation when the representation does not support them, or present actions as permitted when their operational validity has not been established. The resulting admissibility framework treats response form as part of structural reliability: a system should answer directly when support is preserved, reconstruct when bounded recovery is available, mark or route traceable dependencies, constrain operationally invalid continuations, and refuse or reformulate claims whose dependencies are opaque.
 \end{abstract}
@@ -39,6 +39,8 @@ This licensing relation has two conceptually distinct aspects. The first is quer
 As a running example, consider an AI assistant used during a security incident. It receives a compressed summary of logs, deployment history, alerts, and recent configuration changes. The assistant produces a clear root-cause explanation and recommends a fix. The reasoning may appear locally coherent: it cites the deployment, explains the failure, and proposes remediation. However, the compressed representation may not preserve the distinction between a deploy-triggered bug, a dependency outage, a configuration interaction, and telemetry loss caused by reduced logging. If the available representation cannot distinguish these states, then the assistant has not merely made an error. It has produced a determinate explanation from a representation that does not support one. Even if the assistant could support a diagnostic claim, the proposed fix would require a separate operational judgment: whether the intervention is authorized, reversible, locally bounded, and valid under the current incident regime. Informational support for the diagnosis does not by itself license the action.
 
 More generally, the problem can be understood as one of invariant preservation under projection. A claim remains admissible only when the distinctions on which it depends are preserved, boundedly reconstructible, or explicitly marked as unavailable. Projection is dangerous not because it compresses, but because it can collapse the invariants required by a downstream claim while leaving the answer form unchanged. Good reasoning under projection therefore requires preserving the dependency structure needed by the claim, or changing the response form when that structure no longer survives.
+
+The dependency structure required by a query should not be understood as fixed, complete, or necessarily known before reasoning begins. Practical inquiry may reveal that the original question collapsed several questions, that a familiar term has incompatible meanings, that an action requires a separate authority or validity judgment, or that an existing concern bears upon a claim not previously associated with it. The present framework therefore applies to the dependencies currently represented as material to the query, while allowing that later inquiry may revise that structure.
 
 The novelty claimed here is not the invention of identifiability, abstraction, partial observability, sufficiency, or information preservation. The contribution is to identify a reasoning-system failure mode that occurs when a system behaves as though the dependency status required by a query survived projection when it did not. Existing frameworks can describe hidden state, abstraction, sufficiency, or non-identifiability; the present framework asks how a reasoning system should regulate answer form when the representation available to it no longer supports the distinction the answer requires.
 
@@ -81,7 +83,7 @@ In information-theoretic terms, $R$ can be treated as the information basis avai
 
 A simple example illustrates the query-relative nature of projection. A black-and-white image may preserve shape while losing color. It remains admissible for many shape queries, but not for a query that depends on whether an object was red or green. The projection is not defective in general; it is insufficient for queries whose answers depend on the collapsed distinction.
 
-Equivalently, projection determines which distinctions remain observable through the representation. This observable distinction structure can formalized using the language of representation-induced $\sigma$-algebras: a query is directly supported only when the distinction it requires is measurable under the projected representation, or becomes available through bounded reconstruction.
+Equivalently, projection determines which distinctions remain observable through the representation. This observable distinction structure can be formalized using the language of representation-induced $\sigma$-algebras: a query is directly supported only when the distinction it requires is measurable under the projected representation, or becomes available through bounded reconstruction.
 
 In this paper, projection refers specifically to transformations that induce non-trivial equivalence classes over the underlying state space: distinct states in $S$ are mapped to the same representation in $R$.
 
@@ -242,6 +244,8 @@ For a query $q$ and representation $R$, \emph{dependency status} refers to the k
 
 The four statuses are derived from the operations available to a reasoner after projection. For a claim depending on a distinction $d$, the system must determine whether $d$ is directly available for inference, recoverable by a bounded procedure, only recorded as a dependency, or unavailable even for audit. These cases license different answer forms. Directly available distinctions can support direct answers. Boundedly recoverable distinctions can support reconstruction or procedural answers. Merely recorded dependencies can support trace marking, routing, or qualification, but not recovery of the distinction itself. Dependencies that are neither recoverable nor traceable cannot support inference or audit from the current representation.
 
+Let \(D_q^{(t)}\) denote the dependencies represented as material to query \(q\) at reasoning stage \(t\). This structure is provisional: later inquiry may add, split, relate, narrow, or reject dependencies. For notational simplicity, the remainder of this paper writes \(D_q\) where the developmental index is not material to the immediate argument.
+
 A claim may depend on more than one distinction, and those dependencies need not share the same status. For a query \(q\) with relevant dependency structure \(D_q\), dependency status may therefore be represented as a profile
 \[
 \Delta_{\Gamma,q,R}:D_q
@@ -321,7 +325,7 @@ This ladder separates existence from operational support. Identifiability is an 
 
 Preserved and reconstructible distinctions can support inference. Traceable distinctions support accountability for transformation or loss, but not recovery of the original relation. Opaque loss supports neither inference nor audit. This ladder is therefore not a complete theory of provenance or explanation; it specifies what kind of support a downstream claim has after projection.
 
-Dependency status is the invariant that later requirements are designed to preserve across reasoning steps, representation changes, correction attempts, and answer-form selection. Observability makes possible the detection or marking of unsupported dependency status. Bounded correction prevents a system from changing dependency status silently during repair. Non-collapse prevents claims supported at one level, such as a representation, intermediate state, or selected explanation, from being treated as if they were supported at another. The requirements that follow should therefore be read not as independent virtues, but as constraints on preserving dependency status under reasoning.
+Dependency status, relative to the dependencies currently represented as material, is the structural relation that the following requirements are designed to preserve across reasoning steps, representation changes, correction attempts, and answer-form selection. Observability makes possible the detection or marking of unsupported dependency status. Bounded correction prevents a system from changing dependency status silently during repair. Non-collapse prevents claims supported at one level, such as a representation, intermediate state, or selected explanation, from being treated as if they were supported at another. The requirements that follow should therefore be read not as independent virtues, but as constraints on preserving dependency status under reasoning. When reasoning discovers a new dependency or a new relation among represented objects, preservation does not require keeping the earlier dependency structure unchanged. It requires making the revision explicit and allowing the newly represented constraint to alter subsequent claim and action licensing.
 
 These categories are not intended to be exhaustive atomic states. They are base statuses that may require qualifiers in real systems. A dependency may be partially reconstructible, probabilistically reconstructible, reconstructible only under an explicit prior, supported by competing reconstruction paths, or traceable to conflicting provenance. In such cases, the relevant status should be reported with its qualifier rather than forced into a falsely crisp category. For example, a system may mark a claim as ``probabilistically reconstructible under prior $p$,'' ``traceable to source $x$ but not recoverable from available content,'' or ``supported by two conflicting reconstruction paths.'' The ladder is therefore a discipline for preserving dependency status, not a claim that all support relations are cleanly ordered in practice.
 
@@ -538,7 +542,7 @@ When assessed status is uncertain, the system should preserve that uncertainty i
 
 \subsection{Evaluation by Structural Shape}
 
-Evaluation can be organized around whether a response preserves the structural shape required by the query, rather than only whether it matches a domain-specific target answer. A responsibility query can be evaluated for preservation of individual, process, and system levels; a high-stakes decision for visibility of irreversible tradeoffs and residual risk; a source-grounded answer for separation between observed support and plausible reconstruction; and a compositional policy problem for revalidation under interaction or scale. Such diagnostics ask whether the answer has the right admissibility structure: what distinction is needed, whether it is preserved or reconstructible, whether loss is visible, and whether the system has confused inference with decision. A companion evaluation harness can operationalize these targets by running controlled question sets under different prompt and scaffold conditions.
+Evaluation can be organized around whether a response preserves the structural shape required by the query, rather than only whether it matches a domain-specific target answer. A responsibility query can be evaluated for preservation of individual, process, and system levels; a high-stakes decision for visibility of irreversible tradeoffs and residual risk; a source-grounded answer for separation between observed support and plausible reconstruction; and a compositional policy problem for revalidation under interaction or scale. Such diagnostics ask whether the answer has the right admissibility structure: what distinction is needed, whether it is preserved or reconstructible, whether loss is visible, and whether the system has confused inference with decision. These targets could be operationalized through controlled question sets that vary the represented distinctions, prompt constraints, and available recovery paths.
 
 \subsection{Reasoning Scaffolds and Constraint Activation}
 
@@ -577,18 +581,19 @@ In particular, it does not:
     \item eliminate ambiguity in cases where multiple interpretations remain consistent,
     \item recover distinctions that are not preserved or boundedly recoverable under the current representation,
     \item ensure that all relevant variables are present in the representation,
-    \item prevent all forms of bias or misalignment in decision-making.
+    \item prevent all forms of bias or misalignment in decision-making,
+    \item guarantee that the system has discovered every dependency, stakeholder, constraint, alternative method, or intended use relevant to the query.
 \end{itemize}
 
-These limitations are not defects of the account. They follow directly from the constraints imposed by projection. Any system operating over a reduced representation must accept that some distinctions cannot be made and some questions cannot be resolved.
+These limitations are not defects of the account. They follow from projection and from the developmental incompleteness of practical reasoning. A system may faithfully govern the dependency structure it currently represents while still failing to notice a material relationship. Any system operating over a reduced representation must therefore accept both that some distinctions cannot be made from the current information basis and that later inquiry may reveal constraints not yet represented.
 
 \subsection{Dependence on Representation}
+
+This paper does not prescribe a single representation or assume that the operative representation remains fixed. It provides constraints that apply to a representation at a given stage of reasoning. A later stage may refine the projection, introduce a new distinction, attach a newly relevant constraint, or reformulate the query. Such changes alter the information basis to which admissibility is applied and should therefore be explicit rather than silently attributed to the earlier representation.
 
 The behavior of a reasoning system under this framework depends on the representation over which it operates. Different representations preserve different distinctions, and therefore introduce different forms of loss.
 
 Improving reasoning performance may require modifying the representation itself, not just the reasoning process applied to it. However, such changes alter the projection and therefore change the conditions under which reasoning operates.
-
-This paper does not prescribe specific representations. It provides constraints that apply once a representation has been chosen.
 
 \subsection{Mechanism and Evaluation as Downstream Work}
 
@@ -616,7 +621,9 @@ The proposed dependency-status ladder---preserved, reconstructible, traceable, a
 
 Reasoning under projection is therefore not an edge case. It is the ordinary condition of AI systems operating over bounded context, retrieval, tools, summaries, and metrics. The admissibility question is whether such systems can preserve the difference between what their representations determine, what they can reconstruct, what they can merely trace, and what they have lost, while also distinguishing informational support from operational permission to continue.
 
-Future work can develop this entry-point claim into formal minimal conditions, representation dynamics of projection-induced drift, response-form governance protocols, empirical evaluation methods, and adaptive control mechanisms.
+The framework is necessarily relative to the dependency structure currently represented for the query. It can identify when a claim has stronger form than its represented support permits, but it cannot assume that every material dependency was known when reasoning began. Practical progress may also consist in discovering that the original question was misframed, that two concepts must remain separate, that a source dependency was hidden, or that a proposed action requires an additional constraint. Such discoveries revise the structure to which admissibility is applied.
+
+Future work should investigate the formal conditions under which these requirements are necessary or sufficient, how dependency status changes across successive projections, how projection-sensitive behavior can be evaluated, and how reasoning systems can implement admissibility checks without turning them into blanket abstention policies.
 
 \begin{thebibliography}{99}
 
