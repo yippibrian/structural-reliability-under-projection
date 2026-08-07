@@ -48,6 +48,8 @@ In AI safety and security settings, the dangerous failure is often not that a mo
 
 These failures are structurally similar. The system is not merely making a bad guess; it is presenting a claim with a stronger dependency status than the representation supports. The missing distinction may be traceable, ambiguous, externally recoverable, or opaque, but it is not preserved in the current representation. Treating such loss as ordinary error encourages overconfident answers, hallucinated support, unsafe action, and misleading explanations. In downstream institutional settings, repeated promotion of unsupported dependency status can also promote the practical authority of the systems producing those claims, but the governance of that authority is not developed here.
 
+A related failure can occur when projection preserves a useful reasoning operation while collapsing the conditions that governed its use. A heuristic, diagnostic procedure, review pattern, reasoning scaffold, or inherited decision rule may remain executable after its originating assumptions, scope restrictions, corrective mechanisms, provenance, or authority conditions are no longer represented. The operation may therefore continue to produce locally coherent, and sometimes even correct, results even when the current representation no longer supports the judgment that applying it is appropriate. Preserving an operation is not equivalent to preserving the conditions governing its application.
+
 The account is normative in a limited epistemic sense. It does not describe how reasoning systems always behave or prescribe substantive decisions or values. It proposes admissibility criteria for reasoning under compression: a system should not present a conclusion as determined by a representation when the relevant query depends on a distinction that the representation does not preserve, cannot boundedly reconstruct, and cannot justify without changing the information basis or answer form. Admissibility is therefore query-relative. A projection is not defective merely because it compresses; it becomes inadmissible for a particular use when the downstream claim depends on a collapsed distinction.
 
 The resulting evaluation question is therefore directly relevant to AI reasoning, safety, and security evaluation. It asks whether a system can distinguish supported inference from decision under non-identifiability; whether it can mark when source support is traceable but not reconstructible; whether it can avoid collapsing system-level failures into single actors; and whether it can keep correction bounded to the information actually available. These conditions matter because safety failures often occur at the boundary between what the system can infer, what it must assume, and what it should route, defer, or refuse.
@@ -82,6 +84,8 @@ Multiple distinct states in $S$ may map to the same representation in $R$.
 In information-theoretic terms, $R$ can be treated as the information basis available to the reasoner after projection. The relevant question is not whether $R$ contains less information than $S$ in general, but whether it retains the information needed to answer the query at hand. A representation may be highly compressed and still sufficient for one query, while being insufficient for another query that depends on a collapsed distinction.
 
 A simple example illustrates the query-relative nature of projection. A black-and-white image may preserve shape while losing color. It remains admissible for many shape queries, but not for a query that depends on whether an object was red or green. The projection is not defective in general; it is insufficient for queries whose answers depend on the collapsed distinction.
+
+Projection may likewise preserve procedures rather than only observable features. A compressed representation may retain a rule such as “when condition x appears, apply operation f” while omitting distinctions that originally limited when f was appropriate. The procedure therefore remains executable even though the query “is f licensed in this case?” may no longer be identifiable from the compressed representation. This is an important form of representational loss because operational continuity can conceal contextual loss: the persistence of a usable transformation may create the appearance that the conditions supporting that transformation were preserved as well.
 
 Equivalently, projection determines which distinctions remain observable through the representation. This observable distinction structure can be formalized using the language of representation-induced $\sigma$-algebras: a query is directly supported only when the distinction it requires is measurable under the projected representation, or becomes available through bounded reconstruction.
 
@@ -393,15 +397,18 @@ The relevant invariant is therefore not that all levels have the same structure,
 
 In particular, the system must not collapse:
 \begin{itemize}[leftmargin=1.5em]
-\item a representation with the underlying system it represents,
-\item a proxy or metric with the target property it measures,
-\item a provenance pointer with recoverable source support,
-\item an intermediate reasoning state with a final conclusion,
-\item a selected explanation with the full set of explanations consistent with the representation,
-\item a local component-level judgment with a claim about the composed system.
+    \item a representation with the underlying system it represents,
+    \item a proxy or metric with the target property it measures,
+    \item a provenance pointer with recoverable source support,
+    \item an intermediate reasoning state with a final conclusion,
+    \item a selected explanation with the full set of explanations consistent with the representation,
+    \item persistence of a reasoning operation with preservation of the conditions that license its use,
+    \item a local component-level judgment with a claim about the composed system.
 \end{itemize}
 
 In information-theoretic terms, non-collapse preserves boundaries between information available about different objects or levels. Information about a representation is not automatically information about the underlying system. Information about a proxy is not automatically information about the target property. Information about one selected reconstruction is not automatically information about all states consistent with the representation. Non-collapse prevents support from being transferred across these boundaries without preserving the dependency that licenses the transfer.
+
+The same distinction applies to reusable reasoning operations. A representation may preserve enough structure to execute a heuristic, procedure, scaffold, or transformation without preserving the context in which that operation was originally justified. Executability is therefore a property of the represented operator, while applicability is a dependency claim about the relation between that operator and the present state. Collapsing these levels allows a successfully preserved method to acquire unwarranted authority merely because it remains usable.
 
 In each case, the collapse has the same form: a projected object inherits a stronger dependency status than the representation licenses. A representation is treated as the world, a proxy as the target, a pointer as source support, a partial reasoning state as a conclusion, a selected explanation as uniquely determined, or a local component judgment as a composed-system judgment. This makes projection loss invisible because the system can no longer track which dependency status belongs to which level.
 
@@ -480,6 +487,9 @@ Agents act from compressed internal state: task instructions, memory, tool outpu
 
 \paragraph{User modeling and Theory-of-Mind-like behavior.}
 Dependency status also applies to AI systems that model users or other agents. A system often infers what a user knows, wants, intends, believes, or cannot distinguish from partial interaction traces. These inferences are projection-sensitive: observed behavior may preserve some distinctions while leaving others merely plausible, traceable to prior context, or opaque. A safety-relevant user model should therefore mark whether claims about another agent's state are directly observed, reconstructible from interaction, dependent on an explicit assumption, or unsupported. This does not require treating the AI system as having humanlike inner experience. It treats Theory-of-Mind-like behavior as reasoning under projection over another agent's representation.
+
+\paragraph{Reasoning scaffolds, procedures, and inherited decision rules.}
+Reusable reasoning procedures are themselves subject to projection. A prompt scaffold, diagnostic checklist, review procedure, policy rule, or institutional heuristic may remain available long after some of the assumptions or contextual distinctions that originally governed its use have disappeared from the operative representation. A system should therefore distinguish whether it can execute a procedure from whether the dependencies licensing that procedure remain preserved or reconstructible in the current case. Successful execution does not by itself establish appropriate application.
 
 \paragraph{Evaluation and benchmark design.}
 Standard evaluation may reward correct-looking answers even when the representation does not support them. Projection-aware evaluation should test whether systems change behavior when observability changes: refusing unsupported determinacy at low observability, ranking hypotheses under partial evidence, and becoming appropriately decisive when the relevant distinction becomes observable. This makes dependency status a measurable target rather than a purely philosophical concern.
@@ -585,7 +595,7 @@ In particular, it does not:
     \item guarantee that the system has discovered every dependency, stakeholder, constraint, alternative method, or intended use relevant to the query.
 \end{itemize}
 
-These limitations are not defects of the account. They follow from projection and from the developmental incompleteness of practical reasoning. A system may faithfully govern the dependency structure it currently represents while still failing to notice a material relationship. Any system operating over a reduced representation must therefore accept both that some distinctions cannot be made from the current information basis and that later inquiry may reveal constraints not yet represented.
+These limitations are not defects of the account. They follow from projection and from the developmental incompleteness of practical reasoning. A system may faithfully govern the dependency structure it currently represents while still failing to notice a material relationship. Paper 7 addresses how discovered constraints can revise that structure and persist afterward; it does not claim that discovery can ever be complete. It may likewise preserve and correctly execute a reasoning procedure while failing to represent a condition that limits when that procedure is applicable.
 
 \subsection{Dependence on Representation}
 
@@ -619,7 +629,7 @@ The central error analyzed in this paper is misclassifying representational loss
 
 The proposed dependency-status ladder---preserved, reconstructible, traceable, and opaque---does not guarantee correctness. It constrains how claims relate to the representations that support them. A reliable system should answer directly when support is preserved, reconstruct through bounded procedures when available, mark traceable dependencies when recovery is absent, and avoid presenting opaque dependencies as determined. For actions and continuations, dependency support is necessary but not sufficient: the proposed continuation must also satisfy, or admit bounded return to, the operational validity conditions of the declared regime. In invariant terms, the ladder tracks whether the dependency structure required by a claim has survived projection, can be restored by bounded reconstruction, remains only traceable, or has become unavailable to the reasoning process.
 
-Reasoning under projection is therefore not an edge case. It is the ordinary condition of AI systems operating over bounded context, retrieval, tools, summaries, and metrics. The admissibility question is whether such systems can preserve the difference between what their representations determine, what they can reconstruct, what they can merely trace, and what they have lost, while also distinguishing informational support from operational permission to continue.
+Reasoning under projection is therefore not an edge case. It is the ordinary condition of AI systems operating over bounded context, retrieval, tools, summaries, metrics, memory, inherited procedures, and reusable reasoning scaffolds. The admissibility question is whether such systems can preserve the difference between what their representations determine, what they can reconstruct, what they can merely trace, and what they have lost, while also distinguishing informational support from operational permission to continue. In particular, preservation of a usable reasoning operation should not be mistaken for preservation of the contextual dependencies that license its application.
 
 The framework is necessarily relative to the dependency structure currently represented for the query. It can identify when a claim has stronger form than its represented support permits, but it cannot assume that every material dependency was known when reasoning began. Practical progress may also consist in discovering that the original question was misframed, that two concepts must remain separate, that a source dependency was hidden, or that a proposed action requires an additional constraint. Such discoveries revise the structure to which admissibility is applied.
 
