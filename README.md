@@ -1,10 +1,10 @@
-# Reasoning Under Projection
+# Structural Reliability Under Projection
 
 AI systems can fail not only because they reason incorrectly, but because they reason from compressed representations that no longer preserve the distinctions required by the claim, decision, explanation, or action being produced.
 
 This repository contains the paper:
 
-**Reasoning Under Projection: Structural Failure Modes and the Admissibility Framework**
+**Structural Reliability Under Projection: Representational Loss, Reconstructibility, and Admissibility**
 
 ---
 
@@ -37,6 +37,18 @@ The question is not whether a representation is complete. The question is whethe
 When the required distinction survives projection, the system can reason over it. When it does not survive, the system must change the information basis or change the answer form. It may qualify the claim, branch over assumptions, request additional information, route to an appropriate source, weaken the answer, or refuse the requested inference. What it should not do is present the missing distinction as though it had been recovered from the current representation.
 
 The dependency structure relevant to a query should not be treated as fixed or necessarily complete. Inquiry may reveal that the original question collapsed several questions, that two terms must remain distinct, that an action requires a separate authority or validity judgment, or that a previously known concern constrains a new claim. The framework therefore applies to the dependencies currently represented as material while allowing that later inquiry may revise that structure.
+
+---
+
+## Target Formation and Projection
+
+The paper distinguishes two stages that can introduce loss. A richer field of potentially relevant state may first be narrowed into the state treated as the target of reasoning, and that target is then projected into the operative representation:
+
+`F → S_Γ → R`
+
+This separates **target-selection loss**, where a material distinction is excluded when the reasoning target is formed, from **representational loss**, where the target contains the distinction but the operative representation fails to preserve or boundedly reconstruct it.
+
+These failures require different repairs. Improving the representation may fix representational loss while leaving an incorrectly bounded target unchanged.
 
 ---
 
@@ -78,6 +90,8 @@ The boundary between reconstructible and traceable is especially important. A ci
 A claim may depend on several distinctions, and those dependencies may have different statuses. Dependency status is therefore better understood as a profile over the claim’s relevant dependencies rather than as one global scalar label. A claim-level description such as **mixed** indicates that this profile is nonuniform; it is not necessarily a fifth primitive status.
 
 Response-form selection must preserve the weaker or unresolved dependencies relevant to the claim rather than compressing the entire profile into an unjustifiably strong status.
+
+The paper also distinguishes the **structural role** of a dependency from its status. A dependency may function as an **invariant**, a **selector**, or an **operator**. Structural type and dependency status are orthogonal: for example, an invariant may be preserved while an operator condition is merely traceable. This matters because a system may preserve enough structure to execute a procedure while losing the conditions that establish whether applying that procedure is appropriate.
 
 The dependency profile is stage-relative. Later inquiry may add, split, relate, narrow, or reject dependencies. Such revisions should be explicit, and newly represented constraints should be allowed to alter subsequent claim and action licensing.
 
@@ -128,6 +142,8 @@ The framework distinguishes three related but non-identical things:
 Practical systems do not have direct access to actual status in every case. They act through imperfect assessments. Evaluation should therefore consider both whether the assessed status is accurate and whether the answer form faithfully reflects that assessment.
 
 When status assessment is uncertain, the system should preserve that uncertainty rather than silently promoting the claim to a stronger status.
+
+The framework is also subject to its own projection limits. Successful execution of an admissibility procedure does not certify that every condition governing its applicability was represented. This **Self-Application Non-Certification** principle limits what the framework claims without undermining its practical value.
 
 ---
 
@@ -203,7 +219,7 @@ This paper is intended for researchers, engineers, and practitioners working on:
 
 ## Scope
 
-This work presents a conceptual and diagnostic framework rather than a specific implemented or evaluated system.
+This work presents a conceptual and diagnostic framework rather than a specific implemented or empirically evaluated system.
 
 The paper explains why some reasoning failures are representational rather than merely inferential, why local coherence is not the same as structural support, and why output-level correctness can miss failures caused by projection.
 
@@ -229,7 +245,7 @@ If you find this work useful, you can cite it as:
 
 ```text
 Brian Cameron.
-Reasoning Under Projection: Structural Failure Modes and the Admissibility Framework.
+Structural Reliability Under Projection: Representational Loss, Reconstructibility, and Admissibility.
 2026.
 ```
 
