@@ -213,7 +213,7 @@ This paper is intended for researchers, engineers, and practitioners working on:
 
 ## Repository Contents
 
-* [`01-reasoning-under-projection.pdf`](01-reasoning-under-projection.pdf) — the full paper.
+* [`01-reconstructibility-under-projection.pdf`](01-reconstructibility-under-projection.pdf) — the full paper.
 
 ---
 
