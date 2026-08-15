@@ -12,7 +12,7 @@
 Representational Loss, Reconstructibility, and Admissibility}
 
 \author{Brian Cameron}
-\date{August 14, 2026}
+\date{August 15, 2026}
 
 \begin{document}
 
@@ -52,6 +52,8 @@ This licensing relation has two conceptually distinct aspects. The first is quer
 As a running example, consider an AI assistant used during a security incident. It receives a compressed summary of logs, deployment history, alerts, and recent configuration changes. The assistant produces a clear root-cause explanation and recommends a fix. The reasoning may appear locally coherent: it cites the deployment, explains the failure, and proposes remediation. However, the compressed representation may not preserve the distinction between a deploy-triggered bug, a dependency outage, a configuration interaction, and telemetry loss caused by reduced logging. If the available representation cannot distinguish these states, then the assistant has not merely made an error. It has produced a determinate explanation from a representation that does not support one. Even if the assistant could support a diagnostic claim, the proposed fix would require a separate operational judgment: whether the intervention is authorized, reversible, locally bounded, and valid under the current incident regime. Informational support for the diagnosis does not by itself license the action.
 
 More generally, the problem can be understood as one of invariant preservation under projection. A claim remains admissible only when the distinctions on which it depends are preserved, boundedly reconstructible, or explicitly marked as unavailable. Projection is dangerous not because it compresses, but because it can collapse the invariants required by a downstream claim while leaving the answer form unchanged. Good reasoning under projection therefore requires preserving the dependency structure needed by the claim, or changing the response form when that structure no longer survives.
+
+A loss-relevant dependency need not determine the factual answer directly. A projection may preserve every distinction required to recover a factual endpoint while erasing structure required to determine how the surviving information is permitted to participate in downstream reasoning. Factual sufficiency and governance sufficiency may therefore diverge while remaining instances of the same query-relative projection problem.
 
 The dependency structure required by a query should not be understood as fixed, complete, or necessarily known before reasoning begins. Practical inquiry may reveal that the original question collapsed several questions, that a familiar term has incompatible meanings, that an action requires a separate authority or validity judgment, or that an existing concern bears upon a claim not previously associated with it. The present framework therefore applies to the dependencies currently represented as material to the query, while allowing that later inquiry may revise that structure.
 
@@ -105,6 +107,8 @@ The distinction matters because support should retain its basis. A conclusion ma
 \]
 
 Treating all three as merely ``represented'' would preserve their presence while collapsing the epistemic role each one actually plays.
+
+The same principle applies within provenance and source use. Preserving a source and its factual content does not necessarily preserve the role that source was permitted to play. Information may, for example, be permitted to support a hypothesis, challenge a conclusion, or trigger verification without being permitted to select an operational parameter directly. Such role distinctions are themselves dependencies that projection may preserve, collapse, or erase.
 
 \subsection{Projection as Compression}
 
@@ -598,11 +602,15 @@ In particular, the system must not collapse:
     \item a representation with the underlying system it represents,
     \item a proxy or metric with the target property it measures,
     \item a provenance pointer with recoverable source support,
+    \item provenance that a source participated in producing a result with permission for that source to determine the result in the role it played,
     \item an intermediate reasoning state with a final conclusion,
     \item a selected explanation with the full set of explanations consistent with the representation,
     \item persistence of a reasoning operation with preservation of the conditions that license its use,
     \item a local component-level judgment with a claim about the composed system.
 \end{itemize}
+
+In particular, provenance and permission should not be collapsed. A representation may preserve which source, rule, or commitment participated in selecting an outcome while failing to preserve whether that determinant was licensed to play that role. The result may therefore remain traceable without remaining sufficient for the governance judgment that depends on the missing
+source--target--role relation.
 
 The same distinction applies to reusable reasoning operations. A representation may preserve enough structure to execute a heuristic, procedure, scaffold, or transformation without preserving the context in which that operation was originally justified. Executability is therefore a property of the represented operator, while applicability is a dependency claim about the relation between that operator and the present state. Collapsing these levels allows a successfully preserved method to acquire unwarranted authority merely because it remains usable.
 
@@ -839,7 +847,7 @@ The present paper specifies the structural failure mode rather than a complete i
 
 Evaluation should therefore test not only whether a system reaches a target answer, but whether it changes behavior appropriately as the representation changes. One natural benchmark pattern is to compare compressed and enriched versions of the same task: when the compressed representation does not preserve the distinction required by the query, the system should avoid unsupported determinacy; when the enriched representation restores the distinction, the system should become correspondingly more decisive. This tests whether the system distinguishes representational loss from ordinary error rather than merely becoming more cautious.
 
-These boundaries correspond to an intentional division of labor across the stack. Paper~2 supplies the formal necessity, independence, and bounded sufficiency results for the reconstructibility conditions~\cite{Cameron2026P2}. Paper~4 turns dependency status and operational validity into explicit runtime response-form governance~\cite{Cameron2026P4}. Paper~5 operationalizes projection-sensitive behavior through a structural evaluation harness, including matched changes in representation and response form~\cite{Cameron2026P5}. The present paper therefore need not duplicate those formal, protocol, or empirical layers in order to state the conceptual licensing problem they develop.
+These boundaries correspond to an intentional division of labor across the stack. Paper~2 supplies the formal necessity, independence, and bounded sufficiency results for the reconstructibility conditions. Paper~4 turns dependency status and operational validity into explicit runtime response-form governance. Paper~5 operationalizes projection-sensitive behavior through a structural evaluation harness, including matched changes in representation and response form. The present paper therefore need not duplicate those formal, protocol, or empirical layers in order to state the conceptual licensing problem they develop.
 
 \subsection{Self-Application Non-Certification}
 
@@ -878,6 +886,8 @@ The central error analyzed in this paper is misclassifying representational loss
 The proposed dependency-status taxonomy---preserved, reconstructible, traceable, and opaque---does not guarantee correctness and is not intended as a total ordering of epistemic states. It is an operational partition reflecting two separable questions: whether the required distinction remains directly available or boundedly recoverable, and whether an accountable dependency trail remains when recovery fails. Those statuses constrain answer form: direct when support is preserved, procedural when it is reconstructible, trace-marked or qualified when recovery fails but attribution remains, and blocked, expanded, or rerouted when the dependency is opaque.
 
 The same discipline applies to the basis of support itself. Evidence, background assumptions or priors, and policy or decision commitments may all appear in the operative representation, but they do not perform the same epistemic role. A prior-supported preference should not be reported as evidence-determined, and a policy-selected action should not acquire evidential support merely because it is licensed to proceed. For actions and continuations, dependency support therefore remains distinct from operational permission and later selection.
+
+The same separation applies to provenance of selection itself. Knowing which source or commitment determined an outcome does not by itself establish that the determinant was licensed to play that role; that licensing relation may itself be lost under projection even when the endpoint and its provenance survive.
 
 Reasoning under projection is therefore not an edge case. It is the ordinary condition of AI systems operating over bounded context, retrieval, tools, summaries, metrics, memory, inherited procedures, and reusable reasoning scaffolds. The admissibility question is whether such systems can preserve the difference between what their representations determine, what they can reconstruct, what they can merely trace, and what they have lost, while also distinguishing informational support from operational permission to continue. In particular, preservation of a usable reasoning operation should not be mistaken for preservation of the contextual dependencies that license its application. Nor should successful execution of the admissibility framework itself be treated as certification that those dependencies were completely represented. The framework is recursively subject to projection: it can govern what is visible to it without guaranteeing that everything material has become visible.
 
