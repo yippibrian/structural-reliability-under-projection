@@ -567,6 +567,8 @@ The important point is not that correction must be small in a purely computation
 
 It is useful to distinguish two cases. In correction within $R$, the query is identifiable under the current representation and the system revises an incorrect answer using distinctions already available in $R$. In correction by refinement, the system explicitly moves from $R$ to a richer or different representation $R'$ by obtaining new information, adding a stated assumption, retrieving a source, or exposing metadata that was not previously represented. The second case may be admissible, but it is not correction within the original representation. It is bounded only if the transition from $R$ to $R'$ is explicit and the new information basis is marked. Thus bounded correction does not mean that a representation can never change. It means that correction must not silently change the information basis of the representation while presenting the result as if it followed from the original $R$.
 
+A related consequence applies when reasoning under unresolved representational uncertainty must guide intervention rather than merely revise a claim. Bounded correction does not itself determine which action should be preferred, since action selection may depend on utilities, policies, authority, and other decision commitments not supplied by the represented evidence. It does, however, expose a structural difference among otherwise admissible actions. When the current representation leaves loss-relevant distinctions unresolved, an action that preserves observability, reversibility, and a bounded path for subsequent correction retains capabilities that an irreversible intervention may destroy. Thus uncertainty about the adequacy of the current representation can support a preference, under an explicitly declared decision rule, for interventions whose consequences remain detectable, attributable, and boundedly revisable. This is an interventional consequence of bounded correction rather than an extension of evidential support: it constrains how strongly a system commits under unresolved loss without determining the substantive value or policy according to which the action is selected~\cite{Fist2026}.
+
 Without bounded correction, a system may appear to repair an error while actually importing information not present in the representation, thereby simulating access to the original state space $S$.
 
 This requirement separates valid correction from implicit reconstruction. If correcting a result requires unsupported new assumptions, wholesale replacement of the representation, or unbounded reconstruction of the problem state, then the issue is no longer ordinary error correction. It is either representational loss or a representation failure.
@@ -898,7 +900,7 @@ The central error analyzed in this paper is misclassifying representational loss
 
 The proposed dependency-status taxonomy---preserved, reconstructible, traceable, and opaque---does not guarantee correctness and is not intended as a total ordering of epistemic states. It is an operational partition reflecting two separable questions: whether the required distinction remains directly available or boundedly recoverable, and whether an accountable dependency trail remains when recovery fails. Those statuses constrain answer form: direct when support is preserved, procedural when it is reconstructible, trace-marked or qualified when recovery fails but attribution remains, and blocked, expanded, or rerouted when the dependency is opaque.
 
-The same discipline applies to the basis of support itself. Evidence, background assumptions or priors, and policy or decision commitments may all appear in the operative representation, but they do not perform the same epistemic role. A prior-supported preference should not be reported as evidence-determined, and a policy-selected action should not acquire evidential support merely because it is licensed to proceed. For actions and continuations, dependency support therefore remains distinct from operational permission and later selection.
+The same discipline applies to the basis of support itself. Evidence, background assumptions or priors, and policy or decision commitments may all appear in the operative representation, but they do not perform the same epistemic role. A prior-supported preference should not be reported as evidence-determined, and a policy-selected action should not acquire evidential support merely because it is licensed to proceed. For actions and continuations, dependency support therefore remains distinct from operational permission and later selection. Where unresolved representational uncertainty remains, bounded correction nevertheless has an interventional consequence: among actions selected under an explicit policy or decision rule, preserving observability, reversibility, and bounded fallback capacity can preserve the possibility of later correction without pretending that the evidence itself selected the action.
 
 The same separation applies to provenance of selection itself. Knowing which source or commitment determined an outcome does not by itself establish that the determinant was licensed to play that role; that licensing relation may itself be lost under projection even when the endpoint and its provenance survive.
 
@@ -950,6 +952,11 @@ Edmund M. Clarke, Orna Grumberg, Somesh Jha, Yuan Lu, and Helmut Veith.
 Patrick Cousot and Radhia Cousot.
 \newblock Abstract interpretation: A unified lattice model for static analysis of programs by construction or approximation of fixpoints.
 \newblock POPL, 1977.
+
+\bibitem{Fist2026}
+Tim Fist, Saif Khan, Tao Burga, Arthur Tellis, Ben Schifman, Jonah Weinbaum, and Olivia Scharfman.
+\newblock How Should the US Prepare for Increasingly Automated AI R\&D? 23 Low-Regret Policy Recommendations.
+\newblock Institute for Progress, August 6, 2026.
 
 \bibitem{GeifmanElYaniv2017}
 Yonatan Geifman and Ran El-Yaniv.
