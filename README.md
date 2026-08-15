@@ -175,6 +175,19 @@ Benchmarks can compare paired tasks that differ only in whether the query-releva
 
 Longer-form evaluation can test whether a system updates its dependency structure when a new material distinction is introduced and whether later responses continue to respect the consequences of that revision.
 
+### Empirical Vulnerability
+
+The formal non-identifiability result is conditional on the stated representational assumptions. A separate empirical question is whether the framework's distinctions provide useful explanations or predictions for actual reasoning systems.
+
+Evidence against the practical importance of the framework would include:
+
+* failure to observe meaningful behavioral differences between preserved, reconstructible, traceable, and opaque dependency conditions under independently designed evaluation;
+* failure of controlled representation enrichment to produce the predicted change in licensed answer form;
+* failure of relational or dependency structure to add diagnostic value beyond component-level information; or
+* repeated external cases in which the framework's distinctions provide no useful explanatory or corrective advantage over simpler existing accounts.
+
+Such findings would not invalidate the elementary non-identifiability result itself, but they would weaken the claim that reconstructibility under projection identifies a practically important structure of AI reasoning failure.
+
 ---
 
 ## AI Safety and Security Relevance
