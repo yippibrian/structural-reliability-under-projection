@@ -34,6 +34,16 @@ A representation may preserve some distinctions while losing others. For example
 
 The question is not whether a representation is complete. The question is whether it preserves the distinctions required by the claim being made.
 
+The operative representation also need not be the system's entire persistent reasoning state. A system may preserve a richer external state containing history, dependencies, provenance, alternatives, and lifecycle information while retrieving only the bounded portion relevant to the current query. That retrieved context is still a projection of the richer state:
+
+```text
+persistent represented state
+    is not
+current operative representation
+```
+
+Persistence therefore does not eliminate projection. It can make projection more explicit and revisitable by preserving a richer source from which later bounded views can be reconstructed.
+
 When the required distinction survives projection, the system can reason over it. When it does not survive, the system must change the information basis or change the answer form. It may qualify the claim, branch over assumptions, request additional information, route to an appropriate source, weaken the answer, or refuse the requested inference. What it should not do is present the missing distinction as though it had been recovered from the current representation.
 
 The dependency structure relevant to a query should not be treated as fixed or necessarily complete. Inquiry may reveal that the original question collapsed several questions, that two terms must remain distinct, that an action requires a separate authority or validity judgment, or that a previously known concern constrains a new claim. The framework therefore applies to the dependencies currently represented as material while allowing that later inquiry may revise that structure.
@@ -49,6 +59,12 @@ The paper distinguishes two stages that can introduce loss. A richer field of po
 This separates **target-selection loss**, where a material distinction is excluded when the reasoning target is formed, from **representational loss**, where the target contains the distinction but the operative representation fails to preserve or boundedly reconstruct it.
 
 These failures require different repairs. Improving the representation may fix representational loss while leaving an incorrectly bounded target unchanged.
+
+The richer source of a projection need not always be an inaccessible world state. It may itself be an explicit persistent reasoning state. In that case, a bounded query-relative retrieval can be written schematically as:
+
+`B → R_q`
+
+where `B` is the richer persistent state and `R_q` is the operative representation assembled for query `q`. This does not create projection-free reasoning; it changes where projection occurs and can make recovery easier because the richer source remains available.
 
 ---
 
@@ -105,7 +121,7 @@ The paper identifies three structural requirements for reasoning under projectio
    The system must preserve or expose detectable signs that a required distinction may be missing, ambiguous, collapsed, or dependent on assumptions not encoded in the representation.
 
 2. **Bounded correction**
-   The system must distinguish correction within the current representation from unbounded reconstruction, hidden assumption import, or replacement of the information basis.
+   The system must distinguish bounded repair from global recomputation, unbounded replay, hidden assumption import, or unbounded or unmarked replacement of the information basis. A bounded and explicit transition to a richer or differently structured representation may itself be part of correction when it remains within the declared regime.
 
 3. **Non-collapse of distinct levels**
    The system must not treat different representational roles as interchangeable, such as confusing a representation with the underlying system, an intermediate reasoning state with a final conclusion, or a selected explanation with the full set of explanations consistent with the evidence.
@@ -125,6 +141,7 @@ A system reasoning under projection should:
 * mark traceable dependencies without treating them as recovered;
 * avoid collapsing distinct causal, evidential, temporal, institutional, or operational levels;
 * revise the represented dependency structure explicitly when new material constraints are discovered;
+* use bounded retrieval or representation change explicitly when the current operative view is insufficient rather than pretending the missing distinction was already present;
 * select an answer form licensed by dependency status and operational validity.
 
 The goal is not blanket abstention. The goal is answer-form discipline. A system should answer directly when the representation supports the claim, reconstruct when bounded recovery is available, qualify or route traceable dependencies, and refuse or reformulate claims whose dependencies are opaque.
@@ -158,6 +175,10 @@ If a richer representation restores a distinction that was collapsed in a compre
 ### Traceability Is Not Reconstruction
 
 Adding a citation, source pointer, provenance marker, or tool trace should not be treated as sufficient support unless the representation also contains enough content or recovery structure to determine the relevant claim.
+
+### Persistent-State Retrieval Sensitivity
+
+When a bounded operative representation is insufficient but a richer persistent state contains the missing distinction, a projection-aware system should be able to retrieve or reconstruct the needed query-relative state explicitly. Evaluation should distinguish successful bounded recovery from answers that merely behave as though the richer state had already been present in the original context.
 
 ### Answer-Form Sensitivity
 
@@ -248,7 +269,9 @@ It does not claim to:
 
 The framework applies to the dependency structure represented at a given stage of reasoning. That structure may later be revised as additional distinctions, constraints, or relationships become material. Such revisions change the information basis to which admissibility is applied and should be made explicit.
 
-Formal refinement, projection-sensitive evaluation, and implementation methods remain open areas for further work.
+The paper also permits architectures in which a richer persistent reasoning state exists outside the current model context and supplies bounded query-relative representations when needed. This is an architectural consequence of the framework, not a claim that the paper implements or empirically validates such a system.
+
+Formal refinement, projection-sensitive evaluation, persistent-state implementations, and broader empirical validation remain open areas for further work.
 
 ---
 

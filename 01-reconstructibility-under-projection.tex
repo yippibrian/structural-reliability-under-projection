@@ -12,7 +12,7 @@
 Representational Loss, Reconstructibility, and Admissibility}
 
 \author{Brian Cameron}
-\date{August 16, 2026}
+\date{August 21, 2026}
 
 \begin{document}
 
@@ -71,6 +71,28 @@ The resulting evaluation question is therefore directly relevant to AI reasoning
 
 This paper contributes a structural account of reliability under projection organized around six ideas. First, it distinguishes correctable error from query-relative representational loss. Second, it identifies a task-relative exact-sufficiency baseline against which projected representations can be understood. Third, it distinguishes loss introduced in forming the reasoning target from loss introduced when that target is subsequently represented. Fourth, it classifies dependencies both by structural role and by support status---preserved, reconstructible, traceable, or opaque. Fifth, it distinguishes actual dependency status from the status assessed and reported by a bounded reasoner, yielding a second-order limit on self-certifying admissibility procedures. Sixth, it argues that response form must weaken when dependency support weakens or when operational validity cannot be established or boundedly restored. Together these claims treat answer form as part of reasoning validity rather than merely a stylistic choice.
 
+\subsection{Relational Structure and Non-Collapse}
+
+The framework frequently represents important distinctions in paired form, but these pairs should not all be interpreted as the same kind of duality. Some represent independently necessary dimensions of admissibility, some represent operational roles that must remain distinguishable, some compare alternative transformation paths, and some are simply the smallest nontrivial instance of a more general relation among several represented states or reasoners.
+
+For example, query-relative support and operational validity are distinct licensing questions:
+
+\[
+\text{informational support}
+\neq
+\text{operational permission}.
+\]
+
+Evidence, background assumptions, and policy constraints are instead distinct support roles within one operative information basis. Target formation and representational projection are distinct transformations in a composed process. Elsewhere in the framework, two reasoners or two reasoning bundles may be used as the smallest illustrative case even though the relevant structure extends to
+
+\[
+R_1,\ldots,R_n.
+\]
+
+The common principle is therefore not binary structure as such. It is \emph{relational non-collapse}: when a downstream continuation depends on the distinction among states, roles, transformations, or participants, or on a material relation among them, projection should preserve or boundedly reconstruct that distinction and relation rather than silently replacing them with an undifferentiated state.
+
+Accordingly, the use of two components in an example should be understood as illustrative unless the relevant result specifically depends on a binary structure. Reconstructibility is query-relative to the distinctions and relations that matter, not to a fixed arity of the system being represented.
+
 \section{Reasoning Under Projection}
 
 To understand these failures, we must examine the conditions under which reasoning operates. In practice, reasoning systems do not operate on complete representations of the problems they address.
@@ -80,7 +102,17 @@ To understand these failures, we must examine the conditions under which reasoni
 Any reasoning process operates on a representation of the problem rather than the full underlying system. In AI systems, that representation may be a prompt, retrieved context, tool output, memory state, log summary, embedding, schema, score, or policy artifact. The question is not whether the representation is complete; it is whether it preserves the distinctions required by the claim being made.
 
 \paragraph{Operative representation in LLM systems.}
-For language models, the operative representation is not simply the user prompt. It includes the information basis available to the model for the current answer: the prompt, conversation state, retrieved passages, tool outputs, exposed memory, structured metadata, policy constraints, explicit assumptions, uncertainty markers, and any prior or background knowledge that the system is permitted to rely on for the task. This boundary is often fuzzy. The framework does not require that all internal model state be inspectable. It requires that claims be calibrated to the support that is available, exposed, or explicitly invoked in the answer. If a claim depends on latent background knowledge, an unavailable source, a hidden prior, or a tool result not present in the answer context, then that dependency should be marked rather than presented as if it were determined by the visible representation alone.
+For language models, the operative representation is not simply the user prompt. It includes the information basis available to the model for the current answer: the prompt, conversation state, retrieved passages, tool outputs, exposed memory, structured metadata, policy constraints, explicit assumptions, uncertainty markers, query-relative material retrieved from persistent external reasoning state, and any prior or background knowledge that the system is permitted to rely on for the task. This boundary is often fuzzy. The framework does not require that all internal model state be inspectable. It requires that claims be calibrated to the support that is available, exposed, or explicitly invoked in the answer. If a claim depends on latent background knowledge, an unavailable source, a hidden prior, or a tool result not present in the answer context, then that dependency should be marked rather than presented as if it were determined by the visible representation alone.
+
+A persistent reasoning store does not itself become part of the operative representation merely because it exists. Only the portion retrieved, exposed, or otherwise made available for the current reasoning step enters the immediate information basis. The larger persistent state may nevertheless improve reconstructibility by preserving distinctions that can be recovered through bounded retrieval rather than reconstructed repeatedly from compressed conversational history.
+
+\[
+\boxed{
+\text{persistent represented state}
+\neq
+\text{current operative representation}.
+}
+\]
 
 For licensing purposes, it is useful to preserve the roles played by different parts of this information basis rather than collapsing them into an undifferentiated \(R\). Where the distinction is material, write schematically
 
@@ -108,7 +140,7 @@ The distinction matters because support should retain its basis. A conclusion ma
 }
 \]
 
-Treating all three as merely ``represented'' would preserve their presence while collapsing the epistemic role each one actually plays.
+Treating all three as merely ``represented'' would preserve their presence while collapsing the epistemic role each one actually plays. This is an example of role non-collapse rather than a claim that the operative representation contains three independent agents or subsystems: the same participant or implementation may carry several such roles, provided their different licensing effects remain reconstructible.
 
 The same principle applies within provenance and source use. Preserving a source and its factual content does not necessarily preserve the role that source was permitted to play. Information may, for example, be permitted to support a hypothesis, challenge a conclusion, or trigger verification without being permitted to select an operational parameter directly. Such role distinctions are themselves dependencies that projection may preserve, collapse, or erase.
 
@@ -121,6 +153,26 @@ Formally, projection can be understood as a mapping:
 P: S \rightarrow R
 \]
 where $S$ is the full system state and $R$ is the representation used for reasoning.
+
+The richer state \(S\) need not be an inaccessible world state. It may itself be an explicit persistent reasoning representation containing more history, dependencies, provenance, alternatives, and lifecycle information than can or should be loaded for one reasoning step. In that case, query-relative retrieval from the persistent state into a bounded operative context is itself a projection:
+
+\[
+P_q:B\rightarrow R_q,
+\]
+
+where \(B\) is a richer persistent reasoning state and \(R_q\) is the bounded representation assembled for query \(q\).
+
+This architecture does not eliminate representational loss. It changes where projection occurs and can make that projection more explicit, repeatable, and reversible because the richer source state remains available for later retrieval.
+
+\[
+\boxed{
+\text{persistent state}
+\rightarrow
+\text{bounded query-relative projection}
+\neq
+\text{projection-free reasoning}.
+}
+\]
 
 In many AI settings, \(S\) should be understood as a modeled or idealized underlying state space rather than a fully specified object available to the system. The framework is therefore relative to the state model under consideration.
 
@@ -138,6 +190,8 @@ where \(F\) denotes a broader field of potentially relevant state, \(B_{\Gamma}\
 This distinction separates two structurally different sources of insufficiency. \emph{Target-selection loss} occurs when \(B_{\Gamma}\) excludes a distinction that is material to the downstream query. \emph{Representational loss} occurs when the selected state \(S_{\Gamma}\) contains the relevant distinction but \(P_{\Gamma}\) fails to preserve or boundedly reconstruct it in \(R\). The simpler notation \(P:S\rightarrow R\) used throughout this paper should therefore be understood as conditioning on a currently declared target state \(S\); it does not imply that the construction of \(S\) was itself lossless or complete.
 
 The distinction matters operationally because representation repair and target revision are not the same intervention. Enriching \(R\) may repair a lossy projection from \(S_{\Gamma}\) while leaving untouched a material distinction that was excluded when \(S_{\Gamma}\) was formed. Conversely, revising the target boundary may reveal that a previously adequate projection was answering the wrong or incomplete question.
+
+This is a distinction between stages of transformation rather than between independent reasoners. The two mappings are separated because failure at \(B_\Gamma\) and failure at \(P_\Gamma\) require different diagnoses and different repairs. Their appearance as a two-stage diagram should therefore not be generalized into a claim that reconstructible reasoning is inherently organized into pairs.
 
 Multiple distinct states in $S$ may map to the same representation in $R$.
 
