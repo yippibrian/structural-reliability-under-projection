@@ -12,7 +12,7 @@
 Representational Loss, Reconstructibility, and Admissibility}
 
 \author{Brian Cameron}
-\date{August 21, 2026}
+\date{August 24, 2026}
 
 \begin{document}
 
@@ -767,7 +767,13 @@ This does not mean optimization, prompting, or evaluation are misguided. It mean
 
 The argument in this paper overlaps with several established lines of work. In statistics and causal inference, identifiability asks whether a target quantity can be determined from the available observational structure~\cite{Pearl2009}. In statistical decision theory, comparison of experiments and sufficiency ask when one signal or observation preserves enough information for a class of decisions~\cite{Blackwell1953}. In partially observable decision processes, agents must act over incomplete state representations~\cite{Kaelbling1998}. Work on state abstraction evaluates compressed states according to whether they preserve value-, policy-, reward-, transition-, or model-relevant properties~\cite{Li2006}. In formal methods and abstract interpretation, abstraction maps concrete states into reduced domains while preserving selected properties~\cite{CousotCousot1977}; counterexample-guided abstraction refinement studies how an abstraction may be refined when it is too coarse for the property being checked~\cite{Clarke2000CEGAR}. In information-theoretic approaches such as the information bottleneck, compressed representations are evaluated by the task-relevant information they retain~\cite{Tishby1999}.
 
+The term \emph{reconstructability} also has an established systems-theoretic use in Reconstructability Analysis (RA), developed from Ashby's constraint analysis and subsequently systematized by Klir and others~\cite{KlirWay1985,Klir1986RA}. RA studies relations between systems perceived as wholes and their subsystems, including identification of possible whole-system structures from subsystem relations and determination of subsystem structures from which a whole can be reconstructed to an acceptable approximation. The present framework addresses a different reconstruction problem. Given a projection used by a bounded reasoner, it asks whether the distinctions required by a particular downstream claim remain preserved or boundedly reconstructible and, when they do not, how the licensed response form must change. Thus RA primarily concerns reconstruction of system structure from relational decomposition, whereas reconstructibility under projection concerns query-relative claim licensing under representational loss.
+
 A particularly close neighboring framework is partial identification, which studies what can be learned when available observations and maintained assumptions identify a set of possible values rather than a unique value~\cite{Manski2003,Manski2008}. The present account shares partial identification's refusal to treat observational equivalence as point determination. Its additional concern is operational: dependency status distinguishes whether a query-relevant distinction is directly preserved, boundedly reconstructible, merely traceable, or opaque, and uses that status to constrain the form in which a reasoning system may answer. Partial-identification bounds characterize the set of values compatible with an information structure and maintained assumptions; the dependency-status framework additionally records what kind of support or recovery path licenses a response and how the system should behave when such support is unavailable.
+
+Another close neighboring literature concerns awareness and unawareness in epistemic logic. Fagin and Halpern distinguish ordinary limitations of belief from cases in which an agent must first be aware of a concept before beliefs concerning it are available to the agent~\cite{FaginHalpern1987}. This is closely related to, but not identical with, the distinction between traceable and opaque dependency loss developed here. A traceable dependency preserves enough meta-structure for the reasoner to represent that a potentially material dependency exists even though the underlying distinction cannot presently be recovered. In the opaque case, no adequate attributable dependency trail remains within the operative representation. Thus the difference between ``the relevant distinction is unavailable'' and ``the representation does not make the missing dependency available as something to ask about'' is structurally important.
+
+The present framework adds a query-relative operational consequence to this distinction. Awareness and unawareness logics primarily characterize limits on what propositions or concepts are available to an agent's epistemic state. Reconstructibility under projection asks additionally what response form is licensed when a query depends on such unavailable structure. Traceability may still license marking, qualification, routing, or representation expansion; opacity cannot silently be promoted into determinate support merely because the reasoner fails to represent what was lost.
 
 The framework also overlaps with selective prediction, abstention, conformal prediction, and hallucination detection. Selective classification and reject-option methods study when a predictor should abstain rather than answer, often by optimizing a risk--coverage tradeoff~\cite{GeifmanElYaniv2017,GeifmanElYaniv2019}. Conformal prediction provides calibrated prediction sets or uncertainty guarantees under distributional assumptions such as exchangeability~\cite{Vovk2005,Shafer2008}. Work on hallucination in natural-language generation and large language models studies unsupported or fabricated generated content, including methods for detecting inconsistency or unsupported factual claims~\cite{Ji2023,Manakul2023}. The present framework is complementary to these literatures: it focuses on whether the operative representation preserves the distinction required by the requested claim and, therefore, whether the answer form is licensed by dependency status rather than confidence alone.
 
@@ -1011,6 +1017,11 @@ Patrick Cousot and Radhia Cousot.
 \newblock Abstract interpretation: A unified lattice model for static analysis of programs by construction or approximation of fixpoints.
 \newblock POPL, 1977.
 
+\bibitem{FaginHalpern1987}
+Ronald Fagin and Joseph Y. Halpern.
+\newblock Belief, Awareness, and Limited Reasoning.
+\newblock {\em Artificial Intelligence}, 34(1):39--76, 1987.
+
 \bibitem{Fist2026}
 Tim Fist, Saif Khan, Tao Burga, Arthur Tellis, Ben Schifman, Jonah Weinbaum, and Olivia Scharfman.
 \newblock How Should the US Prepare for Increasingly Automated AI R\&D? 23 Low-Regret Policy Recommendations.
@@ -1035,6 +1046,16 @@ Charles Goodhart.
 Leslie Pack Kaelbling, Michael L. Littman, and Anthony R. Cassandra.
 \newblock Planning and acting in partially observable stochastic domains.
 \newblock Artificial Intelligence, 1998.
+
+\bibitem{KlirWay1985}
+George J. Klir and Eileen C. Way.
+\newblock Reconstructability Analysis: Aims, Results, Open Problems.
+\newblock {\em Systems Research}, 2:141--163, 1985.
+
+\bibitem{Klir1986RA}
+George J. Klir.
+\newblock Reconstructability Analysis: An Offspring of Ashby's Constraint Analysis.
+\newblock {\em Systems Research}, 3:267--271, 1986.
 
 \bibitem{Li2006}
 Lihong Li, Thomas J. Walsh, and Michael L. Littman.
