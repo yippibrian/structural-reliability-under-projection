@@ -20,6 +20,12 @@ This produces a recurring failure mode:
 
 The result may be fluent, coherent, and persuasive while still lacking structural support. Examples include unsupported root-cause attribution, hallucinated source support, unsafe action under missing state, and metric-driven proxy success.
 
+The paper's main operational claim is:
+
+> **Structural insufficiency should change the available epistemic operations, not merely confidence.**
+
+The underlying identifiability question is only the starting point. Once the support available for a query has been characterized, the framework asks what the system is licensed to do next: infer directly, reconstruct, retrieve, request, qualify, route, defer, or refuse the requested form.
+
 ---
 
 ## Core Idea
@@ -44,7 +50,7 @@ current operative representation
 
 Persistence therefore does not eliminate projection. It can make projection more explicit and revisitable by preserving a richer source from which later bounded views can be reconstructed.
 
-When the required distinction survives projection, the system can reason over it. When it does not survive, the system must change the information basis or change the answer form. It may qualify the claim, branch over assumptions, request additional information, route to an appropriate source, weaken the answer, or refuse the requested inference. What it should not do is present the missing distinction as though it had been recovered from the current representation.
+When the required distinction survives projection, the system can reason over it. When it does not survive, structural insufficiency should change the epistemic operations available to the system, not merely lower confidence. Depending on what support remains, the system may reconstruct a boundedly recoverable distinction, retrieve or request missing support, qualify the claim, branch over assumptions, route to an appropriate source, weaken the answer, or refuse the requested inference. What it should not do is present the missing distinction as though it had been recovered from the current representation.
 
 The dependency structure relevant to a query should not be treated as fixed or necessarily complete. Inquiry may reveal that the original question collapsed several questions, that two terms must remain distinct, that an action requires a separate authority or validity judgment, or that a previously known concern constrains a new claim. The framework therefore applies to the dependencies currently represented as material while allowing that later inquiry may revise that structure.
 
@@ -86,12 +92,12 @@ Treating loss as error encourages overconfident answers, hallucinated support, a
 
 The paper introduces a dependency-status ladder for reasoning under projection. For a claim depending on some distinction, the system should determine what kind of support the current representation provides for that distinction.
 
-| Status          | Support in the representation           | Licensed answer forms                           |
+| Status          | Support in the representation           | Licensed epistemic operations                   |
 | --------------- | --------------------------------------- | ----------------------------------------------- |
-| Preserved       | Distinction directly represented        | Direct answer, ordinary correction              |
-| Reconstructible | Bounded recovery path available         | Reconstruction, procedural answer               |
-| Traceable       | Dependency recorded but not recoverable | Mark, qualify, route, audit                     |
-| Opaque          | Dependency unavailable or unauditable   | Request expansion, route, defer, or refuse form |
+| Preserved       | Distinction directly represented        | Direct inference, ordinary correction           |
+| Reconstructible | Bounded recovery path available         | Reconstruct, then infer                         |
+| Traceable       | Dependency recorded but not recoverable | Retrieve, request, qualify, route, trace, audit |
+| Opaque          | Dependency unavailable or unauditable   | Expose insufficiency, expand, defer, or refuse  |
 
 A distinction is **preserved** when it is directly represented in a form sufficient for the query.
 
@@ -105,7 +111,7 @@ The boundary between reconstructible and traceable is especially important. A ci
 
 A claim may depend on several distinctions, and those dependencies may have different statuses. Dependency status is therefore better understood as a profile over the claim’s relevant dependencies rather than as one global scalar label. A claim-level description such as **mixed** indicates that this profile is nonuniform; it is not necessarily a fifth primitive status.
 
-Response-form selection must preserve the weaker or unresolved dependencies relevant to the claim rather than compressing the entire profile into an unjustifiably strong status.
+Operation and response-form selection must preserve the weaker or unresolved dependencies relevant to the claim rather than compressing the entire profile into an unjustifiably strong status. The four statuses are therefore not merely confidence levels: they correspond to different sets of epistemic operations that the representation licenses.
 
 The paper also distinguishes the **structural role** of a dependency from its status. A dependency may function as an **invariant**, a **selector**, or an **operator**. Structural type and dependency status are orthogonal: for example, an invariant may be preserved while an operator condition is merely traceable. This matters because a system may preserve enough structure to execute a procedure while losing the conditions that establish whether applying that procedure is appropriate.
 
@@ -142,21 +148,23 @@ A system reasoning under projection should:
 * avoid collapsing distinct causal, evidential, temporal, institutional, or operational levels;
 * revise the represented dependency structure explicitly when new material constraints are discovered;
 * use bounded retrieval or representation change explicitly when the current operative view is insufficient rather than pretending the missing distinction was already present;
-* select an answer form licensed by dependency status and operational validity.
+* select an epistemic operation and associated response form licensed by dependency status;
+* separately check whether any proposed action or continuation is operationally permitted under the declared regime.
 
-The goal is not blanket abstention. The goal is answer-form discipline. A system should answer directly when the representation supports the claim, reconstruct when bounded recovery is available, qualify or route traceable dependencies, and refuse or reformulate claims whose dependencies are opaque.
+The goal is not blanket abstention. The goal is operation discipline. A system should infer directly when support is preserved, reconstruct when bounded recovery is available, retrieve, request, qualify, or route when a dependency is traceable, and expose insufficiency, defer, or reformulate when the dependency is opaque. Structural insufficiency should alter what the system does epistemically, not merely how confident it sounds.
 
 ---
 
 ## Dependency-Status Assessment
 
-The framework distinguishes three related but non-identical things:
+The framework distinguishes three related but non-identical status judgments and then treats operation or action selection separately:
 
 * **Actual dependency status** — the support a dependency really has relative to the query, operative representation, and reasoning regime.
 * **Assessed dependency status** — the status inferred by the reasoning system.
 * **Reported dependency status** — the status communicated in the resulting answer or reasoning artifact.
+* **Selected operation or action** — what the system actually does based on its assessment and any additional policy, authority, utility, safety, or operational constraints.
 
-Practical systems do not have direct access to actual status in every case. They act through imperfect assessments. Evaluation should therefore consider both whether the assessed status is accurate and whether the answer form faithfully reflects that assessment.
+Practical systems do not have direct access to actual status in every case. They act through imperfect assessments. Evaluation should therefore distinguish assessment failure, reporting failure, and action-governance failure. A system may faithfully act on a mistaken assessment, or it may correctly recognize limited support yet still select an operation that its own assessment does not license.
 
 When status assessment is uncertain, the system should preserve that uncertainty rather than silently promoting the claim to a stronger status.
 
@@ -180,13 +188,13 @@ Adding a citation, source pointer, provenance marker, or tool trace should not b
 
 When a bounded operative representation is insufficient but a richer persistent state contains the missing distinction, a projection-aware system should be able to retrieve or reconstruct the needed query-relative state explicitly. Evaluation should distinguish successful bounded recovery from answers that merely behave as though the richer state had already been present in the original context.
 
-### Answer-Form Sensitivity
+### Operation Sensitivity
 
-Evaluation should consider not only whether an answer is plausible, but whether its form is licensed by the dependency status of the claim.
+Evaluation should consider not only whether an answer is plausible, but whether the epistemic operation used to produce or replace it is licensed by the dependency status of the claim. A reconstructible case should permit bounded reconstruction; a traceable case may call for retrieval, request, qualification, or routing; an opaque case should not be silently treated as determinate.
 
-### Assessment and Reporting Fidelity
+### Assessment, Reporting, and Governance Fidelity
 
-Evaluation should distinguish errors in dependency-status assessment from errors in response-form reporting. A system may underestimate or overestimate the support available to it, or it may correctly recognize limited support but still produce an answer whose form overstates that support.
+Evaluation should distinguish errors in dependency-status assessment from errors in reporting and operation selection. A system may underestimate or overestimate the support available to it, may correctly recognize limited support but report a stronger status, or may report the limitation accurately while nevertheless taking an action that presupposes stronger support.
 
 ### Compressed/Enriched Diagnostic Contrast
 
@@ -223,7 +231,7 @@ The framework is intended to help analyze failures such as:
 * user-modeling or Theory-of-Mind-like claims that overstate what can be inferred from partial interaction traces;
 * metric-driven proxy success that hides loss of the target structure.
 
-The central safety question is whether a system can distinguish what its representation determines, what it can reconstruct, what it can merely trace, and what it has lost.
+The central safety question is whether a system can distinguish what its representation determines, what it can reconstruct, what it can merely trace, and what it has lost---and then bind that structural assessment to the inference, retrieval, reporting, or action operations it is permitted to perform.
 
 ---
 
@@ -255,7 +263,7 @@ This paper is intended for researchers, engineers, and practitioners working on:
 
 This work presents a conceptual and diagnostic framework rather than a specific implemented or empirically evaluated system.
 
-The paper explains why some reasoning failures are representational rather than merely inferential, why local coherence is not the same as structural support, and why output-level correctness can miss failures caused by projection.
+The paper explains why some reasoning failures are representational rather than merely inferential, why local coherence is not the same as structural support, and why output-level correctness can miss failures caused by projection. Its central operational claim is that structural insufficiency should constrain the epistemic operations available to a reasoning system rather than merely reduce confidence while leaving behavior unchanged.
 
 It does not claim to:
 
