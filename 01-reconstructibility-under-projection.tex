@@ -60,7 +60,7 @@ A further reason to privilege diagnostic legibility is that consequential failur
 
 More generally, the problem can be understood as one of invariant preservation under projection. A claim remains admissible only when the distinctions on which it depends are preserved, boundedly reconstructible, or explicitly marked as unavailable. Projection is dangerous not because it compresses, but because it can collapse the invariants required by a downstream claim while leaving the answer form unchanged. Good reasoning under projection therefore requires preserving the dependency structure needed by the claim, or changing the response form when that structure no longer survives.
 
-A loss-relevant dependency need not determine the factual answer directly. A projection may preserve every distinction required to recover a factual endpoint while erasing structure required to determine how the surviving information is permitted to participate in downstream reasoning. Factual sufficiency and governance sufficiency may therefore diverge while remaining instances of the same query-relative projection problem.
+A loss-relevant dependency need not determine the factual answer directly. A representation may preserve enough information to recover a factual endpoint while failing to preserve the structure by which that endpoint was selected or determined. Recent work on determination provenance similarly distinguishes ordinary derivational provenance from the information needed to explain which commitments or alternatives actually determined an outcome~\cite{Hellerstein2026Determination}. Later work in the present framework extends this distinction to governed reasoning: a projection may preserve every distinction required to recover a factual endpoint while erasing structure required to determine how the surviving information was permitted to participate in downstream reasoning. Thus factual sufficiency, determination sufficiency, and governance sufficiency may diverge while remaining instances of the same projection-relative identifiability problem.
 
 The dependency structure required by a query should not be understood as fixed, complete, or necessarily known before reasoning begins. Practical inquiry may reveal that the original question collapsed several questions, that a familiar term has incompatible meanings, that an action requires a separate authority or validity judgment, or that an existing concern bears upon a claim not previously associated with it. The present framework therefore applies to the dependencies currently represented as material to the query, while allowing that later inquiry may revise that structure.
 
@@ -148,6 +148,8 @@ The distinction matters because support should retain its basis. A conclusion ma
 \]
 
 Treating all three as merely ``represented'' would preserve their presence while collapsing the epistemic role each one actually plays. This is an example of role non-collapse rather than a claim that the operative representation contains three independent agents or subsystems: the same participant or implementation may carry several such roles, provided their different licensing effects remain reconstructible.
+
+More generally, provenance of support need not identify the structure that actually selected an outcome among alternatives. Determination provenance makes this distinction explicit by asking which represented commitments or choices were outcome-determining rather than merely present in the derivation history~\cite{Hellerstein2026Determination}. From the present perspective, determination structure is itself a query-relative dependency that may survive one projection while being erased by another.
 
 The same principle applies within provenance and source use. Preserving a source and its factual content does not necessarily preserve the role that source was permitted to play. Information may, for example, be permitted to support a hypothesis, challenge a conclusion, or trigger verification without being permitted to select an operational parameter directly. Such role distinctions are themselves dependencies that projection may preserve, collapse, or erase.
 
@@ -306,7 +308,7 @@ The observation also yields several testable consequences for reasoning systems.
 If a representation $R'$ refines $R$ by distinguishing states that $R$ collapses, then some queries non-identifiable under $R$ may become identifiable under $R'$. A projection-aware system should therefore become more willing to make determinate claims when the enriched representation restores the distinction required by the query, while avoiding such claims under the compressed representation.
 
 \emph{Traceability is not reconstruction.}
-Adding a provenance pointer, citation identifier, tool-call record, or source hash to $R$ may make a dependency traceable, but it does not make the query identifiable unless the added representation also preserves or recovers the query-relevant distinction. A system should therefore treat pointer-only support differently from source-content support.
+Adding a provenance pointer, citation identifier, tool-call record, source hash, or packaged research-object relation to $R$ may make a dependency traceable, but it does not make the query identifiable unless the added representation also preserves or recovers the query-relevant distinction. Research-object systems such as RO-Crate demonstrate that artifacts, metadata, provenance, and relationships can be preserved together in a portable representation~\cite{SoilandReyes2022}; the present distinction concerns a separate question: whether the resulting representation contains enough query-relevant structure to recover the dependency on which the claim relies. A system should therefore treat preserved attribution differently from reconstructible support.
 
 \emph{Answer-form sensitivity.}
 When $q$ is non-identifiable under $R$, a direct determinate answer and a conditional answer do not have the same admissibility status. The direct answer presents $q$ as determined by $R$; the conditional answer marks the additional assumption or decision rule on which the claim depends. The framework therefore predicts that evaluation should score not only content, but whether the answer form matches dependency status.
@@ -530,7 +532,7 @@ The four base statuses can then be understood operationally rather than as a cla
 
 Recoverability and auditability may themselves admit finer-grained values. Their role here is explanatory: they show why traceability is not merely a weaker amount of reconstruction, but a different residual capability.
 
-In information-theoretic language, the ladder distinguishes different kinds of information support after projection. Preserved distinctions remain directly encoded in $R$. Reconstructible distinctions are recoverable by a bounded decoding or derivation procedure from $R$. Traceable distinctions are represented only as provenance, dependency, or pointer information. Opaque distinctions are absent even as auditable dependencies. The ladder therefore separates having information about a dependency from having enough information to recover the distinction on which the claim depends.
+In information-theoretic language, the ladder distinguishes different kinds of information support after projection. Preserved distinctions remain directly encoded in $R$. Reconstructible distinctions are recoverable by a bounded decoding or derivation procedure from $R$. Traceable distinctions retain attributable structure---such as provenance, dependency relations, source identities, packaged artifacts, or pointers---without preserving or boundedly recovering enough query-relevant structure to reconstruct the distinction required by the claim. Opaque distinctions are absent even as auditable dependencies. The ladder therefore separates having information about a dependency from having enough information to recover the distinction on which the claim depends.
 
 \begin{figure}[h]
 \centering
@@ -1073,6 +1075,11 @@ Charles Goodhart.
 \newblock Problems of Monetary Management: The U.K. Experience.
 \newblock In \emph{Papers in Monetary Economics}, 1975.
 
+\bibitem{Hellerstein2026Determination}
+Joseph M. Hellerstein.
+\newblock Determination Provenance: From Ambiguity to Algebra.
+\newblock arXiv:2606.10270, 2026.
+
 \bibitem{Kaelbling1998}
 Leslie Pack Kaelbling, Michael L. Littman, and Anthony R. Cassandra.
 \newblock Planning and acting in partially observable stochastic domains.
@@ -1139,6 +1146,15 @@ Aviv Slobodkin, Omer Goldman, Avi Caciularu, Ido Dagan, and Shauli Ravfogel.
 \newblock The Curious Case of Hallucinatory (Un)answerability: Finding Truths in the Hidden States of Over-Confident Large Language Models.
 \newblock In \emph{Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing}, pages 3607--3625, 2023.
 \newblock doi:10.18653/v1/2023.emnlp-main.220.
+
+\bibitem{SoilandReyes2022}
+Stian Soiland-Reyes, Peter Sefton, Merc\`e Crosas, Leyla Jael Castro,
+Frederik Coppens, Jos\'e M. Fern\'andez, Daniel Garijo, Bj\"orn Gr\"uning,
+Marco La Rosa, Simone Leo, Eoghan \'O Carrag\'ain, Marc Portier,
+Ana Trisovic, the RO-Crate Community, Paul Groth, and Carole Goble.
+\newblock Packaging research artefacts with RO-Crate.
+\newblock \emph{Data Science}, 5(2):97--138, 2022.
+\newblock doi:10.3233/DS-210053.
 
 \bibitem{Swanson2026Carriers}
 David T. Swanson.
