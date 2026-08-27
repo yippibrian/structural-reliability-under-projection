@@ -38,6 +38,16 @@ representation
 
 The framework therefore distinguishes factual correctness from structural reliability. A response can happen to be factually correct even when the representation did not license the epistemic operation used to produce it; conversely, a licensed operation can still contain an ordinary inference error.
 
+At a higher level, the framework can be understood as three connected layers:
+
+```text
+information structure
+    → dependency support
+    → epistemic governance
+```
+
+The information layer asks what distinctions survive target formation and projection. The support layer asks what kind of support remains for the dependencies material to the query. The governance layer asks which epistemic operations and response forms that support licenses, while keeping operational permission for actions distinct from informational support.
+
 ---
 
 ## Core Idea
@@ -118,7 +128,9 @@ Treating loss as error encourages overconfident answers, hallucinated support, a
 
 ## Dependency Status
 
-The paper introduces a dependency-status ladder for reasoning under projection. For a claim depending on some distinction, the system should determine what kind of support the current representation provides for that distinction.
+The paper introduces a dependency-status classification for reasoning under projection and presents it operationally as a ladder. For a claim depending on some distinction, the system should determine what kind of support the current representation provides for that distinction.
+
+The term **ladder** refers to the weakening of available response forms as recoverability and auditability diminish; it is not a claim that all epistemic support relations form a total order or a single scalar dimension.
 
 The four statuses induce different operation spaces rather than merely different confidence levels. An illustrative licensing matrix is:
 
@@ -165,7 +177,7 @@ The paper identifies three structural requirements for reasoning under projectio
    The system must preserve or expose detectable signs that a required distinction may be missing, ambiguous, collapsed, or dependent on assumptions not encoded in the representation.
 
 2. **Bounded correction**
-   The system must distinguish bounded repair from global recomputation, unbounded replay, hidden assumption import, or unbounded or unmarked replacement of the information basis. A bounded and explicit transition to a richer or differently structured representation may itself be part of correction when it remains within the declared regime.
+   The system must distinguish bounded repair from global recomputation, unbounded replay, hidden assumption import, or an unmarked replacement of the information basis. A bounded and explicit transition to a richer or differently structured representation may itself be part of correction when it remains within the declared regime.
 
 3. **Non-collapse of distinct levels**
    The system must not treat different representational roles as interchangeable, such as confusing a representation with the underlying system, an intermediate reasoning state with a final conclusion, or a selected explanation with the full set of explanations consistent with the evidence.
@@ -258,11 +270,11 @@ Evaluation should distinguish errors in dependency-status assessment from errors
 
 ### Compressed/Enriched Diagnostic Contrast
 
-Benchmarks can compare paired tasks that differ only in whether the query-relevant distinction is represented. A system that gives the same determinate answer form in both cases is failing to regulate claims by dependency status.
+One possible evaluation design is to compare paired tasks that differ only in whether the query-relevant distinction is represented. A system that gives the same determinate answer form in both cases would be failing to regulate claims by dependency status.
 
 ### Structural-Revision Sensitivity
 
-Longer-form evaluation can test whether a system updates its dependency structure when a new material distinction is introduced and whether later responses continue to respect the consequences of that revision.
+A longer-form evaluation could test whether a system updates its dependency structure when a new material distinction is introduced and whether later responses continue to respect the consequences of that revision.
 
 ### Empirical Vulnerability
 
@@ -339,7 +351,7 @@ The framework applies to the dependency structure represented at a given stage o
 
 The paper also permits architectures in which a richer persistent reasoning state exists outside the current model context and supplies bounded query-relative representations when needed. This is an architectural consequence of the framework, not a claim that the paper implements or empirically validates such a system.
 
-Formal refinement, projection-sensitive evaluation, persistent-state implementations, and broader empirical validation remain open areas for further work.
+Further formal refinement, projection-sensitive evaluation, persistent-state implementations, and independent empirical validation remain open directions.
 
 ---
 
