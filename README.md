@@ -26,6 +26,18 @@ The paper's main operational claim is:
 
 The underlying identifiability question is only the starting point. Once the support available for a query has been characterized, the framework asks what the system is licensed to do next: infer directly, reconstruct, retrieve, request, qualify, route, defer, or refuse the requested form.
 
+This makes the paper's distinctive object not projection alone, but a licensing relation of the form:
+
+```text
+representation
+    → dependency support
+    → support assessment
+    → licensed epistemic operation
+    → report or action
+```
+
+The framework therefore distinguishes factual correctness from structural reliability. A response can happen to be factually correct even when the representation did not license the epistemic operation used to produce it; conversely, a licensed operation can still contain an ordinary inference error.
+
 ---
 
 ## Core Idea
@@ -53,6 +65,22 @@ Persistence therefore does not eliminate projection. It can make projection more
 When the required distinction survives projection, the system can reason over it. When it does not survive, structural insufficiency should change the epistemic operations available to the system, not merely lower confidence. Depending on what support remains, the system may reconstruct a boundedly recoverable distinction, retrieve or request missing support, qualify the claim, branch over assumptions, route to an appropriate source, weaken the answer, or refuse the requested inference. What it should not do is present the missing distinction as though it had been recovered from the current representation.
 
 The dependency structure relevant to a query should not be treated as fixed or necessarily complete. Inquiry may reveal that the original question collapsed several questions, that two terms must remain distinct, that an action requires a separate authority or validity judgment, or that a previously known concern constrains a new claim. The framework therefore applies to the dependencies currently represented as material while allowing that later inquiry may revise that structure.
+
+---
+
+## Structural Reliability and Bounded Assessment
+
+The paper gives **structural reliability** a distinct role from factual correctness. Relative to a query, operative representation, and reasoning regime, a continuation is structurally reliable when the epistemic operation selected does not exceed the support actually available for the query.
+
+The paper separates three questions:
+
+* **Assessment fidelity** — did the reasoner correctly assess the support available for the query?
+* **Governance compliance** — did the reasoner select an epistemic operation licensed by its own support assessment?
+* **Factual correctness** — is the resulting proposition actually true?
+
+These are not interchangeable. A model may faithfully follow the operation policy induced by a mistaken support assessment. It may assess support correctly and nevertheless overclaim. And it may arrive at a correct answer through an operation that the representation did not support.
+
+This distinction is important because ordinary answer accuracy can reward a lucky unsupported answer. Structural reliability evaluates a different question: whether the operation used to produce the answer was licensed by the information basis available to the reasoner.
 
 ---
 
@@ -92,12 +120,22 @@ Treating loss as error encourages overconfident answers, hallucinated support, a
 
 The paper introduces a dependency-status ladder for reasoning under projection. For a claim depending on some distinction, the system should determine what kind of support the current representation provides for that distinction.
 
-| Status          | Support in the representation           | Licensed epistemic operations                   |
-| --------------- | --------------------------------------- | ----------------------------------------------- |
-| Preserved       | Distinction directly represented        | Direct inference, ordinary correction           |
-| Reconstructible | Bounded recovery path available         | Reconstruct, then infer                         |
-| Traceable       | Dependency recorded but not recoverable | Retrieve, request, qualify, route, trace, audit |
-| Opaque          | Dependency unavailable or unauditable   | Expose insufficiency, expand, defer, or refuse  |
+The four statuses induce different operation spaces rather than merely different confidence levels. An illustrative licensing matrix is:
+
+| Status | Infer | Reconstruct | Retrieve / trace | Qualify / reframe | Refuse requested form |
+| --- | :---: | :---: | :---: | :---: | :---: |
+| Preserved | L | C | C | C | C |
+| Reconstructible | U* | L | C | L | C |
+| Traceable | U | U | L | L | L |
+| Opaque | U | U | C** | L | L |
+
+`L` means licensed, `C` conditionally available, and `U` unlicensed from the current support state.
+
+\* Direct inference becomes licensed only after the bounded recovery path has actually restored the required distinction.
+
+\** Retrieval is conditionally available only when the representation preserves or can establish a route to an external source capable of expanding the information basis.
+
+The matrix is query- and regime-relative. It illustrates the operation partition rather than prescribing one universal policy for every domain.
 
 A distinction is **preserved** when it is directly represented in a form sufficient for the query.
 
@@ -136,6 +174,24 @@ These requirements do not guarantee correctness. They preserve the conditions un
 
 ---
 
+## Unsupported Promotion
+
+The paper identifies a common structural failure across several apparently different reasoning mistakes: **unsupported promotion**.
+
+Unsupported promotion occurs when a weaker, differently typed, or merely retained support relation is treated as though it established the additional conditions required for a stronger epistemic license.
+
+Examples include:
+
+* **traceable → reconstructible** — a pointer, citation, provenance record, or dependency trace is treated as though the missing distinction had been recovered;
+* **policy-selected → evidence-supported** — a policy, prior, utility, or decision rule selects an outcome and the result is then reported as though the evidence itself determined it;
+* **procedure preserved → procedure licensed** — a rule, heuristic, scaffold, or procedure remains executable after projection and its continued executability is treated as evidence that the conditions governing its use were also preserved.
+
+A promotion may be justified, but the additional licensing conditions must themselves be preserved, boundedly reconstructed, retrieved, or introduced through an explicit change of information basis. Mere persistence of a pointer, outcome, procedure, or successful execution is not such a witness.
+
+This principle unifies bounded correction, non-collapse, support-role separation, and the paper's broader warning against silently strengthening claims as representational constraints disappear.
+
+---
+
 ## Expected Behavior
 
 A system reasoning under projection should:
@@ -164,7 +220,7 @@ The framework distinguishes three related but non-identical status judgments and
 * **Reported dependency status** — the status communicated in the resulting answer or reasoning artifact.
 * **Selected operation or action** — what the system actually does based on its assessment and any additional policy, authority, utility, safety, or operational constraints.
 
-Practical systems do not have direct access to actual status in every case. They act through imperfect assessments. Evaluation should therefore distinguish assessment failure, reporting failure, and action-governance failure. A system may faithfully act on a mistaken assessment, or it may correctly recognize limited support yet still select an operation that its own assessment does not license.
+Practical systems do not have direct access to actual status in every case. They act through imperfect assessments. The paper therefore distinguishes **assessment fidelity** from **governance compliance**. Assessment fidelity asks whether the assessed support matches the support that actually obtains; governance compliance asks whether the selected operation is licensed by the assessment. Reporting remains a further observable layer. A system may faithfully act on a mistaken assessment, or it may correctly recognize limited support yet still select or report an operation stronger than its own assessment licenses.
 
 When status assessment is uncertain, the system should preserve that uncertainty rather than silently promoting the claim to a stronger status.
 
@@ -175,6 +231,10 @@ The framework is also subject to its own projection limits. Successful execution
 ## Testable Consequences
 
 The framework suggests several evaluation patterns.
+
+### Correctness vs. Structural Support
+
+Evaluation should not collapse factual correctness and structural support into one score. A model can be factually correct by chance even when the operative representation does not distinguish the states that require different answers. Conversely, a structurally licensed inference can still contain an ordinary reasoning mistake. The framework therefore predicts that answer accuracy and operation licensing should be evaluated separately.
 
 ### Representation-Enrichment Sensitivity
 
@@ -263,7 +323,7 @@ This paper is intended for researchers, engineers, and practitioners working on:
 
 This work presents a conceptual and diagnostic framework rather than a specific implemented or empirically evaluated system.
 
-The paper explains why some reasoning failures are representational rather than merely inferential, why local coherence is not the same as structural support, and why output-level correctness can miss failures caused by projection. Its central operational claim is that structural insufficiency should constrain the epistemic operations available to a reasoning system rather than merely reduce confidence while leaving behavior unchanged.
+The paper explains why some reasoning failures are representational rather than merely inferential, why local coherence is not the same as structural support, and why output-level correctness can miss failures caused by projection. Its central operational claim is that structural insufficiency should constrain the epistemic operations available to a reasoning system rather than merely reduce confidence while leaving behavior unchanged. It formalizes structural reliability separately from factual correctness, distinguishes assessment fidelity from governance compliance, and treats unsupported promotion as a recurring way that weaker or differently typed support is silently converted into stronger epistemic license.
 
 It does not claim to:
 
