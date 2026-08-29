@@ -12,7 +12,7 @@
 Representational Loss, Reconstructibility, and Admissibility}
 
 \author{Brian Cameron}
-\date{August 26, 2026}
+\date{August 28, 2026}
 
 \begin{document}
 
@@ -21,7 +21,7 @@ Representational Loss, Reconstructibility, and Admissibility}
 \begin{abstract}
 AI systems increasingly reason and act from compressed representations: prompts, summaries, retrieved passages, logs, metrics, traces, memory, and policy artifacts. Such representations may collapse distinctions required by downstream claims while leaving those claims locally coherent. This paper characterizes that failure as query-relative representational loss rather than ordinary inference error. For a projection \(P:S\rightarrow R\), a query is identifiable only when states collapsed by \(P\) do not require different answers. When that condition fails, additional reasoning over \(R\) cannot universally recover the missing distinction.
 
-The paper develops a dependency-status account---preserved, reconstructible, traceable, and opaque---and binds those structural support conditions to sets of licensed epistemic operations: direct inference, bounded reconstruction, trace or retrieval, qualification, routing, or refusal of the requested form. It separates informational support from operational permission and distinguishes the dependency status that actually obtains from the status assessed by a bounded reasoner and the operation ultimately selected. This yields separate notions of assessment fidelity and governance compliance and identifies unsupported promotion---for example, treating traceability as reconstructibility, policy selection as evidential support, or procedural preservation as procedural license---as a common structural failure. The resulting framework treats structural insufficiency as a constraint on available epistemic operations rather than merely a reason to lower confidence, while retaining a second-order limit on self-certifying admissibility procedures.
+The paper develops a dependency-status account---preserved, reconstructible, traceable, and opaque---and binds those support conditions to licensed epistemic operations such as direct inference, bounded reconstruction, tracing or retrieval, qualification, routing, or refusal of the requested form. Its principal contribution is this operational binding: representational insufficiency changes the admissible operation space, not merely the confidence attached to an otherwise unchanged answer. The framework further separates actual support from a bounded reasoner's assessment of that support and from the operation ultimately selected, yielding distinct notions of assessment fidelity and governance compliance and identifying unsupported promotion between dependency statuses as a common structural failure.
 
 The objective is not perfect reasoning or complete representation. It is diagnostic legibility: preserving enough structure that materially relevant uncertainty, loss, assumptions, and unsupported dependencies can be exposed rather than silently promoted into determinate claims. Representations may be revised as inquiry reveals new dependencies, but such refinement should respond to demonstrated diagnostic need rather than an aspiration to encode all potentially relevant state. The framework therefore treats reliability under projection as the disciplined management of visible and correctable failure.
 \end{abstract}
@@ -94,6 +94,14 @@ Accordingly,
 \]
 
 The framework does not assume that a reasoning system can always determine \(\Delta^*\) from the same projected information basis on which it reasons. Its operational objective is disciplined coupling between assessed support and epistemic operation, while retaining the separate possibility that the support assessment itself is wrong, incomplete, or based on an incomplete set of currently represented dependencies.
+
+There is a still earlier assessment problem. Let \(D^*_{\Gamma,q}\) denote, model-relatively, the dependencies that are actually material to query \(q\) under regime \(\Gamma\), and let \(\widehat D_{\Gamma,q}\) denote the dependency structure currently represented or assessed as material by the bounded reasoner. The framework does not assume privileged access to \(D^*_{\Gamma,q}\). Projection may therefore produce error both in dependency membership,
+
+\[
+\widehat D_{\Gamma,q}\neq D^*_{\Gamma,q},
+\]
+
+and in the status assigned to dependencies that have been represented. The operation-licensing machinery governs the represented assessment; it does not certify that every material dependency was discovered or included.
 
 This licensing relation has two conceptually distinct aspects. The first is query-relative support: whether the representation preserves or boundedly reconstructs the distinctions required by the claim. The second is operational validity: whether a proposed action or continuation is permitted within the declared regime, or can be returned to that valid region by bounded correction. An answer may be informationally supported while the action it proposes remains operationally invalid.
 
@@ -717,7 +725,21 @@ The boundary between reconstructible and traceable depends on whether the repres
 
 This distinction is central for retrieval-augmented and tool-using AI systems. A retrieved document identifier, citation, tool-call trace, or audit log may make a dependency traceable without making the claim reconstructible. If the system cannot access the relevant source content, execution state, or recovery rule, then it should not treat the pointer as support for the claim. In safety and security settings, confusing traceability with reconstructability can produce false assurance: the system appears grounded because it has a pointer, but the representation available to the reasoner does not actually support the conclusion.
 
-This ladder separates existence from operational support. Identifiability is an existence condition: if $q$ is identifiable under $P$, then some function from $R$ to the answer exists. Reconstructability is an operational condition: the system has an explicit recovery path, rule, derivation, proof, provenance structure, or bounded procedure that licenses the answer from the representation it actually uses. A query may be identifiable in principle while not being reconstructible for a particular system if the relevant recovery path is unavailable to that system.
+This partition separates three questions that should remain distinct:
+
+\[
+\boxed{
+\text{identifiability}
+\neq
+\text{recoverability}
+\neq
+\text{admissibility}.
+}
+\]
+
+\emph{Identifiability} is an existence condition: if \(q\) is identifiable under \(P\), then some function from \(R\) to the required answer exists. \emph{Recoverability} is a reasoner- and regime-relative operational condition: the required distinction can actually be restored by an available recovery procedure using only the sources, tools, assumptions, and transformations permitted by the declared regime \(\Gamma\), within its stated resource or interaction bounds. \emph{Admissibility} is a licensing condition: given the represented support and available recovery capability, the proposed epistemic operation belongs to the operation set permitted for the query and regime.
+
+Accordingly, a distinction is \emph{boundedly reconstructible} only relative to such a declared recovery regime. Existence of an abstract decoding function does not by itself make a dependency reconstructible for a particular system. A query may therefore be identifiable in principle while not being recoverable by the current reasoner, and a recoverable distinction need not license a direct answer until the required reconstruction has actually been performed or otherwise represented as satisfied.
 
 Preserved and reconstructible distinctions can support inference. Traceable distinctions support accountability for transformation or loss, but not recovery of the original relation. Opaque loss supports neither inference nor audit. This ladder is therefore not a complete theory of provenance or explanation; it specifies what kind of support a downstream claim has after projection.
 
