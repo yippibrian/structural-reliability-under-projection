@@ -12,7 +12,7 @@
 Representational Loss, Reconstructibility, and Admissibility}
 
 \author{Brian Cameron}
-\date{August 28, 2026}
+\date{August 29, 2026}
 
 \begin{document}
 
@@ -224,7 +224,7 @@ P_q:B\rightarrow R_q,
 
 where \(B\) is a richer persistent reasoning state and \(R_q\) is the bounded representation assembled for query \(q\).
 
-This architecture does not eliminate representational loss. It changes where projection occurs and can make that projection more explicit, repeatable, and reversible because the richer source state remains available for later retrieval.
+This architecture does not eliminate representational loss. It changes where projection occurs and can make that projection more explicit, repeatable, and reversible while the richer source state remains legitimately available for later retrieval. If that state later expires, is minimized, or is deleted under an applicable governance regime, subsequent reconstructibility may correspondingly weaken or disappear.
 
 \[
 \boxed{
@@ -235,6 +235,8 @@ This architecture does not eliminate representational loss. It changes where pro
 \text{projection-free reasoning}.
 }
 \]
+
+Persistence in this architectural sense is not permanence. The framework requires support claims to track the information basis that is actually available for the current use; it does not require every richer representation to remain available indefinitely.
 
 In many AI settings, \(S\) should be understood as a modeled or idealized underlying state space rather than a fully specified object available to the system. The framework is therefore relative to the state model under consideration.
 
@@ -1122,7 +1124,7 @@ Diagnostic pressure may arise when independent reasoning processes diverge at an
 
 The resulting refinement should therefore be minimal and diagnostic where possible. A system may add telemetry, provenance, an explicit dependency relation, a discriminating test, a temporary probe, a retained distinction, or a richer representation. The aim is not to represent more state for its own sake, but to make a demonstrated class of failures more observable, attributable, or correctable. In this sense, additional structure \emph{earns} its place in the representation through demonstrated diagnostic value.
 
-The same principle applies in reverse. Structure need not be retained merely because it was once represented. Dependencies that are redundant, cheaply reconstructible, no longer material to the governed query class, or costly to preserve relative to their diagnostic value may be compressed, summarized, or removed. Such dependency hygiene is compatible with structural reliability so long as the resulting representation does not silently claim support that depended on the discarded structure. The objective is sufficient diagnostic capacity, not maximal retention.
+The same principle applies in reverse. Structure need not be retained merely because it was once represented. Dependencies that are redundant, cheaply reconstructible, no longer material to the governed query class, or costly to preserve relative to their diagnostic value may be compressed, summarized, or removed. Such dependency hygiene is compatible with structural reliability so long as the resulting representation does not silently claim support that depended on the discarded structure. The objective is sufficient diagnostic capacity, not maximal retention. Removal may also be required independently of diagnostic value by privacy, legal, security, contractual, or other governance constraints; in that case the structural requirement is not continued retention but correct reassessment of any surviving claim or operation whose support depended on the removed state.
 
 \subsection{Mechanism and Evaluation as Downstream Work}
 
