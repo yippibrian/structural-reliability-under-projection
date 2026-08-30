@@ -331,6 +331,19 @@ This paper is intended for researchers, engineers, and practitioners working on:
 
 ---
 
+## LaTeX Source Conventions
+
+The LaTeX source is intentionally kept close to the logical structure of the prose.
+
+* Prose paragraphs are not hard-wrapped to a fixed column width. Each paragraph normally remains a single source line.
+* Blank lines separate paragraphs.
+* Structural LaTeX---such as equations, lists, tables, environments, and logically distinct commands---may be split across lines where doing so improves readability.
+* Source formatting should preserve semantic and structural clarity rather than enforce a uniform line-length limit.
+* Existing labels, citations, mathematical notation, and document structure should be preserved when making purely editorial changes.
+* Avoid reformatting unchanged LaTeX solely for stylistic reasons, since this creates noisy diffs.
+
+---
+
 ## Scope
 
 This work presents a conceptual and diagnostic framework rather than a specific implemented or empirically evaluated system.
@@ -370,4 +383,3 @@ Structural Reliability Under Projection: Representational Loss, Reconstructibili
 ## Author
 
 Brian Cameron
-
