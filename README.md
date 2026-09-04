@@ -1,372 +1,288 @@
 # Structural Reliability Under Projection
 
-AI systems can fail not only because they reason incorrectly, but because they reason from compressed representations that no longer preserve the distinctions required by the claim, decision, explanation, or action being produced.
+AI systems can fail not only because they reason incorrectly, but because they reason from compressed representations that no longer preserve the distinctions required by the claim, explanation, decision, or action being produced.
 
-This repository contains the paper:
+This repository contains the standalone paper:
 
 **Structural Reliability Under Projection: Representational Loss, Reconstructibility, and Admissibility**
 
----
+## The central contribution
 
-## Overview
+Projection-induced information loss is already studied through identifiability, sufficiency, abstraction, partial observability, partial identification, and related frameworks. This paper asks the next operational question:
 
-Modern AI systems often reason from compressed or partial representations: prompts, summaries, retrieved snippets, logs, metrics, traces, policy artifacts, tool outputs, memory, and interface-bounded context. These representations can be useful and necessary. They can also omit or collapse distinctions that remain operationally relevant.
+> Given what a representation preserves about the dependencies required by a proposed continuation, what kind of epistemic operation remains licensed?
 
-The central claim of this paper is that some AI reasoning failures are not ordinary inference errors. They are failures of **invariant preservation under projection**. A system presents a conclusion as if it were supported by the representation available to it even though that representation does not preserve the distinction required by the conclusion.
-
-This produces a recurring failure mode:
-
-> A system treats non-identifiability under projection as though it were recoverable inference error.
-
-The result may be fluent, coherent, and persuasive while still lacking structural support. Examples include unsupported root-cause attribution, hallucinated source support, unsafe action under missing state, and metric-driven proxy success.
-
-The paper's main operational claim is:
-
-> **Structural insufficiency should change the available epistemic operations, not merely confidence.**
-
-The underlying identifiability question is only the starting point. Once the support available for a query has been characterized, the framework asks what the system is licensed to do next: infer directly, reconstruct, retrieve, request, qualify, route, defer, or refuse the requested form.
-
-This makes the paper's distinctive object not projection alone, but a licensing relation of the form:
+The paper organizes the answer through a small control interface:
 
 ```text
-representation
-    → dependency support
-    → support assessment
+projection
+    → dependency status
     → licensed epistemic operation
-    → report or action
+    → response or action
 ```
 
-The framework therefore distinguishes factual correctness from structural reliability. A response can happen to be factually correct even when the representation did not license the epistemic operation used to produce it; conversely, a licensed operation can still contain an ordinary inference error.
+Dependency status functions as a **thin waist**. Above it may sit prompts, retrieved documents, telemetry, memories, metrics, causal models, policy artifacts, tool outputs, or other domain-specific representations. Below it may sit direct inference, reconstruction, retrieval, qualification, routing, reframing, explicit decision, deferral, or refusal of the requested form.
 
-At a higher level, the framework can be understood as three connected layers:
+The representations and workflows do not need to share one ontology. They meet at the narrower question of what happened to the dependency required by the proposed continuation.
+
+The paper's principal claim is therefore:
+
+> **Structural insufficiency should change the available epistemic operation, not merely lower confidence while leaving the operation unchanged.**
+
+## The basic failure
+
+Let a projection map an underlying state into the representation available to a reasoner:
 
 ```text
-information structure
-    → dependency support
-    → epistemic governance
+P: S → R
 ```
 
-The information layer asks what distinctions survive target formation and projection. The support layer asks what kind of support remains for the dependencies material to the query. The governance layer asks which epistemic operations and response forms that support licenses, while keeping operational permission for actions distinct from informational support.
-
----
-
-## Core Idea
-
-A reasoning system does not operate on the full underlying situation. It operates on a representation of that situation.
-
-A representation may preserve some distinctions while losing others. For example:
-
-* a log summary may preserve that an outage occurred while losing the event ordering needed for root-cause analysis;
-* a retrieved citation may preserve a source pointer while omitting the passage needed to verify a claim;
-* a single metric may preserve a ranking while losing the distinction between reversible and irreversible failures.
-
-The question is not whether a representation is complete. The question is whether it preserves the distinctions required by the claim being made.
-
-The operative representation also need not be the system's entire persistent reasoning state. A system may preserve a richer external state containing history, dependencies, provenance, alternatives, and lifecycle information while retrieving only the bounded portion relevant to the current query. That retrieved context is still a projection of the richer state:
+For a query `q`, the answer is identifiable under the projection only when states collapsed into the same representation do not require different answers. If
 
 ```text
-persistent represented state
-    is not
-current operative representation
+P(s₁) = P(s₂)
 ```
 
-Persistence therefore does not eliminate projection. It can make projection more explicit and revisitable by preserving a richer source from which later bounded views can be reconstructed.
+but
 
-When the required distinction survives projection, the system can reason over it. When it does not survive, structural insufficiency should change the epistemic operations available to the system, not merely lower confidence. Depending on what support remains, the system may reconstruct a boundedly recoverable distinction, retrieve or request missing support, qualify the claim, branch over assumptions, route to an appropriate source, weaken the answer, or refuse the requested inference. What it should not do is present the missing distinction as though it had been recovered from the current representation.
+```text
+q(s₁) ≠ q(s₂),
+```
 
-The dependency structure relevant to a query should not be treated as fixed or necessarily complete. Inquiry may reveal that the original question collapsed several questions, that two terms must remain distinct, that an action requires a separate authority or validity judgment, or that a previously known concern constrains a new claim. The framework therefore applies to the dependencies currently represented as material while allowing that later inquiry may revise that structure.
+then no procedure operating only on the common representation can recover the correct answer for both states. More reasoning over the same information basis cannot universally restore a distinction that the representation does not contain.
 
----
+This differs from ordinary error:
 
-## Structural Reliability and Bounded Assessment
+- **Error:** the query-relevant distinction remains identifiable and the represented information is sufficient, in principle, to correct the result without changing the information basis.
+- **Representational loss:** the current representation does not preserve or boundedly recover the distinction required by the query.
 
-The paper gives **structural reliability** a distinct role from factual correctness. Relative to a query, operative representation, and reasoning regime, a continuation is structurally reliable when the epistemic operation selected does not exceed the support actually available for the query.
+A response may happen to be factually correct even when the representation did not license the operation used to produce it. Realized accuracy does not retroactively supply missing structural support.
 
-The paper separates three questions:
+## The four dependency statuses
 
-* **Assessment fidelity** — did the reasoner correctly assess the support available for the query?
-* **Governance compliance** — did the reasoner select an epistemic operation licensed by its own support assessment?
-* **Factual correctness** — is the resulting proposition actually true?
+For each dependency material to a query, the framework asks two gated questions:
 
-These are not interchangeable. A model may faithfully follow the operation policy induced by a mistaken support assessment. It may assess support correctly and nevertheless overclaim. And it may arrive at a correct answer through an operation that the representation did not support.
+1. Is the required distinction directly available or boundedly recoverable?
+2. If recovery is unavailable, does an attributable dependency trail remain?
 
-This distinction is important because ordinary answer accuracy can reward a lucky unsupported answer. Structural reliability evaluates a different question: whether the operation used to produce the answer was licensed by the information basis available to the reasoner.
+This is not an unrestricted product of recovery and attribution. Attribution becomes status-resolving specifically when recovery fails:
 
----
+```text
+direct recovery                         → preserved
+bounded recovery                        → reconstructible
+recovery unavailable + attributable     → traceable
+recovery unavailable + unattributable   → opaque
+```
 
-## Target Formation and Projection
+The statuses mean:
 
-The paper distinguishes two stages that can introduce loss. A richer field of potentially relevant state may first be narrowed into the state treated as the target of reasoning, and that target is then projected into the operative representation:
+- **Preserved:** the required distinction is directly represented in a form sufficient for the query.
+- **Reconstructible:** the distinction is not directly represented but can be restored through an explicit bounded procedure using the permitted information basis.
+- **Traceable:** the dependency, source, assumption, transformation, or point of loss remains attributable, but the required distinction cannot presently be recovered.
+- **Opaque:** the dependency is neither recoverable nor adequately attributable from the current representation.
 
-`F → S_Γ → R`
+Traceability is not merely a smaller amount of reconstruction. A citation, source hash, tool trace, document identifier, or provenance pointer may identify where support should come from without supplying enough content or recovery structure to establish the claim.
 
-This separates **target-selection loss**, where a material distinction is excluded when the reasoning target is formed, from **representational loss**, where the target contains the distinction but the operative representation fails to preserve or boundedly reconstruct it.
+A claim may depend on several distinctions with different statuses. Dependency status is therefore a profile over material dependencies, not necessarily one scalar label for the entire claim. A description such as **mixed** indicates a nonuniform profile; it is not automatically a fifth primitive status.
 
-These failures require different repairs. Improving the representation may fix representational loss while leaving an incorrectly bounded target unchanged.
+## From status to licensed operation
 
-The richer source of a projection need not always be an inaccessible world state. It may itself be an explicit persistent reasoning state. In that case, a bounded query-relative retrieval can be written schematically as:
-
-`B → R_q`
-
-where `B` is the richer persistent state and `R_q` is the operative representation assembled for query `q`. This does not create projection-free reasoning; it changes where projection occurs and can make recovery easier because the richer source remains available.
-
----
-
-## Error vs. Representational Loss
-
-The paper distinguishes **error** from **representational loss**.
-
-An **error** occurs when the information required to answer a query is present in the representation, but the system reasons incorrectly. In principle, the error can be corrected within the same representation.
-
-A **loss** occurs when the representation does not preserve the distinction required by the query. In that case, no amount of additional reasoning over the same representation can recover the missing distinction without adding assumptions, expanding the representation, obtaining new information, or changing the answer form.
-
-Formally, the paper frames this using identifiability under projection. Given a projection from an underlying state space into a representation, a query is identifiable when it is constant over the equivalence classes induced by that projection. If two underlying states map to the same representation but require different answers, the query is not identifiable under that projection.
-
-Treating loss as error encourages overconfident answers, hallucinated support, arbitrary resolution of ambiguity, and unsafe action under incomplete state.
-
----
-
-## Dependency Status
-
-The paper introduces a dependency-status classification for reasoning under projection and presents it operationally as a ladder. For a claim depending on some distinction, the system should determine what kind of support the current representation provides for that distinction.
-
-The term **ladder** refers to the weakening of available response forms as recoverability and auditability diminish; it is not a claim that all epistemic support relations form a total order or a single scalar dimension.
-
-The four statuses induce different operation spaces rather than merely different confidence levels. An illustrative licensing matrix is:
+The statuses constrain kinds of continuation, not merely degrees of confidence. An illustrative licensing matrix is:
 
 | Status | Infer | Reconstruct | Retrieve / trace | Qualify / reframe | Refuse requested form |
 | --- | :---: | :---: | :---: | :---: | :---: |
 | Preserved | L | C | C | C | C |
-| Reconstructible | U* | L | C | L | C |
+| Reconstructible | U† | L | C | L | C |
 | Traceable | U | U | L | L | L |
-| Opaque | U | U | C** | L | L |
+| Opaque | U | U | C‡ | L | L |
 
 `L` means licensed, `C` conditionally available, and `U` unlicensed from the current support state.
 
-\* Direct inference becomes licensed only after the bounded recovery path has actually restored the required distinction.
+† Direct inference becomes licensed only after the bounded recovery path has restored the required distinction.
 
-\** Retrieval is conditionally available only when the representation preserves or can establish a route to an external source capable of expanding the information basis.
+‡ Retrieval is conditionally available only when the representation preserves or can establish a route to an external source capable of expanding the information basis.
 
 The matrix is query- and regime-relative. It illustrates the operation partition rather than prescribing one universal policy for every domain.
 
-A distinction is **preserved** when it is directly represented in a form sufficient for the query.
+## Why four statuses matter
 
-A distinction is **reconstructible** when it is not directly represented but can be recovered through an explicit bounded procedure using information available in the current representation.
+The paper does not claim that reality contains exactly four epistemic states or that every controller must use four internal labels. It gives the four-way interface a conditional behavioral justification.
 
-A distinction is **traceable** when the dependency, source, assumption, transformation, or point of loss is recorded, but the missing distinction itself cannot be recovered.
+Two statuses are locally behaviorally equivalent when a particular query, regime, and operation repertoire license exactly the same continuations for both. A controller may safely compile locally equivalent statuses into one internal control state.
 
-A distinction is **opaque** when the dependency is neither recoverable nor auditable from the current representation.
+Local compression need not be portable. A controller without retrieval or routing may treat traceable and opaque dependencies identically, while a recipient with those capabilities must distinguish them. Accordingly:
 
-The boundary between reconstructible and traceable is especially important. A citation, source hash, tool trace, or provenance pointer may make a dependency traceable, but it does not make the claim reconstructible unless the representation also includes enough content or recovery structure to determine the relevant distinction.
+> **Safe compression for current control does not imply safe compression for destination control.**
 
-A claim may depend on several distinctions, and those dependencies may have different statuses. Dependency status is therefore better understood as a profile over the claim’s relevant dependencies rather than as one global scalar label. A claim-level description such as **mixed** indicates that this profile is nonuniform; it is not necessarily a fifth primitive status.
+For a declared family of contexts, the portable quotient retains every distinction that changes licensing behavior in at least one intended context. When the family is **status-separating**—when every pair of statuses has some licensing witness—no proper quotient of the four-status interface preserves the same behavior. The interface is minimal in that conditional and operational sense, not as a universal metaphysical taxonomy.
 
-Operation and response-form selection must preserve the weaker or unresolved dependencies relevant to the claim rather than compressing the entire profile into an unjustifiably strong status. The four statuses are therefore not merely confidence levels: they correspond to different sets of epistemic operations that the representation licenses.
+## Unsupported promotion
 
-The paper also distinguishes the **structural role** of a dependency from its status. A dependency may function as an **invariant**, a **selector**, or an **operator**. Structural type and dependency status are orthogonal: for example, an invariant may be preserved while an operator condition is merely traceable. This matters because a system may preserve enough structure to execute a procedure while losing the conditions that establish whether applying that procedure is appropriate.
-
-The dependency profile is stage-relative. Later inquiry may add, split, relate, narrow, or reject dependencies. Such revisions should be explicit, and newly represented constraints should be allowed to alter subsequent claim and action licensing.
-
----
-
-## Structural Requirements
-
-The paper identifies three structural requirements for reasoning under projection:
-
-1. **Partial observability of loss-relevant state**
-   The system must preserve or expose detectable signs that a required distinction may be missing, ambiguous, collapsed, or dependent on assumptions not encoded in the representation.
-
-2. **Bounded correction**
-   The system must distinguish bounded repair from global recomputation, unbounded replay, hidden assumption import, or an unmarked replacement of the information basis. A bounded and explicit transition to a richer or differently structured representation may itself be part of correction when it remains within the declared regime.
-
-3. **Non-collapse of distinct levels**
-   The system must not treat different representational roles as interchangeable, such as confusing a representation with the underlying system, an intermediate reasoning state with a final conclusion, or a selected explanation with the full set of explanations consistent with the evidence.
-
-These requirements do not guarantee correctness. They preserve the conditions under which reasoning failures remain visible, corrigible, and accountable.
-
----
-
-## Unsupported Promotion
-
-The paper identifies a common structural failure across several apparently different reasoning mistakes: **unsupported promotion**.
+The paper identifies a common structural failure across otherwise different reasoning problems: **unsupported promotion**.
 
 Unsupported promotion occurs when a weaker, differently typed, or merely retained support relation is treated as though it established the additional conditions required for a stronger epistemic license.
 
 Examples include:
 
-* **traceable → reconstructible** — a pointer, citation, provenance record, or dependency trace is treated as though the missing distinction had been recovered;
-* **policy-selected → evidence-supported** — a policy, prior, utility, or decision rule selects an outcome and the result is then reported as though the evidence itself determined it;
-* **procedure preserved → procedure licensed** — a rule, heuristic, scaffold, or procedure remains executable after projection and its continued executability is treated as evidence that the conditions governing its use were also preserved.
+- **traceable → reconstructible:** a pointer or provenance record is treated as recovered evidence;
+- **policy-selected → evidence-supported:** a decision rule selects an outcome that is then reported as evidentially determined;
+- **procedure executable → procedure licensed:** a retained procedure is assumed to remain applicable merely because it can still be run;
+- **transported → destination-adequate:** a preserved artifact is assumed to support every later query merely because it arrived intact;
+- **proxy → target:** a compressed metric is treated as preserving all distinctions relevant to the underlying objective.
 
-A promotion may be justified, but the additional licensing conditions must themselves be preserved, boundedly reconstructed, retrieved, or introduced through an explicit change of information basis. Mere persistence of a pointer, outcome, procedure, or successful execution is not such a witness.
+A promotion may be justified, but the additional licensing conditions must themselves be preserved, boundedly reconstructed, retrieved, or introduced through an explicit change of information basis. Persistence, availability, selection, or successful execution is not such a witness by itself.
 
-This principle unifies bounded correction, non-collapse, support-role separation, and the paper's broader warning against silently strengthening claims as representational constraints disappear.
+## Support, permission, selection, and stopping
 
----
+The framework separates three questions:
 
-## Expected Behavior
+```text
+structural support
+    ≠ operational permission
+    ≠ continuation selection
+```
 
-A system reasoning under projection should:
+Dependency status bounds the epistemically admissible operation set. A proposed action must separately satisfy the authority, safety, feasibility, reversibility, or other operational conditions of the declared regime. Selection among licensed continuations may then depend on budget, urgency, utility, expected diagnostic value, policy, and other decision commitments.
 
-* avoid presenting unsupported determinate answers as if they followed from the representation alone;
-* preserve ambiguity when multiple underlying states remain consistent with the representation;
-* distinguish recoverable error from representational loss;
-* separate inference from decision when action is required under non-identifiability;
-* mark traceable dependencies without treating them as recovered;
-* avoid collapsing distinct causal, evidential, temporal, institutional, or operational levels;
-* revise the represented dependency structure explicitly when new material constraints are discovered;
-* use bounded retrieval or representation change explicitly when the current operative view is insufficient rather than pretending the missing distinction was already present;
-* select an epistemic operation and associated response form licensed by dependency status;
-* separately check whether any proposed action or continuation is operationally permitted under the declared regime.
+The existence of an admissible terminal response means that stopping is permitted, not necessarily optimal. Further investigation may itself be admissible when its expected diagnostic value justifies its cost. Conversely, the existence of some admissible continuation does not mean that a terminal answer is licensed; retrieval, clarification, representation expansion, or routing may be the only admissible next operation.
 
-The goal is not blanket abstention. The goal is operation discipline. A system should infer directly when support is preserved, reconstruct when bounded recovery is available, retrieve, request, qualify, or route when a dependency is traceable, and expose insufficiency, defer, or reformulate when the dependency is opaque. Structural insufficiency should alter what the system does epistemically, not merely how confident it sounds.
+Classification is also not compulsion. An implementation may report a licensing judgment, encourage compliance, audit violations, gate selected transitions, or enforce the constraint mechanically. These represent different governance strengths.
 
----
+## Actual, assessed, reported, and selected state
 
-## Dependency-Status Assessment
+Practical systems act through imperfect assessments of their own support. The framework therefore separates:
 
-The framework distinguishes three related but non-identical status judgments and then treats operation or action selection separately:
+- **Actual dependency status:** the support a dependency really has relative to the query, operative representation, and regime.
+- **Assessed dependency status:** the status assigned by the bounded reasoner.
+- **Reported dependency status:** the status communicated in the answer or reasoning artifact.
+- **Selected operation:** the continuation the system actually performs.
 
-* **Actual dependency status** — the support a dependency really has relative to the query, operative representation, and reasoning regime.
-* **Assessed dependency status** — the status inferred by the reasoning system.
-* **Reported dependency status** — the status communicated in the resulting answer or reasoning artifact.
-* **Selected operation or action** — what the system actually does based on its assessment and any additional policy, authority, utility, safety, or operational constraints.
+This exposes distinct failure locations:
 
-Practical systems do not have direct access to actual status in every case. They act through imperfect assessments. The paper therefore distinguishes **assessment fidelity** from **governance compliance**. Assessment fidelity asks whether the assessed support matches the support that actually obtains; governance compliance asks whether the selected operation is licensed by the assessment. Reporting remains a further observable layer. A system may faithfully act on a mistaken assessment, or it may correctly recognize limited support yet still select or report an operation stronger than its own assessment licenses.
+- **Representation insufficiency:** the actual information basis does not provide the required support.
+- **Assessment failure:** the reasoner misclassifies that support.
+- **Reporting inflation:** the answer claims stronger support than the reasoner's own assessment warrants.
+- **Action-governance failure:** the selected continuation is not licensed even by the assessed status.
 
-When status assessment is uncertain, the system should preserve that uncertainty rather than silently promoting the claim to a stronger status.
+A system may honestly report its assessment and still be wrong about its actual evidential position. It may also comply perfectly with a policy induced by a mistaken assessment. Factual correctness, assessment fidelity, reporting fidelity, and governance compliance are therefore related but non-equivalent evaluation targets.
 
-The framework is also subject to its own projection limits. Successful execution of an admissibility procedure does not certify that every condition governing its applicability was represented. This **Self-Application Non-Certification** principle limits what the framework claims without undermining its practical value.
+## Three requirements for reliable correction
 
----
+The paper identifies three conceptual design requirements:
 
-## Testable Consequences
+1. **Observability of loss-relevant state**  
+   The representation must expose enough structure for missing, ambiguous, collapsed, or assumption-dependent distinctions to become detectable where possible.
 
-The framework suggests several evaluation patterns.
+2. **Bounded correction**  
+   The system must distinguish correction within the current information basis from retrieval, representation expansion, hidden assumption import, global recomputation, or replacement of that basis. Changing the representation may be admissible, but the transition should be explicit.
 
-### Correctness vs. Structural Support
+3. **Non-collapse of distinct levels and roles**  
+   The system must not silently identify the representation with the world, a proxy with its target, a source pointer with source content, a selected explanation with the full compatible set, a local judgment with a composed-system judgment, or executability with applicability.
 
-Evaluation should not collapse factual correctness and structural support into one score. A model can be factually correct by chance even when the operative representation does not distinguish the states that require different answers. Conversely, a structurally licensed inference can still contain an ordinary reasoning mistake. The framework therefore predicts that answer accuracy and operation licensing should be evaluated separately.
+These requirements do not guarantee correctness. They preserve the conditions under which failures can remain visible, attributable, and corrigible.
 
-### Representation-Enrichment Sensitivity
+## A cybernetic interpretation
 
-If a richer representation restores a distinction that was collapsed in a compressed one, a projection-aware system should become more willing to make determinate claims. Under the compressed representation, it should qualify, branch, request expansion, or mark the dependency.
+Dependency status can serve as a compact control variable in a corrective loop:
 
-### Traceability Is Not Reconstruction
+```text
+operative representation
+    → assessed dependency profile
+    → licensed operation set
+    → selected continuation
+    → observed consequence
+    → corrected or refined representation
+```
 
-Adding a citation, source pointer, provenance marker, or tool trace should not be treated as sufficient support unless the representation also contains enough content or recovery structure to determine the relevant claim.
+Feedback may reveal ordinary error, expose an unresolved dependency, justify retrieval, or create diagnostic pressure to refine the representation. The objective is not unlimited retention or expansion. Additional structure earns its place by making a demonstrated class of consequential failures more observable, attributable, or correctable.
 
-### Persistent-State Retrieval Sensitivity
+This loop is corrigible rather than self-certifying. Successful execution or favorable feedback does not establish that the system correctly assessed every dependency or that its representation was complete. A reasoning or governance procedure cannot infer from its own successful execution that all conditions licensing its application were represented.
 
-When a bounded operative representation is insufficient but a richer persistent state contains the missing distinction, a projection-aware system should be able to retrieve or reconstruct the needed query-relative state explicitly. Evaluation should distinguish successful bounded recovery from answers that merely behave as though the richer state had already been present in the original context.
+## Persistence and transport
 
-### Operation Sensitivity
+A richer persistent state can preserve history, provenance, alternatives, and dependencies that need not fit within one operative context. Query-relative retrieval from that state is still a projection:
 
-Evaluation should consider not only whether an answer is plausible, but whether the epistemic operation used to produce or replace it is licensed by the dependency status of the claim. A reconstructible case should permit bounded reconstruction; a traceable case may call for retrieval, request, qualification, or routing; an opaque case should not be silently treated as determinate.
+```text
+persistent represented state
+    ≠ current operative representation
+```
 
-### Assessment, Reporting, and Governance Fidelity
+Persistence can improve reconstructibility by preserving bounded recovery paths, but it does not eliminate projection. Nor does moving or versioning an artifact certify its adequacy for a new query or recipient:
 
-Evaluation should distinguish errors in dependency-status assessment from errors in reporting and operation selection. A system may underestimate or overestimate the support available to it, may correctly recognize limited support but report a stronger status, or may report the limitation accurately while nevertheless taking an action that presupposes stronger support.
+> **State transport preserves an artifact and its represented relations; it does not certify destination-relative admissibility.**
 
-### Compressed/Enriched Diagnostic Contrast
+Recipient systems must reassess dependency status and operational validity relative to their own query, regime, operation repertoire, and operative representation.
 
-One possible evaluation design is to compare paired tasks that differ only in whether the query-relevant distinction is represented. A system that gives the same determinate answer form in both cases would be failing to regulate claims by dependency status.
+## Examples and applications
 
-### Structural-Revision Sensitivity
+The framework can be used as a design and evaluation lens for:
 
-A longer-form evaluation could test whether a system updates its dependency structure when a new material distinction is introduced and whether later responses continue to respect the consequences of that revision.
+- security copilots and incident-response assistants reasoning from partial telemetry;
+- code assistants operating without all relevant paths, configuration, or runtime state;
+- retrieval-augmented generation systems that expose citations without sufficient source content;
+- agentic systems acting from compressed memory, tool output, environmental observation, or inferred intent;
+- causal explanations that collapse interacting causes into a single attribution;
+- decisions that compress uncertainty, reversibility, or competing values into one score;
+- user models that overstate what can be inferred from partial interaction traces;
+- inherited procedures whose original applicability conditions are no longer represented;
+- benchmarks that reward plausible or lucky answers without testing whether the representation supported them.
 
-### Empirical Vulnerability
+These domains do not share one ontology. They share a narrower boundary at which a projected representation supplies support for a downstream claim, procedure, or action. Dependency status provides a common vocabulary for governing what may cross that boundary.
 
-The formal non-identifiability result is conditional on the stated representational assumptions. A separate empirical question is whether the framework's distinctions provide useful explanations or predictions for actual reasoning systems.
+## Evaluation implications
 
-Evidence against the practical importance of the framework would include:
+The framework suggests several prospective evaluation patterns:
 
-* failure to observe meaningful behavioral differences between preserved, reconstructible, traceable, and opaque dependency conditions under independently designed evaluation;
-* failure of controlled representation enrichment to produce the predicted change in licensed answer form;
-* failure of relational or dependency structure to add diagnostic value beyond component-level information; or
-* repeated external cases in which the framework's distinctions provide no useful explanatory or corrective advantage over simpler existing accounts.
+- **Correctness versus structural support:** score whether an operation was licensed separately from whether its realized answer happened to be true.
+- **Compressed/enriched contrast:** compare otherwise matched tasks that differ in whether the query-relevant distinction is represented.
+- **Representation-enrichment sensitivity:** test whether a system becomes appropriately more determinate when added information restores identifiability.
+- **Traceability versus reconstruction:** verify that adding a pointer or citation does not automatically produce a supported claim.
+- **Operation sensitivity:** test whether different statuses produce reconstruction, retrieval, qualification, routing, or refusal rather than a fixed answer form with varying confidence.
+- **Assessment, reporting, and governance fidelity:** localize whether failure occurred in support assessment, communication, or continuation selection.
+- **Structural-revision sensitivity:** test whether newly discovered material constraints continue to govern later claims until explicitly revised or removed.
 
-Such findings would not invalidate the elementary non-identifiability result itself, but they would weaken the claim that reconstructibility under projection identifies a practically important structure of AI reasoning failure.
-
----
-
-## AI Safety and Security Relevance
-
-The framework is intended to help analyze failures such as:
-
-* unsupported root-cause attribution in incident response;
-* hallucinated or weakly grounded source support in retrieval-augmented generation;
-* security recommendations made without the relevant code path, configuration, or threat model;
-* agentic actions taken from compressed or incomplete state;
-* policy or deployment decisions that collapse reversibility, uncertainty, and residual risk into a single score;
-* user-modeling or Theory-of-Mind-like claims that overstate what can be inferred from partial interaction traces;
-* metric-driven proxy success that hides loss of the target structure.
-
-The central safety question is whether a system can distinguish what its representation determines, what it can reconstruct, what it can merely trace, and what it has lost---and then bind that structural assessment to the inference, retrieval, reporting, or action operations it is permitted to perform.
-
----
-
-## Who This Is For
-
-This paper is intended for researchers, engineers, and practitioners working on:
-
-* AI safety and security evaluation;
-* reasoning systems;
-* agentic reliability;
-* retrieval-augmented generation and source grounding;
-* incident-response assistants and security copilots;
-* evaluation and benchmark design;
-* abstraction, compression, and state representation;
-* partial observability;
-* auditability and provenance;
-* proxy metrics and Goodhart-style failures;
-* systems that must distinguish inference from decision under uncertainty.
-
----
-
-## Repository Contents
-
-* [`01-reconstructibility-under-projection.pdf`](01-reconstructibility-under-projection.pdf) — the full paper.
-
----
-
-## LaTeX Source Conventions
-
-The LaTeX source is intentionally kept close to the logical structure of the prose.
-
-* Prose paragraphs are not hard-wrapped to a fixed column width. Each paragraph normally remains a single source line.
-* Blank lines separate paragraphs.
-* Structural LaTeX---such as equations, lists, tables, environments, and logically distinct commands---may be split across lines where doing so improves readability.
-* Source formatting should preserve semantic and structural clarity rather than enforce a uniform line-length limit.
-* Existing labels, citations, mathematical notation, and document structure should be preserved when making purely editorial changes.
-* Avoid reformatting unchanged LaTeX solely for stylistic reasons, since this creates noisy diffs.
-
----
+The formal non-identifiability result is conditional on the stated representational assumptions. Whether the four-status interface and its operational consequences usefully explain or predict behavior in actual systems remains an empirical question. Failure to observe the predicted behavioral distinctions would weaken the framework's practical significance without invalidating the elementary non-identifiability result.
 
 ## Scope
 
-This work presents a conceptual and diagnostic framework rather than a specific implemented or empirically evaluated system.
+The paper presents a conceptual and diagnostic framework. It does not claim to:
 
-The paper explains why some reasoning failures are representational rather than merely inferential, why local coherence is not the same as structural support, and why output-level correctness can miss failures caused by projection. Its central operational claim is that structural insufficiency should constrain the epistemic operations available to a reasoning system rather than merely reduce confidence while leaving behavior unchanged. It formalizes structural reliability separately from factual correctness, distinguishes assessment fidelity from governance compliance, and treats unsupported promotion as a recurring way that weaker or differently typed support is silently converted into stronger epistemic license.
+- explain every reasoning failure;
+- guarantee correct conclusions;
+- eliminate ambiguity;
+- recover distinctions absent from the operative information basis;
+- guarantee discovery of every material dependency, stakeholder, or constraint;
+- establish universal necessity or sufficiency of its three design requirements;
+- provide a complete detector, runtime enforcement protocol, or adaptive controller;
+- provide empirical validation of the proposed distinctions.
 
-It does not claim to:
+The framework is relative to the dependency structure currently represented as material to the query. Inquiry may revise that structure by introducing new distinctions, dependencies, constraints, or questions. Such revisions change the information basis to which admissibility is applied and should be explicit rather than silently attributed to an earlier representation.
 
-* explain every reasoning failure;
-* guarantee correct conclusions;
-* eliminate ambiguity;
-* recover distinctions absent from the current information basis;
-* guarantee that every relevant dependency or constraint has been discovered;
-* provide a complete implementation of dependency-status tracking;
-* report empirical validation of the framework.
+## Who this is for
 
-The framework applies to the dependency structure represented at a given stage of reasoning. That structure may later be revised as additional distinctions, constraints, or relationships become material. Such revisions change the information basis to which admissibility is applied and should be made explicit.
+The paper is intended for researchers, engineers, and practitioners working on:
 
-The paper also permits architectures in which a richer persistent reasoning state exists outside the current model context and supplies bounded query-relative representations when needed. This is an architectural consequence of the framework, not a claim that the paper implements or empirically validates such a system.
+- AI safety and security evaluation;
+- reasoning and agentic systems;
+- retrieval-augmented generation and source grounding;
+- incident-response assistants and security copilots;
+- evaluation and benchmark design;
+- abstraction, compression, and state representation;
+- partial observability, auditability, and provenance;
+- proxy metrics and decision-making under uncertainty.
 
-Further formal refinement, projection-sensitive evaluation, persistent-state implementations, and independent empirical validation remain open directions.
+## Repository contents
 
----
+- [`01-reconstructibility-under-projection.pdf`](01-reconstructibility-under-projection.pdf) — the full paper.
+
+## LaTeX source conventions
+
+- Prose paragraphs are not hard-wrapped to a fixed column width. Each paragraph normally remains a single source line.
+- Blank lines separate paragraphs.
+- Structural LaTeX—including equations, lists, tables, environments, and logically distinct commands—may be split across lines where this improves readability.
+- Source formatting should preserve semantic and structural clarity rather than enforce a uniform line-length limit.
+- Existing labels, citations, mathematical notation, and document structure should be preserved during purely editorial changes.
+- Avoid reformatting unchanged LaTeX solely for stylistic reasons, since that creates noisy diffs.
 
 ## Citation
 
@@ -377,8 +293,6 @@ Brian Cameron.
 Structural Reliability Under Projection: Representational Loss, Reconstructibility, and Admissibility.
 2026.
 ```
-
----
 
 ## Author
 
