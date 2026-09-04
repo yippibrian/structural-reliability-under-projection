@@ -12,12 +12,17 @@ Projection-induced information loss is already studied through identifiability, 
 
 > Given what a representation preserves about the dependencies required by a proposed continuation, what kind of epistemic operation remains licensed?
 
-The paper organizes the answer through a small control interface:
+The paper organizes the answer through a small control structure:
 
 ```text
 projection
     → dependency status
-    → licensed epistemic operation
+    → epistemically licensed operations
+
+epistemic licensing + operational validity
+    → admissible operations
+
+admissible operations + selection and budget policy
     → response or action
 ```
 
@@ -104,9 +109,17 @@ The statuses constrain kinds of continuation, not merely degrees of confidence. 
 
 The matrix is query- and regime-relative. It illustrates the operation partition rather than prescribing one universal policy for every domain.
 
-## Why four statuses matter
+## Why these four statuses arise
 
-The paper does not claim that reality contains exactly four epistemic states or that every controller must use four internal labels. It gives the four-way interface a conditional behavioral justification.
+The paper does not begin by stipulating four metaphysical kinds of knowledge. It begins with primitive dependency conditions in an assessment context: whether the required distinction is directly recoverable, recoverable through a bounded procedure, or unavailable; and, when recovery is unavailable, whether an adequate attribution trail remains. The gated classification map sends those conditions to preserved, reconstructible, traceable, and opaque status.
+
+The formal argument then separates three claims:
+
+1. **Primitive-state factorization:** the gated recovery–attribution map classifies primitive dependency conditions into the four statuses.
+2. **Licensing sufficiency:** when the declared base licensing relation depends only on distinctions preserved by that classification, licensing factors through the four-status interface.
+3. **Portable minimality:** when a declared family of contexts behaviorally distinguishes every pair of statuses, no proper quotient preserves the same licensing behavior across that family.
+
+The paper therefore does not claim that reality contains exactly four epistemic states or that every controller must use four internal labels. It gives the four-way interface a conditional behavioral justification.
 
 Two statuses are locally behaviorally equivalent when a particular query, regime, and operation repertoire license exactly the same continuations for both. A controller may safely compile locally equivalent statuses into one internal control state.
 
@@ -114,7 +127,7 @@ Local compression need not be portable. A controller without retrieval or routin
 
 > **Safe compression for current control does not imply safe compression for destination control.**
 
-For a declared family of contexts, the portable quotient retains every distinction that changes licensing behavior in at least one intended context. When the family is **status-separating**—when every pair of statuses has some licensing witness—no proper quotient of the four-status interface preserves the same behavior. The interface is minimal in that conditional and operational sense, not as a universal metaphysical taxonomy.
+For a declared family of contexts, the portable quotient retains every distinction that changes licensing behavior in at least one intended context. When the family is **status-separating**—when every pair of statuses has some licensing witness—the behavioral quotient of the primitive dependency-state space has exactly the four status classes, up to isomorphism. A coarser interface must either license an operation that should be blocked or block an operation that should be licensed. The interface is minimal in that conditional and operational sense, not as a universal metaphysical taxonomy.
 
 ## Unsupported promotion
 
@@ -132,17 +145,22 @@ Examples include:
 
 A promotion may be justified, but the additional licensing conditions must themselves be preserved, boundedly reconstructed, retrieved, or introduced through an explicit change of information basis. Persistence, availability, selection, or successful execution is not such a witness by itself.
 
-## Support, permission, selection, and stopping
+## Licensing, validity, admissibility, selection, and stopping
 
-The framework separates three questions:
+The framework separates four questions:
 
 ```text
-structural support
-    ≠ operational permission
-    ≠ continuation selection
+dependency status
+    → epistemic-operation licensing
+
+epistemic licensing + operational validity
+    → admissibility
+
+admissibility + policy and budget
+    → selection
 ```
 
-Dependency status bounds the epistemically admissible operation set. A proposed action must separately satisfy the authority, safety, feasibility, reversibility, or other operational conditions of the declared regime. Selection among licensed continuations may then depend on budget, urgency, utility, expected diagnostic value, policy, and other decision commitments.
+Dependency status determines which operations are epistemically licensed by the represented support. A proposed operation must separately satisfy the authority, safety, feasibility, reversibility, or other operational-validity conditions of the declared regime. The intersection of epistemic licensing and operational validity forms the admissible operation set. Selection from that set may then depend on budget, urgency, utility, expected diagnostic value, policy, and other decision commitments.
 
 The existence of an admissible terminal response means that stopping is permitted, not necessarily optimal. Further investigation may itself be admissible when its expected diagnostic value justifies its cost. Conversely, the existence of some admissible continuation does not mean that a terminal answer is licensed; retrieval, clarification, representation expansion, or routing may be the only admissible next operation.
 
@@ -188,7 +206,10 @@ Dependency status can serve as a compact control variable in a corrective loop:
 ```text
 operative representation
     → assessed dependency profile
-    → licensed operation set
+    → epistemically licensed operation set
+    + operational-validity constraints
+    → admissible operation set
+    + selection and budget policy
     → selected continuation
     → observed consequence
     → corrected or refined representation
@@ -238,6 +259,7 @@ The framework suggests several prospective evaluation patterns:
 - **Representation-enrichment sensitivity:** test whether a system becomes appropriately more determinate when added information restores identifiability.
 - **Traceability versus reconstruction:** verify that adding a pointer or citation does not automatically produce a supported claim.
 - **Operation sensitivity:** test whether different statuses produce reconstruction, retrieval, qualification, routing, or refusal rather than a fixed answer form with varying confidence.
+- **Licensing versus validity:** distinguish an operation unsupported by dependency status from one that is epistemically supported but operationally invalid under the declared regime.
 - **Assessment, reporting, and governance fidelity:** localize whether failure occurred in support assessment, communication, or continuation selection.
 - **Structural-revision sensitivity:** test whether newly discovered material constraints continue to govern later claims until explicitly revised or removed.
 
@@ -252,7 +274,7 @@ The paper presents a conceptual and diagnostic framework. It does not claim to:
 - eliminate ambiguity;
 - recover distinctions absent from the operative information basis;
 - guarantee discovery of every material dependency, stakeholder, or constraint;
-- establish universal necessity or sufficiency of its three design requirements;
+- establish universal necessity or sufficiency of its three corrective design requirements;
 - provide a complete detector, runtime enforcement protocol, or adaptive controller;
 - provide empirical validation of the proposed distinctions.
 
