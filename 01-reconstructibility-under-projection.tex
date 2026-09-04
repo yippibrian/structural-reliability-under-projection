@@ -1056,8 +1056,7 @@ This partition separates three questions that should remain distinct:
 
 Accordingly, a distinction is \emph{boundedly reconstructible} only relative to such a declared recovery regime. Existence of an abstract decoding function does not by itself make a dependency reconstructible for a particular system. A query may therefore be identifiable in principle while not being recoverable by the current reasoner, and a recoverable distinction need not license a direct answer until the required reconstruction has actually been performed or otherwise represented as satisfied.
 
-
-Preserved and reconstructible distinctions can support inference. Traceable distinctions support accountability for transformation or loss, but not recovery of the original relation. Opaque loss supports neither inference nor audit. This ladder is therefore not a complete theory of provenance or explanation; it specifies what kind of support a downstream claim has after projection.
+Preserved and reconstructible distinctions can support inference. Traceable status preserves an accountable attribution relation to the missing dependency, but not recovery of the query-relevant distinction required by the claim. Opaque status supports neither such recovery nor accountable localization from the current representation. This ladder is therefore not a complete theory of provenance or explanation; it specifies what kind of support a downstream claim has after projection.
 
 Dependency status, relative to the dependencies currently recognized as material, is the structural relation that later requirements are designed to preserve across reasoning steps, representation changes, correction attempts, and answer-form selection. Observability makes possible the detection or marking of unsupported dependency status. Bounded correction prevents a system from changing dependency status silently during repair. Non-collapse prevents claims supported at one level, such as a representation, intermediate state, or selected explanation, from being treated as if they were supported at another. The requirements that follow should therefore be read not as independent virtues, but as constraints on preserving dependency status under reasoning. When reasoning discovers a new dependency or a new relation among existing objects, the relevant invariant is not preservation of the earlier graph unchanged. It is preservation of the newly discovered constraint and its effect on subsequent licensing.
 
@@ -1074,11 +1073,7 @@ Because admissibility constrains epistemic operation, dependency status determin
 An \emph{unsupported promotion} occurs when a reasoning process treats a weaker, differently typed, or merely retained support relation as though it established the additional conditions required for a stronger epistemic license, without an explicit represented witness for that strengthening.
 \end{definition}
 
-The three structural requirements act as controls against this common
-failure mechanism. Observability helps expose candidate promotions,
-bounded correction prevents hidden strengthening during repair, and
-non-collapse prevents support from being transferred illegitimately
-across representational roles or levels.
+The three structural requirements act as controls against this common failure mechanism. Observability helps expose candidate promotions, bounded correction prevents hidden strengthening during repair, and non-collapse prevents support from being transferred illegitimately across representational roles or levels.
 
 Schematically,
 \[
@@ -1115,7 +1110,9 @@ Unsupported promotion therefore provides a common description of several otherwi
 
 \subsection{Licensing, Operational Validity, Admissibility, and Selection}
 
-Dependency status constrains epistemic licensing, but epistemic licensing is not the only condition on a continuation. Let \(\mathcal O_{\eta}\) denote the candidate continuations available in assessment context \(\eta=(\Gamma,q,R)\). The dependency-status profile determines the epistemically licensed subset
+In this section, an \emph{epistemic operation} is a reasoning or communicative move such as inference, reconstruction, qualification, or retrieval. An \emph{operational continuation} is the larger system move that may perform, communicate, or act on an epistemic result. The notation \(\mathcal O_{\eta}\) ranges over candidate continuations: \(\mathcal O^{\mathrm{ep}}_{\eta}\) retains those whose epistemic component is licensed by dependency status, while \(\mathcal O^{\mathrm{valid}}_{\eta}\) separately retains those permitted by the governing regime. A purely epistemic continuation may have a trivial operational-validity condition; an action-bearing continuation need not.
+
+Dependency status constrains epistemic licensing, but epistemic licensing is not the only condition on a continuation. In assessment context \(\eta=(\Gamma,q,R)\), the dependency-status profile determines the epistemically licensed subset
 
 \[
 \mathcal O^{\mathrm{ep}}_{\eta}(\Delta)
@@ -1148,12 +1145,12 @@ A continuation is admissible in context \(\eta\) under dependency profile \(\Del
 \]
 \end{definition}
 
-The two gates answer different questions. Epistemic licensing asks whether the represented dependency structure supports the proposed kind of inference, reconstruction, qualification, retrieval, or response. Operational validity asks whether the proposed continuation is permitted under the governing authority, safety, resource, and execution conditions of the declared regime. Neither gate subsumes the other.
+The framework does not derive operational validity from dependency status. The predicate \(\operatorname{Valid}_{\Gamma}(R,o)\) is an externally parameterized, regime-relative constraint supplied by the governing environment. It may represent authority, safety, resource, execution, reversibility, or other operational conditions without treating those conditions as consequences of evidential support. The two gates therefore answer different questions. Epistemic licensing asks whether the represented dependency structure supports the proposed kind of inference, reconstruction, qualification, retrieval, or response. Operational validity asks whether the associated continuation is permitted under the declared regime. Neither gate subsumes the other.
 
-Selection then operates only over the admissible set. Given an assessed dependency-status profile \(\widehat{\Delta}_{\Gamma,q,R}\), budget or resource conditions \(B\), and a declared selection policy \(\Pi\), write
+A compliant selection policy operates only over the admissible set. Given an assessed dependency-status profile \(\widehat{\Delta}_{\Gamma,q,R}\), budget or resource conditions \(B\), and a declared selection policy \(\Pi\), let \(o_{\mathrm{prescribed}}\) denote the continuation prescribed by that policy:
 
 \[
-o_{\mathrm{selected}}
+o_{\mathrm{prescribed}}
 \in
 \operatorname{Select}
 \left(
@@ -1180,10 +1177,9 @@ Accordingly,
 }
 \]
 
-Admissibility bounds the available choice set. Selection and budget policies determine which admissible continuation is taken and how long inquiry should continue. The framework therefore does not prescribe either immediate abstention or indefinite investigation.
+Admissibility bounds the available choice set. Selection and budget policies prescribe which admissible continuation should be taken and how long inquiry should continue. Actual system behavior may comply with or depart from that prescription. The framework therefore does not prescribe either immediate abstention or indefinite investigation.
 
-Classification is likewise not compulsion. A theoretical licensing relation may identify an operation as admissible or inadmissible without guaranteeing that a reasoner will comply. An implementation may merely report the classification, encourage compliance through prompting, record violations for audit, gate selected transitions, or enforce the constraint mechanically. These are different governance strengths. The actual operation selected must therefore remain distinct from both dependency-status assessment and the operation set induced by that assessment.
-
+Classification is likewise not compulsion. The framework may classify an operation as admissible or inadmissible without guaranteeing that a reasoner will comply. An implementation may merely report the classification, encourage compliance through prompting, record violations for audit, gate selected transitions, or enforce the constraint mechanically. These are different governance strengths. The operation actually selected must therefore remain distinct from the policy-prescribed operation, the dependency-status assessment, and the admissible set induced by that assessment.
 
 Respecting these constraints does not make reasoning systems infallible. It changes the status of their failures. Unsupported claims become visible rather than hidden; ambiguity is represented rather than suppressed; correction remains tied to the information basis of the representation; and decisions under non-identifiability are marked as decisions rather than inferred conclusions.
 
@@ -1192,7 +1188,7 @@ For AI reasoning systems, especially safety-critical ones, this changes what cou
 \subsection{Actual, Assessed, Reported, and Selected State}
 \label{subsec:status-assessment-selection}
 
-Runtime governance requires a distinction between actual, assessed, and reported dependency status, together with the operation ultimately selected. For an individual dependency \(d\), let \(\delta^{*}_{\Gamma,q,R}(d)\) denote the status that dependency \(d\) actually has relative to query \(q\), representation \(R\), and operative regime \(\Gamma\); let \(\widehat{\delta}_{\Gamma,q,R}(d)\) denote the status assessed by the reasoner; and let \(\widetilde{\delta}_{\Gamma,q,R}(d)\) denote the status reported in the resulting answer or reasoning artifact. Collectively, these induce actual, assessed, and reported dependency-status profiles \(\Delta^{*}_{\Gamma,q,R}\), \(\widehat{\Delta}_{\Gamma,q,R}\), and \(\widetilde{\Delta}_{\Gamma,q,R}\) over the dependencies currently treated as material to the query. The normative framework constrains response form relative to the actual profile, while practical systems can act only through imperfect assessed profiles. Evaluation must therefore consider both whether the assessed profile is accurate and whether the reported answer form faithfully reflects that assessment.
+Runtime governance requires a distinction between actual, assessed, and reported dependency status, together with the operation ultimately selected. For each dependency \(d\) under evaluation, let \(x^{*}_{\eta}(d)\in X_{\eta}\) denote the primitive support condition that semantically obtains in assessment context \(\eta=(\Gamma,q,R)\) under the declared recovery and attribution semantics. Define the actual, or reference, dependency status by \(\delta^{*}_{\Gamma,q,R}(d)=\kappa_{\eta}\bigl(x^{*}_{\eta}(d)\bigr)\). This is a semantic property of the relation among the dependency, operative representation, recovery conditions, query, and regime; it need not be observable, computable, or correctly assessable by the bounded reasoner operating on \(R\). Let \(\widehat{\delta}_{\Gamma,q,R}(d)\) denote the status assessed by the reasoner, and let \(\widetilde{\delta}_{\Gamma,q,R}(d)\) denote the status reported in the resulting answer or reasoning artifact. Collectively, these induce actual, assessed, and reported dependency-status profiles \(\Delta^{*}_{\Gamma,q,R}\), \(\widehat{\Delta}_{\Gamma,q,R}\), and \(\widetilde{\Delta}_{\Gamma,q,R}\) over the dependencies currently treated as material to the query. The normative framework constrains response form relative to the reference profile, while practical systems can act only through imperfect assessed profiles. Evaluation must therefore consider both whether the assessed profile is accurate and whether the reported answer form faithfully reflects that assessment.
 
 These three quantities should not be identified. In particular,
 
@@ -1210,15 +1206,15 @@ The reported status introduces a further requirement:
 
 \[
 \widetilde{\delta}_{\Gamma,q,R}(d)
-\preceq
+\preceq_{\eta}
 \widehat{\delta}_{\Gamma,q,R}(d),
 \]
 
-where \(\preceq\) is a context-relative reporting preorder meaning ``claims no stronger represented support than.'' It is not a claim that the four statuses form one global total order, and it remains subject to any qualifiers attached to the assessment. A system should not report stronger support than it assessed. But satisfying this reporting constraint does not establish that the assessment itself was correct:
+Here \(a\preceq_{\eta}b\) means that every represented-support commitment communicated by report \(a\) is licensed by assessed status \(b\) in context \(\eta\). This is a context-relative preorder over reporting commitments, not a global ordering of the four dependency statuses, and it remains subject to any qualifiers attached to the assessment. A system should not report stronger support than it assessed. But satisfying this reporting constraint does not establish that the assessment itself was correct:
 
 \[
 \widetilde{\delta}
-\preceq
+\preceq_{\eta}
 \widehat{\delta}
 \quad\not\Rightarrow\quad
 \widehat{\delta}=\delta^{*}.
@@ -1226,16 +1222,22 @@ where \(\preceq\) is a context-relative reporting preorder meaning ``claims no s
 
 The distinction therefore separates two failure modes. \emph{Assessment error} occurs when the reasoner misclassifies actual dependency status. \emph{Reporting inflation} occurs when the answer presents a stronger dependency status than the reasoner's own assessment supports. Runtime governance can directly constrain the second failure; the first remains subject to the same projection limits that motivate the framework as a whole.
 
-Action or operation selection should be represented separately from these status variables. Let
+Action or operation selection should be represented separately from these status variables and from the continuation prescribed by a compliant selection policy. Let
+
+\[
+o_{\mathrm{selected}}\in\mathcal O_{\eta}
+\]
+
+denote the continuation actually selected by the system. Governance compliance requires that the selected continuation belong to the admissible set induced by the system's assessed dependency-status profile:
 
 \[
 o_{\mathrm{selected}}
 \in
 \mathcal O^{\mathrm{adm}}_{\eta}
-\bigl(\widehat{\Delta}_{\Gamma,q,R}\bigr)
+\bigl(\widehat{\Delta}_{\Gamma,q,R}\bigr).
 \]
 
-denote the epistemic or operational continuation selected by the system from the admissible set induced by its assessed dependency-status profile and governing regime. This separation exposes a third failure mode. An \emph{action-governance failure} occurs when the system's selected continuation is not admissible even under its own assessment:
+An \emph{action-governance failure} occurs when this compliance condition fails:
 
 \[
 o_{\mathrm{selected}}
@@ -1282,7 +1284,7 @@ Observability does not require recovery of the missing information. In informati
 
 \subsection{Bounded Correction}
 
-Correction is bounded relative to a projection $P:S\rightarrow R$ when it can revise an incorrect result using only distinctions encoded in the representational state $R$. Here $R$ includes not only object-level data, but any explicitly represented metadata, provenance information, uncertainty markers, priors, task constraints, or assumptions available to the reasoning process. If correction requires distinguishing between states that are equivalent under $P$ and not distinguished anywhere in $R$, then the problem is not ordinary error correction within the representation. It requires representation expansion, new information, or an explicit assumption that changes the representational state.
+A correction is bounded relative to a projection \(P:S\rightarrow R\) when the transformation from the current result to the revised result is licensed entirely by distinctions represented in \(R\), without an unmarked introduction of distinctions from outside \(R\). Here \(R\) includes not only object-level data, but any explicitly represented metadata, provenance information, uncertainty markers, priors, task constraints, or assumptions available to the reasoning process. This definition does not require the reasoner to establish ground-truth incorrectness from \(R\) alone. It requires the basis of the revision to remain attributable to the operative representation. If revision requires distinguishing states that are equivalent under \(P\) and nowhere distinguished in \(R\), then the process requires representation expansion, new information, or an explicit assumption that changes the represented information basis.
 
 While bounded correction concerns preserving the information basis during revision, non-collapse concerns preserving the role distinctions among representational objects. A system may satisfy bounded correction yet still collapse levels by treating a representation as equivalent to the system it represents, or by treating a selected explanation as uniquely determined by the available evidence.
 
@@ -1292,23 +1294,21 @@ It is useful to distinguish two cases. In correction within $R$, the query is id
 
 A related consequence applies when reasoning under unresolved representational uncertainty must guide intervention rather than merely revise a claim. Bounded correction does not itself determine which action should be preferred, since action selection may depend on utilities, policies, authority, and other decision commitments not supplied by the represented evidence. It does, however, expose a structural difference among otherwise admissible actions. When the current representation leaves loss-relevant distinctions unresolved, an action that preserves observability, reversibility, and a bounded path for subsequent correction retains capabilities that an irreversible intervention may destroy. Thus uncertainty about the adequacy of the current representation can support a preference, under an explicitly declared decision rule, for interventions whose consequences remain detectable, attributable, and boundedly revisable. This is an interventional consequence of bounded correction rather than an extension of evidential support: it constrains how strongly a system commits under unresolved loss without determining the substantive value or policy according to which the action is selected~\cite{Fist2026}.
 
-Without bounded correction, a system may appear to repair an error while actually importing information not present in the representation, thereby simulating access to the original state space $S$.
-
 This requirement separates valid correction from implicit reconstruction. If correcting a result requires unsupported new assumptions, wholesale replacement of the representation, or unbounded reconstruction of the problem state, then the issue is no longer ordinary error correction. It is either representational loss or a representation failure.
 
 Bounded correction ensures that:
 
 \begin{itemize}[leftmargin=1.5em]
-    \item errors can be repaired without silently changing the information basis of the representation,
-    \item the distinction between error and loss is preserved in practice,
-    \item correction remains a property of the reasoning process rather than an artifact of external intervention.
+    \item revisions do not silently change the information basis of the representation;
+    \item the distinction between correction within \(R\) and refinement to \(R'\) remains explicit; and
+    \item external retrieval, intervention, or information acquisition is marked as a change of information basis rather than presented as support already contained in the original representation.
 \end{itemize}
 
 Failure of bounded correction leads to systems that appear to improve through repeated revision, but in fact introduce new assumptions or hidden state at each step.
 
 \subsection{Non-Collapse of Distinct Levels}
 
-A reasoning system must preserve role distinctions between objects that occupy different positions in the reasoning process. In dependency-status terms, non-collapse requires that support not be transferred across representational levels unless the dependency licensing that transfer is itself preserved, boundedly reconstructible, or explicitly conditioned. A representation may support a claim about the representation without supporting the same claim about the underlying system. A proxy may support a claim about the proxy without supporting the same claim about the target. A selected explanation may be consistent with the represented evidence without being uniquely licensed by it.
+For dependency-status governance to function as intended, a reasoning system must preserve role distinctions between objects that occupy different positions in the governed reasoning process. In dependency-status terms, non-collapse requires that support not be transferred across representational levels unless the dependency licensing that transfer is itself preserved, boundedly reconstructible, or explicitly conditioned. A representation may support a claim about the representation without supporting the same claim about the underlying system. A proxy may support a claim about the proxy without supporting the same claim about the target. A selected explanation may be consistent with the represented evidence without being uniquely licensed by it.
 
 The relevant invariant is therefore not that all levels have the same structure, but that dependency status must not be silently promoted across levels. A preserved dependency at one level must not be treated as preserved at another level unless the relation between those levels is also preserved or reconstructible. Likewise, a traceable or opaque dependency must not become apparently reconstructed merely because it is attached to a fluent explanation, a metric, a provenance pointer, a selected model, or an aggregate representation.
 

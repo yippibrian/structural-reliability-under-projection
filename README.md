@@ -23,7 +23,13 @@ epistemic licensing + operational validity
     → admissible operations
 
 admissible operations + selection and budget policy
-    → response or action
+    → prescribed operation
+
+controller execution
+    → actually selected operation
+
+prescribed and admissible operations versus actual selection
+    → compliance assessment
 ```
 
 Dependency status functions as a **thin waist**. Above it may sit prompts, retrieved documents, telemetry, memories, metrics, causal models, policy artifacts, tool outputs, or other domain-specific representations. Below it may sit direct inference, reconstruction, retrieval, qualification, routing, reframing, explicit decision, deferral, or refusal of the requested form.
@@ -145,7 +151,7 @@ Examples include:
 
 A promotion may be justified, but the additional licensing conditions must themselves be preserved, boundedly reconstructed, retrieved, or introduced through an explicit change of information basis. Persistence, availability, selection, or successful execution is not such a witness by itself.
 
-## Licensing, validity, admissibility, selection, and stopping
+## Licensing, validity, admissibility, prescription, selection, and stopping
 
 The framework separates four questions:
 
@@ -157,32 +163,36 @@ epistemic licensing + operational validity
     → admissibility
 
 admissibility + policy and budget
-    → selection
+    → prescribed operation
+
+controller execution
+    → actually selected operation
 ```
 
-Dependency status determines which operations are epistemically licensed by the represented support. A proposed operation must separately satisfy the authority, safety, feasibility, reversibility, or other operational-validity conditions of the declared regime. The intersection of epistemic licensing and operational validity forms the admissible operation set. Selection from that set may then depend on budget, urgency, utility, expected diagnostic value, policy, and other decision commitments.
+Dependency status determines which operations are epistemically licensed by the represented support. A proposed operation must separately satisfy the authority, safety, feasibility, reversibility, or other operational-validity conditions of the declared regime. The intersection of epistemic licensing and operational validity forms the admissible operation set. Selection and budget policy prescribe an operation from that set according to urgency, utility, expected diagnostic value, policy, and other decision commitments. The operation actually selected remains observed behavior and may comply with or violate that prescription.
 
 The existence of an admissible terminal response means that stopping is permitted, not necessarily optimal. Further investigation may itself be admissible when its expected diagnostic value justifies its cost. Conversely, the existence of some admissible continuation does not mean that a terminal answer is licensed; retrieval, clarification, representation expansion, or routing may be the only admissible next operation.
 
 Classification is also not compulsion. An implementation may report a licensing judgment, encourage compliance, audit violations, gate selected transitions, or enforce the constraint mechanically. These represent different governance strengths.
 
-## Actual, assessed, reported, and selected state
+## Actual, assessed, reported, prescribed, and selected state
 
 Practical systems act through imperfect assessments of their own support. The framework therefore separates:
 
 - **Actual dependency status:** the support a dependency really has relative to the query, operative representation, and regime.
 - **Assessed dependency status:** the status assigned by the bounded reasoner.
 - **Reported dependency status:** the status communicated in the answer or reasoning artifact.
-- **Selected operation:** the continuation the system actually performs.
+- **Prescribed operation:** the continuation designated by policy and budget from the operations assessed as admissible.
+- **Actually selected operation:** the continuation the system actually performs, whether or not it conforms to the prescribed or admissible operation set.
 
 This exposes distinct failure locations:
 
 - **Representation insufficiency:** the actual information basis does not provide the required support.
 - **Assessment failure:** the reasoner misclassifies that support.
 - **Reporting inflation:** the answer claims stronger support than the reasoner's own assessment warrants.
-- **Action-governance failure:** the selected continuation is not licensed even by the assessed status.
+- **Action-governance failure:** the actually selected continuation violates the assessed admissibility constraints or the operation prescribed under them.
 
-A system may honestly report its assessment and still be wrong about its actual evidential position. It may also comply perfectly with a policy induced by a mistaken assessment. Factual correctness, assessment fidelity, reporting fidelity, and governance compliance are therefore related but non-equivalent evaluation targets.
+A system may honestly report its assessment and still be wrong about its actual evidential position. It may also correctly derive a prescribed operation from a mistaken assessment, or select an operation that violates a correct prescription. Factual correctness, assessment fidelity, reporting fidelity, prescription fidelity, and behavioral compliance are therefore related but non-equivalent evaluation targets.
 
 ## Three requirements for reliable correction
 
@@ -210,8 +220,10 @@ operative representation
     + operational-validity constraints
     → admissible operation set
     + selection and budget policy
-    → selected continuation
-    → observed consequence
+    → prescribed continuation
+    → controller execution
+    → actually selected continuation
+    → compliance assessment and observed consequence
     → corrected or refined representation
 ```
 
