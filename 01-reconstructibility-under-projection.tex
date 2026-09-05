@@ -34,7 +34,7 @@ AI systems reason and act from compressed representations such as prompts, summa
 
 The paper introduces dependency status as a thin operational interface between projected representation and epistemic operation. Preserved, reconstructible, traceable, and opaque status arise from a gated recovery--attribution construction. Under explicit surjectivity, status-sufficiency, and fiber-separation assumptions, these four statuses are exactly the behavioral equivalence classes induced by a declared base licensing relation. Across a status-separating family of contexts, no proper quotient preserves the same portable licensing behavior.
 
-Dependency status constrains epistemic licensing; operational validity separately constrains permission; and a compliant selection policy prescribes from their intersection while actual selection remains observed behavior. This separation exposes unsupported promotion, assessment error, reporting inflation, and action-governance failure as distinct structural failures. The resulting framework treats dependency status as a bounded cybernetic control interface: changes in represented support should change the operation or response form prescribed for the reasoner without implying perfect diagnosis, behavioral compliance, convergence, or self-certification.
+Dependency status constrains epistemic licensing; operational validity separately constrains permission; and a compliant selection policy prescribes from their intersection while actual selection remains observed behavior. This separation distinguishes representation insufficiency, assessment error, reporting inflation, and action-governance failure, while unsupported promotion names the more general pattern in which a downstream role or operation acquires stronger support than the representation supplies. The resulting framework treats dependency status as a bounded cybernetic control interface: changes in represented support should change the operation or response form prescribed for the reasoner without implying perfect diagnosis, behavioral compliance, convergence, or self-certification.
 \end{abstract}
 
 \section{Introduction: From Representational Support to Licensed Operation}
@@ -99,11 +99,10 @@ The paper makes five connected contributions:
     \item It derives preserved, reconstructible, traceable, and opaque status from a gated recovery--attribution construction and proves, under stated sufficiency, separation, and surjectivity assumptions, when those statuses are exactly the primitive behavioral classes.
     \item It characterizes dependency status as a thin licensing interface, distinguishes controller-local compression from portable status non-collapse, and separates epistemic licensing, operational validity, admissibility, policy prescription, and actual selection.
     \item It identifies unsupported promotion as a common structural failure and separates actual, assessed, and reported dependency status from the policy-prescribed operation and the operation actually selected.
-    \item It identifies unsupported promotion as a common structural failure and separates actual, assessed, and reported dependency status from the operation ultimately selected.
     \item It develops observability, bounded correction, and non-collapse as requirements for keeping dependency-status governance effective in a corrigible but non-self-certifying control loop.
 \end{enumerate}
 
-The paper first introduces a minimal case in which projection makes a query non-identifiable. It then develops projection, error, loss, and dependency status; connects status to licensed epistemic operation; and derives the structural requirements for reliable correction. Diagnostic cases show how the same interface applies to scalarization, causal attribution, provenance, decision under non-identifiability, and agentic action. The final sections relate the framework to neighboring methods and describe its operational implications, empirical vulnerability, scope, and limitations.
+The paper first introduces a minimal case in which projection makes a query non-identifiable. It then develops projection, error, loss, and dependency status; connects status to licensed epistemic operation; and derives the structural requirements for reliable correction. Diagnostic cases show how the same interface applies to scalarization, causal attribution, provenance, decision under non-identifiability, and agentic action. The final sections relate the framework to neighboring methods, instantiate it as a five-step operational diagnostic, describe its cybernetic implications and limitations, and locate the remaining formal, dynamic, protocol, empirical, and shared-state results in the broader research stack.
 
 \section{A Minimal Motivating Example}
 
@@ -998,7 +997,7 @@ Traceable
 & U & U & L & L & L \\
 
 Opaque
-& U & U & C$^\ddagger$ & L & L \\
+& U & U & U & L & L \\
 \bottomrule
 \end{tabular}
 
@@ -1006,8 +1005,8 @@ Opaque
 \begin{minipage}{0.94\linewidth}
 \footnotesize
 \(L=\) licensed, \(C=\) conditionally available, and \(U=\) unlicensed from the current support state.
-\(^{\dagger}\)Direct inference becomes licensed only after the bounded recovery path has actually restored the required distinction.
-\(^{\ddagger}\)Retrieval is conditionally available only when the representation preserves or can establish a route to an external source capable of expanding the information basis. The matrix is regime- and query-relative; it illustrates the operation partition rather than prescribing a universal domain-independent policy.
+\(^{\dagger}\)Direct inference is not licensed while the dependency remains reconstructible. Successful bounded recovery changes the operative information state so that the recovered distinction is preserved, after which direct inference may become licensed.
+The matrix is regime- and query-relative; it illustrates the operation partition rather than prescribing a universal domain-independent policy. An operation that expands the information basis may move an opaque dependency into a traceable or recoverable state, but that transition does not make targeted retrieval or trace-following licensed under the original opaque state.
 \end{minipage}
 \end{table}
 
@@ -1729,7 +1728,7 @@ This yields a general principle:
 }
 \]
 
-Call this \emph{Self-Application Non-Certification}. The principle does not make admissibility assessment futile. It limits what such assessment certifies. A procedure may improve structural reliability, expose detectable loss, constrain reporting inflation, and require explicit recovery paths without becoming an oracle for the completeness of its own representation.
+Call this \emph{Self-Application Non-Certification}. This is a representation-relative limitation principle, not an independent impossibility theorem. The principle does not make admissibility assessment futile. It limits what such assessment certifies. A procedure may improve structural reliability, expose detectable loss, constrain reporting inflation, and require explicit recovery paths without becoming an oracle for the completeness of its own representation.
 
 The practical consequence is that admissibility mechanisms should expose the basis and limits of their own assessments. They may classify represented dependencies, record unresolved conditions, request refinement, or qualify their own status judgments. They should not silently convert successful self-application into evidence that no relevant dependency was omitted upstream.
 
