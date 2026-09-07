@@ -23,7 +23,7 @@
 Representational Loss, Reconstructibility, and Admissibility}
 
 \author{Brian Cameron}
-\date{September 5, 2026}
+\date{September 6, 2026}
 
 \begin{document}
 
@@ -32,7 +32,7 @@ Representational Loss, Reconstructibility, and Admissibility}
 \begin{abstract}
 AI systems reason and act from compressed representations such as prompts, summaries, retrieved passages, logs, metrics, memory, and policy artifacts. Such representations may collapse distinctions required by downstream claims while leaving those claims locally coherent. This paper characterizes that failure as query-relative representational loss rather than ordinary inference error. For a projection \(P:S\rightarrow R\), a query is identifiable only when states collapsed by \(P\) do not require different answers.
 
-The paper introduces dependency status as a thin operational interface between projected representation and epistemic operation. Preserved, reconstructible, traceable, and opaque status arise from a gated recovery--attribution construction. Under explicit surjectivity, status-sufficiency, and fiber-separation assumptions, these four statuses are exactly the behavioral equivalence classes induced by a declared base licensing relation. Across a status-separating family of contexts, no proper quotient preserves the same portable licensing behavior.
+The paper introduces dependency status as a thin operational interface between projected representation and epistemic operation. Preserved, reconstructible, traceable, and opaque status arise from a gated recovery--attribution construction. Under explicit surjectivity, status-sufficiency, and fiber-separation assumptions, these four statuses are exactly the behavioral equivalence classes induced by a declared base licensing relation; three nested capability thresholds make the partition explicit, and the existence of operations witnessing those thresholds provides a concrete sufficient condition for fiber separation. Across a status-separating family of contexts, no proper quotient preserves the same portable licensing behavior.
 
 Dependency status constrains epistemic licensing; operational validity separately constrains permission; and a compliant selection policy prescribes from their intersection while actual selection remains observed behavior. This separation distinguishes representation insufficiency, assessment failure, reporting failure, and action-governance failure, while unsupported promotion names the more general pattern in which a downstream role or operation acquires stronger support than the representation supplies. The resulting framework treats dependency status as a bounded cybernetic control interface: changes in represented support should change the operation or response form prescribed for the reasoner without implying perfect diagnosis, behavioral compliance, convergence, or self-certification.
 \end{abstract}
@@ -96,7 +96,7 @@ The paper makes five connected contributions:
 
 \begin{enumerate}[leftmargin=1.5em]
     \item It distinguishes correctable inference error from query-relative representational loss and states the resulting non-identifiability boundary formally.
-    \item It derives preserved, reconstructible, traceable, and opaque status from a gated recovery--attribution construction and proves, under stated sufficiency, separation, and surjectivity assumptions, when those statuses are exactly the primitive behavioral classes.
+    \item It derives preserved, reconstructible, traceable, and opaque status from a gated recovery--attribution construction, expresses that construction through three nested capability thresholds, and proves under stated sufficiency, separation, and surjectivity assumptions when the statuses are exactly the primitive behavioral classes.
     \item It characterizes dependency status as a thin licensing interface, distinguishes controller-local compression from portable status non-collapse, and separates epistemic licensing, operational validity, admissibility, policy prescription, and actual selection.
     \item It identifies unsupported promotion as a common structural failure and separates actual, assessed, and reported dependency status from the policy-prescribed operation and the operation actually selected.
     \item It develops observability, bounded correction, and non-collapse as requirements for keeping dependency-status governance effective in a corrigible but non-self-certifying control loop.
@@ -721,6 +721,47 @@ Definition~\ref{def:gated-status-map} yields the conditional recovery--attributi
 
 This is a gated construction rather than an unrestricted product. Attribution distinguishes the residual conditions specifically after recovery has failed. Traceable status is therefore not an intermediate quantity of reconstruction. It records a different residual capability: the distinction cannot presently be recovered, but the missing dependency can still be localized, inspected, retrieved, routed, contested, or governed in ways unavailable under opaque status.
 
+\begin{definition}[Nested capability thresholds]
+\label{def:nested-capability-thresholds}
+For the primitive support space \(X_{\eta}\), define
+
+\[
+E_{1,\eta}=\{x\in X_{\eta}:\rho_{\eta}(x)=\mathsf{direct}\},
+\]
+
+\[
+E_{2,\eta}=\{x\in X_{\eta}:\rho_{\eta}(x)\in\{\mathsf{direct},\mathsf{bounded}\}\},
+\]
+
+and
+
+\[
+E_{3,\eta}=E_{2,\eta}\cup\{x\in X_{\eta}:\rho_{\eta}(x)=\mathsf{unavailable}\ \text{and}\ \alpha_{\eta}(x)=\mathsf{attributable}\}.
+\]
+
+These sets satisfy \(E_{1,\eta}\subseteq E_{2,\eta}\subseteq E_{3,\eta}\subseteq X_{\eta}\) by construction. Their four regions are
+
+\[
+E_{1,\eta},\qquad E_{2,\eta}\setminus E_{1,\eta},\qquad E_{3,\eta}\setminus E_{2,\eta},\qquad X_{\eta}\setminus E_{3,\eta},
+\]
+
+corresponding respectively to \(\mathsf P,\mathsf R,\mathsf T,\mathsf O\). Define the associated capability signature by
+
+\[
+\chi_{\eta}(x)=\bigl(\mathbf{1}_{E_{1,\eta}}(x),\mathbf{1}_{E_{2,\eta}}(x),\mathbf{1}_{E_{3,\eta}}(x)\bigr).
+\]
+
+Its possible values are
+
+\[
+(1,1,1),\qquad(0,1,1),\qquad(0,0,1),\qquad(0,0,0),
+\]
+
+and \(\kappa_{\eta}\) is obtained by naming these signatures \(\mathsf P,\mathsf R,\mathsf T,\mathsf O\), respectively.
+\end{definition}
+
+The nested construction does not introduce primitives independent of \(\rho_{\eta}\) and \(\alpha_{\eta}\). It reorganizes the same gated recovery--attribution conditions as three separately testable capability thresholds. The inclusions are automatic; surjectivity of \(\kappa_{\eta}\) is what ensures that all four regions are nonempty and hence that all four signatures are realized.
+
 \begin{remark}[Base statuses and refinements]
 \label{rem:base-status-refinements}
 The gated map defines a base response-governance interface. It does not claim that attribution, probability, provenance quality, authority, or contestation become irrelevant whenever recovery succeeds. If a declared operation family distinguishes, for example, directly available support with adequate provenance from directly available support without adequate provenance, the interface must retain that distinction as a qualifier or refinement. The four-class claim below therefore concerns the declared base operation family for which licensing depends on the gated recovery--attribution condition.
@@ -747,6 +788,14 @@ Call \(\lambda_{\eta}\) \emph{status-sufficient} when
 \]
 
 Status sufficiency says that the gated map does not discard a primitive distinction that the declared base licensing relation still uses.
+
+Because \(\chi_{\eta}\) and \(\kappa_{\eta}\) have exactly the same fibers, status sufficiency may equivalently be stated as capability sufficiency:
+
+\[
+\chi_{\eta}(x)=\chi_{\eta}(y)\quad\Longrightarrow\quad\forall o\in O_{\mathrm{base}},\;\lambda_{\eta}(x,o)=\lambda_{\eta}(y,o).
+\]
+
+This is an equivalent presentation of the sufficiency hypothesis, not an independently weaker assumption.
 
 \begin{proposition}[Licensing factorization]
 \label{prop:licensing-factorization}
@@ -805,6 +854,28 @@ Call the primitive licensing relation \emph{fiber-separating} when
 \lambda_{\eta}(x,o)\neq\lambda_{\eta}(y,o).
 \]
 
+\begin{definition}[Capability-threshold witness]
+\label{def:capability-threshold-witness}
+For \(k\in\{1,2,3\}\), an operation \(o_k\in O_{\mathrm{base}}\) is a witness for \(E_{k,\eta}\) when
+
+\[
+x\in E_{k,\eta},\ y\notin E_{k,\eta}\quad\Longrightarrow\quad\lambda_{\eta}(x,o_k)\neq\lambda_{\eta}(y,o_k).
+\]
+
+A threshold-witnessing family consists of one such operation for each of the three capability thresholds.
+\end{definition}
+
+The witnesses concern capabilities rather than status-preferred responses. For example, the relevant thresholds may concern direct determination, determination through a permitted bounded procedure, and accountable handling of a localized dependency. They need not coincide with whichever operation a policy would prescribe after the status has been assessed.
+
+\begin{proposition}[Threshold witnesses imply fiber separation]
+\label{prop:threshold-witness-separation}
+If \(E_{1,\eta}\), \(E_{2,\eta}\), and \(E_{3,\eta}\) admit a threshold-witnessing family, then \(\lambda_{\eta}\) is fiber-separating.
+\end{proposition}
+
+\begin{proof}
+If \(\kappa_{\eta}(x)\neq\kappa_{\eta}(y)\), then the corresponding nested capability signatures satisfy \(\chi_{\eta}(x)\neq\chi_{\eta}(y)\). Hence their membership differs for at least one threshold \(E_{k,\eta}\). The witness \(o_k\) for that threshold satisfies \(\lambda_{\eta}(x,o_k)\neq\lambda_{\eta}(y,o_k)\), so the two primitive support conditions are behaviorally distinguishable.
+\end{proof}
+
 \begin{theorem}[Primitive behavioral completeness]
 \label{thm:primitive-behavioral-completeness}
 Suppose that:
@@ -833,7 +904,19 @@ X_{\eta}/{\approx_{\eta}}
 If \(\kappa_{\eta}(x)=\kappa_{\eta}(y)\), status sufficiency gives \(x\approx_{\eta}y\). If \(\kappa_{\eta}(x)\neq\kappa_{\eta}(y)\), fiber separation supplies an operation whose licensing outcomes differ, so \(x\not\approx_{\eta}y\). Behavioral equivalence therefore has exactly the fibers of \(\kappa_{\eta}\) as its equivalence classes. Because \(\kappa_{\eta}\) is surjective, the induced map from \(X_{\eta}/{\approx_{\eta}}\) to \(\Sigma\) is a bijection.
 \end{proof}
 
-Theorem~\ref{thm:primitive-behavioral-completeness} gives the primitive-to-status result. Under the stated assumptions, the four statuses are exactly the behavioral equivalence classes induced by the declared base licensing relation. The result is conditional on the recovery and attribution semantics, operation family, and assessment context. It is not a claim that reality contains exactly four epistemic states.
+\begin{corollary}[Witnessed primitive behavioral completeness]
+\label{cor:witnessed-primitive-behavioral-completeness}
+Suppose that \(\kappa_{\eta}\) is surjective, \(\lambda_{\eta}\) is status-sufficient, and the three nested capability thresholds admit a threshold-witnessing family. Then
+\[
+X_{\eta}/{\approx_{\eta}}\cong\Sigma.
+\]
+\end{corollary}
+
+\begin{proof}
+Proposition~\ref{prop:threshold-witness-separation} supplies fiber separation, after which Theorem~\ref{thm:primitive-behavioral-completeness} applies.
+\end{proof}
+
+Theorem~\ref{thm:primitive-behavioral-completeness} gives the general primitive-to-status result, while Corollary~\ref{cor:witnessed-primitive-behavioral-completeness} supplies a concrete sufficient route through three threshold-witnessing operations. The nested construction makes the separation hypothesis inspectable: different status regions cross different recovery or attribution thresholds, and a declared operation family preserves all four behavioral classes when it contains operations that witness those crossings. This is a reorganization and partial strengthening of the theorem's hypotheses, not a derivation from primitives independent of the gated recovery--attribution construction. The result remains conditional on the recovery and attribution semantics, operation family, and assessment context; it is not a claim that reality contains exactly four epistemic states.
 
 The number of statuses a particular controller must retain can still be smaller. Using the induced licensing relation from Proposition~\ref{prop:licensing-factorization}, define local status-level equivalence by
 
@@ -925,7 +1008,7 @@ and
 The results distinguish three claims.
 
 \begin{enumerate}[leftmargin=1.5em]
-    \item \emph{Primitive behavioral completeness} asks whether primitive support conditions factor through exactly the four base status classes for the declared operation family. Theorem~\ref{thm:primitive-behavioral-completeness} answers this under surjectivity, status-sufficiency, and fiber-separation assumptions.
+    \item \emph{Primitive behavioral completeness} asks whether primitive support conditions factor through exactly the four base status classes for the declared operation family. Theorem~\ref{thm:primitive-behavioral-completeness} answers this under surjectivity, status-sufficiency, and fiber-separation assumptions, while Corollary~\ref{cor:witnessed-primitive-behavioral-completeness} shows that three capability-threshold witnesses are sufficient to establish the required separation.
     \item \emph{Portable status non-collapse} asks whether those statuses may be identified across a family of status-level licensing contexts. Theorem~\ref{thm:portable-status-noncollapse} shows that no proper quotient preserves a status-separating family.
     \item \emph{Implementation minimality} asks whether a particular controller must literally maintain four internal states. It need not do so when its local operation repertoire treats some statuses identically.
 \end{enumerate}
@@ -1760,7 +1843,7 @@ Projection-induced non-identifiability is familiar. The contribution of this pap
 }
 \]
 
-Preserved, reconstructible, traceable, and opaque status arise from a gated recovery--attribution construction. Under the declared surjectivity, status-sufficiency, and fiber-separation assumptions, they form the primitive behavioral quotient induced by the declared base licensing relation; across a status-separating context family, no proper quotient preserves the same portable licensing behavior. This is a claim about a minimal operational interface, not a universal ontology or a requirement that every local controller maintain four literal internal states.
+Preserved, reconstructible, traceable, and opaque status arise from a gated recovery--attribution construction that can equivalently be expressed through three nested capability thresholds. Under the declared surjectivity, status-sufficiency, and fiber-separation assumptions, they form the primitive behavioral quotient induced by the declared base licensing relation; threshold-witnessing operations provide a concrete sufficient condition for the required separation. Across a status-separating context family, no proper quotient preserves the same portable licensing behavior. This is a claim about a minimal operational interface relative to declared primitives, operations, and contexts, not a universal ontology or a requirement that every local controller maintain four literal internal states.
 
 The central failure is unsupported promotion: traceability becomes reconstruction, policy becomes evidence, executability becomes applicability, or locally adequate support becomes portable authority without a represented witness for the stronger role. Preventing such promotion requires epistemic licensing, operational validity, admissibility, policy prescription, and actual selection to remain distinct, together with the actual, assessed, and reported dependency status on which those stages operate.
 
