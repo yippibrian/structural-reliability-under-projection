@@ -23,7 +23,7 @@
 Representational Loss, Reconstructibility, and Admissibility}
 
 \author{Brian Cameron}
-\date{September 6, 2026}
+\date{September 15, 2026}
 
 \begin{document}
 
@@ -364,7 +364,7 @@ and
 
 Structural evaluation is concerned with this orthogonal dimension: whether the operation producing the answer was licensed by the support available to the reasoner, not merely whether the realized proposition happened to be true.
 
-Confidence is a further distinct variable. It describes a reasoner's degree of belief or uncertainty about an answer; it does not establish whether the operative representation preserves the distinction required to determine that answer. An identifiable query may receive low confidence because the reasoner is unreliable or uncertain, while a non-identifiable query may receive high confidence because the reasoner fails to recognize the projection boundary. Therefore,
+Confidence is a further distinct variable. It describes a reasoner's degree of belief or uncertainty about an answer; it does not establish whether the operative representation preserves the distinction required to determine that answer. An identifiable query may receive low confidence because the reasoner is unreliable or uncertain, while a non-identifiable query may receive high confidence because the reasoner fails to recognize the projection boundary. Recent work on LLM assessment provides a concrete example of this separation: \emph{Lost in Projection} reports that assessment-state representations can be decoded and manipulated without thereby changing task performance, so an internal assessment signal should not be treated as a certificate of competence~\cite{LostProjection2026}. Therefore,
 
 \[
 \boxed{
@@ -1622,7 +1622,7 @@ Does the preserved relation recover the query-relevant distinction, or does it p
 
 Selective prediction, conformal prediction, and hallucination detection
 &
-When should a predictor abstain, return a prediction set, or flag unsupported generation?~\cite{GeifmanElYaniv2017,GeifmanElYaniv2019,Vovk2005,Shafer2008,Ji2023,Manakul2023}
+When should a predictor abstain, return a prediction set, or flag unsupported generation?~\cite{GeifmanElYaniv2017,GeifmanElYaniv2019,Vovk2005,Shafer2008,Ji2023,Manakul2023,Hu2026HARP}
 &
 Is the answer form licensed by dependency structure independently of the system's confidence or realized correctness?
 \\
@@ -1646,7 +1646,7 @@ Swanson's distinction between target formation and subsequent rendering, and the
 
 POMDP-style methods represent uncertainty over modeled hidden states, but hidden state is not identical to projected-away or unrepresented structure. A belief state can regulate action among possibilities the model contains without establishing that every query-relevant distinction survived the construction of that model. Dependency-status governance is therefore complementary: it asks whether the distinction needed by a proposed continuation is available, recoverable, traceable, or absent even as an accountable dependency.
 
-The separation between representation, assessment, and output also has empirical motivation. Slobodkin et al.\ find that language models may encode information predictive of question answerability while still producing hallucinatory answers~\cite{Slobodkin2023}. This does not establish the present theory, but it illustrates why represented support, assessed support, reported support, and selected behavior should be evaluated separately.
+The separation between representation, assessment, and output also has empirical motivation. Slobodkin et al.\ find that language models may encode information predictive of question answerability while still producing hallucinatory answers~\cite{Slobodkin2023}. \emph{HARP} similarly reports that model-specific projections of hidden states onto a residual subspace can improve hallucination detection even when that subspace contributes little to ordinary token prediction~\cite{Hu2026HARP}. These results do not establish the present theory or justify treating the recovered subspace as a universal semantic category; they instead illustrate how an ordinary output projection may suppress or fail to expose information useful for assessment. Together with the assessment--competence dissociation discussed above, they motivate evaluating represented support, assessed support, reported support, and selected behavior separately.
 
 The unification claimed here is consequently operational rather than ontological. The neighboring fields retain their own objects, semantics, and methods. They meet at a narrower question:
 
@@ -1913,6 +1913,12 @@ Joseph M. Hellerstein.
 \newblock Determination Provenance: From Ambiguity to Algebra.
 \newblock arXiv:2606.10270, 2026.
 
+\bibitem{Hu2026HARP}
+Junjie Hu, Gang Tu, ShengYu Cheng, Jinxin Li, Jinting Wang, Rui Chen, Zhilong Zhou, and Dongbo Shan.
+\newblock HARP: Hallucination Detection via Reasoning Subspace Projection.
+\newblock In \emph{Proceedings of the Fourteenth International Conference on Learning Representations}, 2026.
+\newblock arXiv:2509.11536.
+
 \bibitem{Kaelbling1998}
 Leslie Pack Kaelbling, Michael L. Littman, and Anthony R. Cassandra.
 \newblock Planning and acting in partially observable stochastic domains.
@@ -1938,6 +1944,11 @@ Leonid Libkin.
 \newblock Certain Answers as Objects and Knowledge.
 \newblock \emph{Artificial Intelligence}, 232:1--19, 2016.
 \newblock doi:10.1016/j.artint.2015.11.004.
+
+\bibitem{LostProjection2026}
+Anonymous authors.
+\newblock Lost in Projection: The Geometric Orthogonality of LLM Assessment and Reasoning.
+\newblock ACL ARR 2026 May submission, OpenReview, 2026.
 
 \bibitem{Manakul2023}
 Potsawee Manakul, Adian Liusie, and Mark J. F. Gales.
