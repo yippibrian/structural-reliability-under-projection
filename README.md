@@ -6,6 +6,10 @@ This repository contains the standalone paper:
 
 **Structural Reliability Under Projection: Representational Loss, Reconstructibility, and Admissibility**
 
+## Editing papers with the base tools
+
+The [base bundle’s related-repository workflow](https://github.com/yippibrian/reasoning-bundle-template/blob/main/docs/RELATED-REPOSITORY-WORK.md) applies here: use its [Git/GitHub guidance](https://github.com/yippibrian/reasoning-bundle-template/blob/main/docs/GITHUB-AND-OFFLINE.md), [LaTeX guide](https://github.com/yippibrian/reasoning-bundle-template/blob/main/docs/file-types/tex.md), and [large-document editing tools](https://github.com/yippibrian/reasoning-bundle-template/blob/main/docs/LARGE-DOCUMENT-EDITING.md). `safe-text-insert` adds text before/after one exact anchor or at a line number; `safe-text-patch` makes exact replacements. Run the public launchers from a current base checkout, review the dry-run diff, and bind writes with `--sha256`. These tools work in paper repositories without a `bundle.yaml`; retain this repository’s source conventions and build commands.
+
 ## The central contribution
 
 Projection-induced information loss is already studied through identifiability, sufficiency, abstraction, partial observability, partial identification, and related frameworks. This paper asks the next operational question:
