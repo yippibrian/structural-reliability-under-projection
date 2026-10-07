@@ -1557,6 +1557,21 @@ Dependency status also applies to AI systems that model users or other agents. A
 \paragraph{Reasoning scaffolds, procedures, and inherited decision rules.}
 Reusable reasoning procedures are themselves subject to projection. A prompt scaffold, diagnostic checklist, review procedure, policy rule, or institutional heuristic may remain available long after some of the assumptions or contextual distinctions that originally governed its use have disappeared from the operative representation. A system should therefore distinguish whether it can execute a procedure from whether the dependencies licensing that procedure remain preserved or reconstructible in the current case. Successful execution does not by itself establish appropriate application.
 
+\paragraph{Human-valued outcomes and synthetic engagement.}
+A useful contemporary edge case arises when a system optimizes a measurable proxy for an underlying human-valued outcome. Consider an entertainment platform whose motivating target is roughly ``a person found this experience worthwhile,'' but whose operative representation contains only progressively thinner observables such as attention, watch time, clicks, impressions, or other machine-readable engagement events. The projection can be written schematically as
+\[
+\text{human-valued experience}
+\longrightarrow
+\text{attention}
+\longrightarrow
+\text{measured engagement}
+\longrightarrow
+\text{machine-readable event}.
+\]
+Each stage may preserve enough structure for some operational questions while losing distinctions needed for the original one. Once downstream creators, recommenders, advertisers, or generative systems optimize the projected quantity, a proxy can improve while the target becomes less reconstructible. In the limiting case, synthetic producers can generate content and synthetic or automated consumers can generate engagement events, so the loop manufactures both an output and part of the evidence that the output succeeded. The machinery may therefore remain highly observable and optimizable even when the question ``did a human actually value this experience?'' is no longer answerable from the represented success signal.
+
+This is an instance of unsupported \emph{proxy $\rightarrow$ target} promotion rather than a special pathology of entertainment. A downstream metric should license claims about the underlying objective only to the extent that the distinctions connecting metric to objective remain preserved or boundedly reconstructible. Continued operation, favorable feedback, and increasing metric values do not by themselves restore a lost beneficiary, criterion, or causal relation. The same pattern can occur whenever optimization changes the environment that generates the proxy, including automated evaluation, advertising, ranking, institutional scorekeeping, and agent-to-agent ecosystems.\cite{Goodhart1975}
+
 \paragraph{Evaluation and benchmark design.}
 Standard evaluation may reward correct-looking answers even when the representation does not support them. Projection-aware evaluation should test whether systems change behavior when observability changes: refusing unsupported determinacy at low observability, ranking hypotheses under partial evidence, and becoming appropriately decisive when the relevant distinction becomes observable. This makes dependency status a measurable target rather than a purely philosophical concern.
 
