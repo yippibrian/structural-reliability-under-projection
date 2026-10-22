@@ -1510,6 +1510,20 @@ In this case, the framework does not by itself determine the correct classificat
 
 The examples distinguish restructuring, conditional decision, representation expansion, trace marking, and refusal of the requested answer form as possible responses to non-identifiability. They also show that the framework should not be used as a blanket abstention policy: when a query is identifiable under the current representation, ordinary correction remains appropriate. The central requirement is not caution for its own sake, but matching the answer form to the dependency status of the claim.
 
+\subsection{Case 6: Dependency Status Through an Incident Investigation}
+\label{subsec:incident-status-lifecycle}
+
+Consider an assistant asked whether deployment $d$ caused an outage. This is a hypothetical worked trace, not a completed incident experiment. The required dependencies include deployment timing, error timing, concurrent infrastructure events, and evidence discriminating between candidate causes.
+
+\begin{enumerate}
+\item \textbf{Initial projection.} A summary reports that errors rose after $d$ and names an inaccessible telemetry archive. The temporal association is represented; missing infrastructure evidence is at best traceable. Direct causal attribution is not licensed.
+\item \textbf{Bounded recovery.} An authorized telemetry query retrieves event timing and deployment records. The formerly reconstructible data dependencies become preserved in the expanded operative representation. Recovery of records does not itself establish causation or authorize a production rollback.
+\item \textbf{Incorrect status assessment.} The assistant mistakenly classifies infrastructure history as preserved because the summary says there were no relevant alerts. A subsequent check reveals that monitoring was disabled. The assessed status was stronger than the actual support; faithful policy execution based on that assessment cannot certify the earlier conclusion. The system should reopen the diagnosis.
+\item \textbf{Unresolved selector.} Deployment and dependency-outage evidence overlap, but available records cannot discriminate their causal contributions. The event observations can be preserved while the causal selector remains unsupported. A qualified response or reversible diagnostic test is preferable to an unqualified root-cause claim.
+\item \textbf{Separate action authority.} An incident policy may permit a reversible mitigation without settling the cause. Record observed evidence, assessed dependency status, policy-prescribed response, and the action actually selected as separate things.
+\end{enumerate}
+
+Status is query-, regime-, and time-relative. Newly discovered dependencies can make a previous assessment invalid even if the eventual answer happens to be correct. This example illustrates intended governance behavior; it does not demonstrate reliable status detection or prove that an implementation follows its policy.
 \section{Applications}
 
 Dependency status can be used as a design and evaluation lens for several AI reasoning, safety, and security problems.
